@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: networking
 resources:
   - ./release.yaml
-  - ./ingress.yaml
+  # - ./ingress.yaml
