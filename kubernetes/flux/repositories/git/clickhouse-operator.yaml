@@ -1,0 +1,15 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+  name: clickhouse-operator
+  namespace: flux-system
+spec:
+  interval: 5m0s
+  url: https://github.com/Altinity/clickhouse-operator
+  ref:
+    tag: 0.18.3
+  ignore: |
+    /*
+    !/deploy/operator/clickhouse-operator-install-bundle.yaml
+

@@ -1,0 +1,26 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: z2m-ui
+  annotations:
+    kubernetes.io/ingress.class: traefik-external
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`z2m.kube.home.arpa`)
+      kind: Rule
+      services:
+        - name: zigbee2mqtt
+          port: http
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: z2m-external-dns
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+spec:
+  rules:
+    - host: z2m.kube.home.arpa

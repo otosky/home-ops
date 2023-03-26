@@ -1,0 +1,133 @@
+---
+# yaml-language-server: $schema=http://kubernetes-schemas.kube.home.arpa/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      version: 45.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    createNamespace: true
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    cleanPrometheusOperatorObjectNames: true
+    alertmanager:
+      config:
+        global:
+          resolve_timeout: 5m
+        inhibit_rules:
+          - source_matchers:
+              - severity = "critical"
+            target_matchers:
+              - severity = "warning"
+            equal: ["alertname", "namespace"]
+      alertmanagerSpec:
+        replicas: 2
+        podAntiAffinity: hard
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: local-path-ssd
+              resources:
+                requests:
+                  storage: 1Gi
+    grafana:
+      enabled: false
+      forceDeployDashboards: true
+      sidecar:
+        dashboards:
+          multicluster:
+            etcd:
+              enabled: true
+    kubelet:
+      enabled: true
+      serviceMonitor:
+        metricRelabelings:
+          - action: replace
+            sourceLabels: ["node"]
+            targetLabel: instance
+    kube-state-metrics:
+      metricLabelsAllowlist: ["persistentvolumeclaims=[*]"]
+      prometheus:
+        monitor:
+          enabled: true
+          relabelings:
+            - action: replace
+              regex: (.*)
+              replacement: $1
+              sourceLabels: ["__meta_kubernetes_pod_node_name"]
+              targetLabel: kubernetes_node
+    kubeApiServer:
+      enabled: true
+    kubeControllerManager:
+      enabled: true
+      endpoints: ["192.168.2.227", "192.168.2.226", "192.168.2.225"]
+    kubeScheduler:
+      enabled: true
+      endpoints: ["192.168.2.227", "192.168.2.226", "192.168.2.225"]
+    kubeProxy:
+      enabled: false # Enable if not using eBPF
+      # endpoints: ["192.168.42.10", "192.168.42.11", "192.168.42.12"]
+    kubeEtcd:
+      enabled: true
+      endpoints: ["192.168.2.227", "192.168.2.226", "192.168.2.225"]
+      service:
+        enabled: true
+        port: 2381
+        targetPort: 2381
+    prometheus:
+      thanosService:
+        enabled: true
+      thanosServiceMonitor:
+        enabled: true
+      prometheusSpec:
+        replicas: 2
+        replicaExternalLabelName: __replica__ # must match with thanos value `.query.replicaLabel[0]`
+        # Breaks any metric that has an existing "cluster" label on a metric
+        # externalLabels:
+        #   cluster: home # must match with thanos value `.ruler.clusterName`
+        thanos:
+          image: quay.io/thanos/thanos:v0.30.2
+          objectStorageConfig:
+            name: thanos-objstore-secret
+            key: objstore.yml
+        podAntiAffinity: hard
+        ruleSelectorNilUsesHelmValues: false
+        serviceMonitorSelectorNilUsesHelmValues: false
+        podMonitorSelectorNilUsesHelmValues: false
+        probeSelectorNilUsesHelmValues: false
+        retention: 2d
+        retentionSize: 6GB
+        enableAdminAPI: true
+        walCompression: true
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: local-path-ssd
+              resources:
+                requests:
+                  storage: 20Gi
+        resources:
+          requests:
+            cpu: 150m
+            memory: 2000Mi
+          limits:
+            memory: 7000Mi

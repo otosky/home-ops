@@ -1,0 +1,25 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: lidarr-web-ui
+  annotations:
+    kubernetes.io/ingress.class: traefik-external
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`lidarr.kube.home.arpa`)
+      kind: Rule
+      services:
+        - name: lidarr
+          port: http
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: lidarr-external-dns
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+spec:
+  rules:
+    - host: lidarr.kube.home.arpa

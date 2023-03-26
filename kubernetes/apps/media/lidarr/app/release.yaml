@@ -1,0 +1,59 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: lidarr
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.0.1
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  values:
+    annotations:
+      reloader.stakater.com/auto: "true"
+    image:
+      repository: ghcr.io/onedr0p/lidarr-develop
+      tag: 1.1.0.2649@sha256:2abfa356b1edac3ab33be437896fe03e268e8d545a1b0a0bf8e3fd825d587cd7
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: "OnRootMismatch"
+      supplementalGroups:
+        - 100
+    env:
+      LIDARR__INSTANCE_NAME: Lidarr
+      LIDARR__PORT: &port 8020
+      LIDARR__LOG_LEVEL: info
+      LIDARR__APPLICATION_URL: "https://lidarr.kube.home.arpa"
+    envFrom:
+      - secretRef:
+          name: lidarr-secret
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+    persistence:
+      config:
+        enabled: true
+        type: pvc
+        storageClass: longhorn-ssd
+        size: 5Gi
+      media:
+        enabled: true
+        type: nfs
+        server: "nas.home.arpa"
+        path: /mnt/user/data
+        mountPath: /data
+    resources:
+      requests:
+        cpu: 15m
+        memory: 500Mi
+      limits:
+        memory: 2000Mi

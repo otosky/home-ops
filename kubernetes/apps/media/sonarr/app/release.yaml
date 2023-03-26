@@ -1,0 +1,58 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: sonarr
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.0.1
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  values:
+    annotations:
+      reloader.stakater.com/auto: "true"
+    image:
+      repository: ghcr.io/onedr0p/sonarr-develop
+      tag: 4.0.0.217@sha256:897295cab5bd71199b43277063ddc5fb03a15b69f341a05345630ca126fd19bc
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: "OnRootMismatch"
+      supplementalGroups:
+        - 100
+    env:
+      SONARR__INSTANCE_NAME: Sonarr
+      SONARR__PORT: &port 8989
+      SONARR__APPLICATION_URL: "https://sonarr.kube.home.arpa"
+      SONARR__LOG_LEVEL: info
+    envFrom:
+      - secretRef:
+          name: sonarr-secret
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+    persistence:
+      config:
+        enabled: true
+        type: pvc
+        storageClass: longhorn-ssd
+      media:
+        enabled: true
+        type: nfs
+        server: "nas.home.arpa"
+        path: /mnt/user/data
+        mountPath: /data
+    resources:
+      requests:
+        cpu: 15m
+        memory: 500Mi
+      limits:
+        memory: 2000Mi

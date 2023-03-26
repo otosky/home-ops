@@ -1,0 +1,85 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: jellyfin
+  namespace: media
+spec:
+  chart:
+    spec:
+      chart: app-template
+      version: 1.3.2
+      interval: 5m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  dependsOn:
+    - name: intel-gpu-plugin
+      namespace: kube-system
+    - name: node-feature-discovery
+      namespace: kube-system
+  interval: 5m
+  values:
+    image:
+      repository: ghcr.io/onedr0p/jellyfin
+      tag: 10.8.9@sha256:01a6497a1290b73f63251aebe6d01327c15b3413c3e1013c2a396ffe116ced4d
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: "OnRootMismatch"
+      supplementalGroups:
+        #   # Hardware acceleration using an Intel iGPU w/ QuickSync
+        #   # These IDs below should be matched to your `video` and `render` group on the host
+        #   # To obtain those IDs run the following grep statement on the host:
+        #   # $ cat /etc/group | grep "video\|render"
+        - 39
+        - 998
+        - 44
+        - 100
+        - 103
+        - 104
+        - 105
+    env:
+      DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
+    service:
+      main:
+        ports:
+          http:
+            port: 8096
+    persistence:
+      config:
+        enabled: true
+        type: pvc
+        storageClass: longhorn-ssd
+        size: 20Gi
+      media:
+        enabled: true
+        type: nfs
+        server: "nas.home.arpa"
+        path: /mnt/user/data/media
+        mountPath: /storage/media
+      transcode:
+        enabled: true
+        type: emptyDir
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: kubernetes.io/arch
+                  operator: In
+                  values:
+                    - amd64
+                - key: feature.node.kubernetes.io/custom-intel-gpu
+                  operator: In
+                  values:
+                    - "true"
+    resources:
+      requests:
+        gpu.intel.com/i915: 1
+        cpu: 100m
+        memory: 1000Mi
+      limits:
+        gpu.intel.com/i915: 1
+        memory: 6000Mi

@@ -1,0 +1,26 @@
+
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: navidrome-web-ui
+  annotations:
+    kubernetes.io/ingress.class: traefik-external
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`navidrome.kube.home.arpa`)
+      kind: Rule
+      services:
+        - name: navidrome
+          port: http
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: navidrome-external-dns
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+spec:
+  rules:
+    - host: navidrome.kube.home.arpa

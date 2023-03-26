@@ -1,0 +1,33 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: jellyfin-ui
+  annotations:
+    kubernetes.io/ingress.class: traefik-external
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`jellyfin.kube.home.arpa`)
+      kind: Rule
+      services:
+        - name: jellyfin
+          port: http
+    - match: Host(`jellyfin.toskbot.xyz`)
+      kind: Rule
+      services:
+        - name: jellyfin
+          port: http
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jellyfin-external-dns
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+    external-dns.home.arpa/enabled: "true"
+    external-dns.alpha.kubernetes.io/target: toskbot.xyz
+spec:
+  rules:
+    - host: jellyfin.kube.home.arpa
+    - host: jellyfin.toskbot.xyz

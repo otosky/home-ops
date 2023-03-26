@@ -1,0 +1,41 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: external-dns
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: external-dns
+      version: 1.12.0
+      sourceRef:
+        kind: HelmRepository
+        name: external-dns
+        namespace: flux-system
+  values:
+    interval: 2m
+    provider: cloudflare
+    logLevel: info
+    env:
+      - name: CF_API_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: cloudflare-secret
+            key: CF_API_TOKEN
+    extraArgs:
+      - --zone-id-filter=af0d636e2de416162ca34534d64b9dc7
+      - --cloudflare-proxied
+      - --annotation-filter=external-dns.home.arpa/enabled in (true)
+    policy: sync
+    sources:
+      - ingress
+    txtPrefix: "k8s."
+    txtOwnerId: "default"
+    domainFilters:
+      - toskbot.xyz
+    resources:
+      requests:
+        memory: 100Mi
+        cpu: 25m
+      limits:
+        memory: 250Mi

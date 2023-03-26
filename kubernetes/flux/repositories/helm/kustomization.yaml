@@ -1,0 +1,43 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: flux-system
+resources:
+  - jetstack.yaml
+  - rancher-stable.yaml
+  - openebs.yaml
+  - k8s-at-home.yaml
+  - openfaas.yaml
+  - spark-operator.yaml
+  - prometheus-community.yaml
+  - bitnami.yaml
+  - kedacore.yaml
+  - metallb.yaml
+  - traefik.yaml
+  - minio.yaml
+  - nextcloud.yaml
+  - k8s-gateway.yaml
+  - longhorn.yaml
+  - wg-access-server.yaml
+  - flink-operator.yaml
+  - confluentinc.yaml
+  - pinot.yaml
+  - superset.yaml
+  - strimzi.yaml
+  - trino.yaml
+  - emqx.yaml
+  - bjw-s-charts.yaml
+  - node-feature-discovery.yaml
+  - stakater.yaml
+  - kyverno.yaml
+  - kubernetes-dashboard.yaml
+  - csi-driver-nfs.yaml
+  - descheduler.yaml
+  - fairwinds-charts.yaml
+  - external-dns.yaml
+  - cloudnative-pg.yaml
+  - external-secrets.yaml
+  - grafana.yaml
+  - vector.yaml
+  - angelnu.yaml
+  - backube.yaml
+  - piraeus.yaml

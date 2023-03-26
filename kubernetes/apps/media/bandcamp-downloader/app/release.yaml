@@ -1,0 +1,58 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: bandcamp-downloader
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.2.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  values:
+    controller:
+      type: cronjob
+      cronjob:
+        concurrencyPolicy: Forbid
+        schedule: "0 12 * * *"
+    restartPolicy: OnFailure
+    image:
+      repository: otosky/bc-dl
+      tag: test
+    command: ["java", "-jar", "/app/bandcamp-collection-downloader.jar"]
+    args:
+      [
+        "-f",
+        "flac",
+        "-c",
+        "/config/cookies.txt",
+        "-d",
+        "/media/bandcamp",
+        "olivertosky",
+      ]
+    service:
+      main:
+        enabled: false
+    persistence:
+      config:
+        enabled: true
+        type: secret
+        name: bandcamp-cookies
+      media:
+        enabled: true
+        type: nfs
+        server: "nas.home.arpa"
+        path: /mnt/user/data/bandcamp
+        mountPath: /media/bandcamp
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: kubernetes.io/arch
+                  operator: In
+                  values:
+                    - amd64

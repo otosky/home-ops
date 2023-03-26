@@ -1,0 +1,29 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: metallb
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: metallb
+      sourceRef:
+        kind: HelmRepository
+        name: metallb
+        namespace: flux-system
+      version: 0.13.9
+      interval: 5m
+  values:
+    crds:
+      enabled: true
+    controller:
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+    speaker:
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true

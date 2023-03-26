@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  # Pre Flux-Kustomizations
+  - ./namespace.yaml
+  # Flux-Kustomizations
+  - ./external-secrets/ks.yaml
+  - ./reloader/ks.yaml
+  - ./keda/ks.yaml
+  - ./descheduler/ks.yaml
+  - ./intel-gpu/ks.yaml
+  - ./node-feature-discovery/ks.yaml
+  - ./local-path-provisioner/ks.yaml
+  - ./snapshot-controller/ks.yaml

@@ -1,0 +1,8 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: loki-bucket-v1
+  namespace: monitoring
+data:
+  BUCKET_NAME: loki
+  BUCKET_HOST: https://minio1-hl.minio.svc.cluster.local:9000

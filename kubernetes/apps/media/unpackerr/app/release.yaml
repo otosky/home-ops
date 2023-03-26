@@ -1,0 +1,74 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: unpackerr
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.2.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  values:
+    image:
+      repository: ghcr.io/onedr0p/unpackerr
+      tag: 0.10.1@sha256:8950b556d980285d13bb851199354f441d79454e0534ba1c0dd738ec4c92b1b0
+    env:
+      TZ: America/New_York
+      UN_SONARR_0_URL: http://sonarr.media.svc.cluster.local:8989
+      UN_SONARR_0_PATHS_0: /complete
+      UN_SONARR_0_API_KEY:
+        valueFrom:
+          secretKeyRef:
+            name: sonarr-secret
+            key: SONARR__API_KEY
+      UN_RADARR_0_URL: http://radarr.media.svc.cluster.local:7878
+      UN_RADARR_0_PATHS_0: /complete
+      UN_RADARR_0_API_KEY:
+        valueFrom:
+          secretKeyRef:
+            name: radarr-secret
+            key: RADARR__API_KEY
+      UN_LIDARR_0_URL: http://lidarr.media.svc.cluster.local:8020
+      UN_LIDARR_0_PATHS_0: /complete
+      UN_LIDARR_0_API_KEY:
+        valueFrom:
+          secretKeyRef:
+            name: lidarr-secret
+            key: LIDARR__API_KEY
+    service:
+      main:
+        enabled: false
+    probes:
+      liveness:
+        enabled: false
+      readiness:
+        enabled: false
+      startup:
+        enabled: false
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: "OnRootMismatch"
+      supplementalGroups:
+        - 100
+    podAnnotations:
+      secret.reloader.stakater.com/reload: |-
+        lidarr-secret,radarr-secret,sonarr-secret
+    persistence:
+      complete:
+        enabled: true
+        type: nfs
+        server: "nas.home.arpa"
+        path: /mnt/user/data/downloads/complete
+        mountPath: /complete
+    resources:
+      requests:
+        cpu: 10m
+        memory: 250Mi
+      limits:
+        memory: 1000Mi

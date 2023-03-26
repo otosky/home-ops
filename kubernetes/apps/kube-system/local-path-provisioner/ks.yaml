@@ -1,0 +1,30 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: local-path-provisioner-nvme
+  namespace: flux-system
+spec:
+  path: ./kubernetes/apps/kube-system/local-path-provisioner/nvme
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  retryInterval: 1m
+  timeout: 3m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: local-path-provisioner-ssd
+  namespace: flux-system
+spec:
+  path: ./kubernetes/apps/kube-system/local-path-provisioner/ssd
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  retryInterval: 1m
+  timeout: 3m
