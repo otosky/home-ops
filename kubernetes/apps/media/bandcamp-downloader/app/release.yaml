@@ -40,19 +40,10 @@ spec:
       config:
         enabled: true
         type: secret
-        name: bandcamp-cookies
+        name: bandcamp-secret
       media:
         enabled: true
         type: nfs
         server: "nas.home.arpa"
         path: /mnt/user/data/bandcamp
         mountPath: /media/bandcamp
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-                - key: kubernetes.io/arch
-                  operator: In
-                  values:
-                    - amd64
