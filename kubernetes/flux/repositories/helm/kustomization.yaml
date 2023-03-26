@@ -41,3 +41,4 @@ resources:
   - angelnu.yaml
   - backube.yaml
   - piraeus.yaml
+  - metrics-server.yaml
