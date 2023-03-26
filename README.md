@@ -15,6 +15,8 @@ Standing on the shoulder of giants:
 
 ### Hardware :computer:
 
+If I didn't get it on Craigslist, it came from eBay.
+
 #### Servers
 
 Control-Plane:
@@ -34,9 +36,13 @@ NAS:
 - 4TB HDD cache drive
 - Mellanox ConnectX-3 10G NIC
 
-Networking:
-- Mikrotik hAP AC3 Router/AP
-- Brocade ICX6450 Switch
+#### Networking
+
+Router/Access Point:
+- Mikrotik hAP AC3
+
+Switch:
+- Brocade ICX6450
 
 Someday I'll get to replacing the Mikrotik with an opnsense/pfsense box...
 
