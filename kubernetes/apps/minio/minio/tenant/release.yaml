@@ -14,12 +14,6 @@ spec:
         name: minio
         namespace: flux-system
   values:
-    secrets:
-      name: minio1-env-configuration
-      # MinIO root user and password
-      accessKey: minio
-      secretKey: minio123
-
     tenant:
       name: minio1
       image:
@@ -29,7 +23,7 @@ spec:
       ## Secret name that contains additional environment variable configurations.
       ## The secret is expected to have a key named config.env containing environment variables exports.
       configuration:
-        name: minio1-env-configuration
+        name: minio-tenant
       pools:
         - servers: 4
           name: pool-0
@@ -37,15 +31,7 @@ spec:
           size: 10Gi
           storageClassName: local-path-ssd
           annotations: {}
-          affinity:
-            nodeAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-                nodeSelectorTerms:
-                  - matchExpressions:
-                      - key: kubernetes.io/arch
-                        operator: In
-                        values:
-                          - amd64
+          affinity: {}
           labels: {}
           resources: {}
           securityContext:
