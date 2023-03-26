@@ -1,57 +1,75 @@
-# FluxCD Repo 4 The Homelab
+# Home Operations
 
-Inspired by [flux-cluster-template](https://github.com/onedr0p/flux-cluster-template)
+A fluxCD deployment repo for services I run in my homelab.
 
-## Services
+### Inspiration
+This is heavily inspired by the wonderful work done by the [k8s-at-home](https://k8s-at-home.com/) community.
+Peep their [discord](https://discord.gg/k8s-at-home)!
 
-- [Home-Assistant](http://home-assistant.home.arpa)
-- SMB share for music that is mounted to [Volumio](http://volumio.home.arpa)
-- [Rancher](https://rancher.home.arpa)
-- [Longhorn](http://longhorn.home.arpa)
+Standing on the shoulder of giants:
+  - [onedr0p/home-ops](https://github.com/onedr0p/home-ops)
+  - [bjw-s/home-ops](https://github.com/bjw-s/home-ops)
+  - [flux-cluster-template](https://github.com/onedr0p/flux-cluster-template)
 
-## Dev Setup
+## Overview
 
-### Install:
+### Hardware :computer:
 
-kubectl:
-```bash
-asdf plugin add kubectl
-asdf plugin install kubectl 1.23.5
+#### Servers
 
-# Install `krew` https://krew.sigs.k8s.io/docs/user-guide/setup/install/
+Control-Plane:
+- 2x Lenovo Thinkcentre m720q Tiny
+- 1x Lenovo Thinkcentre m920q Tiny
 
-# Useful add-ons
-kubectl krew install ctx
-kubectl krew install ns
-```
+Worker:
+- 2x Dell Optiplex 3070 SFF
+  - each has a Mellanox ConnectX-3 10G NIC
+  - 9th gen Intel i5 are clutch for Quicksync igpu video transcoding
 
-Helm - you won't really even need this, but the CLI is useful for searching chart repos:
+NAS:
+- A custom thing I threw together in a Fractal 304 case
+- Unraid
+- 20TB of mixed size HDDs
+- 16TB HDD for parity
+- 4TB HDD cache drive
+- Mellanox ConnectX-3 10G NIC
+
+Networking:
+- Mikrotik hAP AC3 Router/AP
+- Brocade ICX6450 Switch
+
+Someday I'll get to replacing the Mikrotik with an opnsense/pfsense box...
+
+### Kubernetes :anchor:
+
+#### Installation
+A private repo with my ansible playbooks provision [k3s](https://k3s.io/) atop baremetal Fedora 37-Server installs. 
+
+Someday I'll switch over to the [flux-cluster-template](https://github.com/onedr0p/flux-cluster-template) - 
+right now what I use is something of a messy bastardization of the [techno-tim/k3s-ansible](https://github.com/techno-tim/k3s-ansible)
+playbooks.
+
+#### Storage
+
+The cluster is mostly hyper-converged; block-storage is provisioned through [Longhorn](https://longhorn.io/)
+on dedicated SSD and NVME drives per worker node. A separate NAS runs [Unraid](https://unraid.net/) for NFS,
+but that is solely for media storage.
+
+#### Layout
+This Git repository contains the following directories under [kubernetes](./kubernetes/).
+
 ```sh
-curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-chmod 700 get_helm.sh
-./get_helm.sh
+📁 kubernetes      # Kubernetes cluster defined as code
+├─📁 bootstrap     # Flux installation
+├─📁 flux          # Main Flux configuration of repository
+└─📁 apps          # Apps deployed into my cluster grouped by namespace
 ```
 
-Flux CLI:
-```sh
-curl -s https://fluxcd.io/install.sh | sudo bash
-```
+[Flux](https://github.com/fluxcd/flux2) is continually syncing the state of this repository to the cluster 
+and applying any changes found in the [kustomizations](https://fluxcd.io/flux/components/kustomize/kustomization/) 
+within.
 
-## Cluster Setup 
+No `kubectl apply` or `helm install|upgrade` for me. The flux controllers on the cluster
+do all the work. :muscle:
 
-Node initilization is now handled by using this [Ansible Repo](https://github.com/otosky/ansible-home).
-
-## Init Cluster with Flux
-```bash
-# export GITHUB_TOKEN=<access_token_with_repo_scope>
-
-flux bootstrap github \                                                                                              ─╯
-  --owner=otosky \
-  --repository=kubernetes \
-  --path=clusters/homelab \
-  --personal
-```
-
-I'm not entirely sure how to recreate the cluster from this repo if I want to tear it down
-and start fresh...
 
