@@ -23,7 +23,7 @@ spec:
       ## Secret name that contains additional environment variable configurations.
       ## The secret is expected to have a key named config.env containing environment variables exports.
       configuration:
-        name: minio-tenant
+        name: minio-tenant-secret
       pools:
         - servers: 4
           name: pool-0
