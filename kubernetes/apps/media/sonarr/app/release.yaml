@@ -7,7 +7,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.0.1
+      version: 1.3.2
       interval: 30m
       sourceRef:
         kind: HelmRepository
@@ -18,7 +18,7 @@ spec:
       reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/onedr0p/sonarr-develop
-      tag: 4.0.0.217@sha256:897295cab5bd71199b43277063ddc5fb03a15b69f341a05345630ca126fd19bc
+      tag: 4.0.0.423@sha256:77b72262c493bced683fb887f3645d97d313e7c948a9ed25f24e952e1ff6cdd2
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568
