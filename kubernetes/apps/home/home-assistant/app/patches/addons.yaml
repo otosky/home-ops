@@ -22,20 +22,6 @@ spec:
           - "/config/.vscode"
           - --extensions-dir
           - "/config/.vscode"
-        ingress:
-          name: hass-code
-          enabled: true
-          ingressClassName: traefik-external
-          annotations:
-            traefik.ingress.kubernetes.io/router.entrypoints: web
-          hosts:
-            - host: &host hass-code.kube.home.arpa
-              paths:
-                - path: /
-                  pathType: Prefix
-          tls:
-            - hosts:
-                - *host
         volumeMounts:
           - name: config
             mountPath: /config
