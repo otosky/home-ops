@@ -7,7 +7,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.0.1
+      version: 1.3.2
       interval: 30m
       sourceRef:
         kind: HelmRepository
@@ -18,7 +18,7 @@ spec:
       reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/onedr0p/lidarr-develop
-      tag: 1.1.0.2649@sha256:2abfa356b1edac3ab33be437896fe03e268e8d545a1b0a0bf8e3fd825d587cd7
+      tag: 1.1.3.2982@sha256:37dff1e762b8c7cb17dc212db95923f8969897f3f401b5f426afdb14ea069dee
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568
