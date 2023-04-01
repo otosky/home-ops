@@ -1,0 +1,41 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.kube.home.arpa/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: home-assistant
+spec:
+  values:
+    addons:
+      codeserver:
+        enabled: true
+        image:
+          repository: ghcr.io/coder/code-server
+          tag: 4.11.0
+        env:
+          TZ: America/New_York
+        workingDir: /config
+        args:
+          - --auth
+          - "none"
+          - --user-data-dir
+          - "/config/.vscode"
+          - --extensions-dir
+          - "/config/.vscode"
+        ingress:
+          name: kubernetes-schemas-external-dns
+          enabled: true
+          ingressClassName: traefik-external
+          annotations:
+            traefik.ingress.kubernetes.io/router.entrypoints: web
+          hosts:
+            - host: &host hass-code.kube.home.arpa
+              paths:
+                - path: /
+                  pathType: Prefix
+          tls:
+            - hosts:
+                - *host
+        volumeMounts:
+          - name: config
+            mountPath: /config

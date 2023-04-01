@@ -6,3 +6,9 @@ resources:
   - ./config-map.yaml
   - ./release.yaml
   - ./ingress.yaml
+patchesStrategicMerge:
+  - ./patches/addons.yaml
+labels:
+  - pairs:
+      app.kubernetes.io/name: home-assistant
+      app.kubernetes.io/instance: home-assistant
