@@ -8,6 +8,11 @@ parameters:
   numberOfReplicas: "1"
   staleReplicaTimeout: "480" # 8 hours in minutes
   diskSelector: "hdd"
+  recurringJobs: |
+    [
+    {"name":"snap", "task":"snapshot", "cron":"0 3 * * *", "retain":3},
+    {"name":"backup", "task":"backup", "cron":"10 3 * * *", "retain":3}
+    ]
 ---
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
@@ -19,3 +24,8 @@ parameters:
   numberOfReplicas: "1"
   staleReplicaTimeout: "480" # 8 hours in minutes
   diskSelector: "ssd"
+  recurringJobs: |
+    [
+    {"name":"snap", "task":"snapshot", "cron":"0 3 * * *", "retain":3},
+    {"name":"backup", "task":"backup", "cron":"10 3 * * *", "retain":3}
+    ]
