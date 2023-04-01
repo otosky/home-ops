@@ -23,7 +23,7 @@ spec:
           - --extensions-dir
           - "/config/.vscode"
         ingress:
-          name: kubernetes-schemas-external-dns
+          name: hass-code
           enabled: true
           ingressClassName: traefik-external
           annotations:
