@@ -14,3 +14,4 @@ resources:
   - ./jellyfin/ks.yaml
   - ./bandcamp-downloader/ks.yaml
   - ./unpackerr/ks.yaml
+  - ./bazarr/ks.yaml
