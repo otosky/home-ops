@@ -1,0 +1,29 @@
+# Project
+site_name: otosky | home-ops
+site_author: Oliver Tosky
+
+# Repository
+repo_name: otosky/home-ops
+repo_url: https://github.com/otosky/home-ops
+edit_uri: ""
+
+# Config
+docs_dir: ./docs
+theme:
+  name: material
+  scheme: slate
+  icon:
+    repo: fontawesome/brands/github-alt
+  language: en
+  font: false
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.tracking
+    - search.highlight
+    - search.suggest
+
+# Navigation
+nav:
+  - Home:
+      - "index.md"
