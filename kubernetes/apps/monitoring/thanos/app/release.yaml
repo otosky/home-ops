@@ -31,7 +31,7 @@ spec:
     query:
       enabled: true
       replicaCount: 2
-      podAntiAffinityPreset: hard
+      podAntiAffinityPreset: soft
       replicaLabel: ["__replica__"] # must match with kube-prometheus-stack value `.prometheus.prometheusSpec.replicaExternalLabelName`
       dnsDiscovery:
         sidecarsService: kube-prometheus-stack-thanos-discovery
@@ -39,7 +39,7 @@ spec:
     bucketweb:
       enabled: true
       replicaCount: 2
-      podAntiAffinityPreset: hard
+      podAntiAffinityPreset: soft
     compactor:
       enabled: true
       extraFlags: ["--compact.concurrency", "4"]
@@ -53,7 +53,7 @@ spec:
     storegateway:
       enabled: true
       replicaCount: 2
-      podAntiAffinityPreset: hard
+      podAntiAffinityPreset: soft
       persistence:
         enabled: true
         storageClass: local-path-ssd
@@ -61,7 +61,7 @@ spec:
     ruler:
       enabled: true
       replicaCount: 2
-      podAntiAffinityPreset: hard
+      podAntiAffinityPreset: soft
       dnsDiscovery:
         enabled: true
       alertmanagers:
