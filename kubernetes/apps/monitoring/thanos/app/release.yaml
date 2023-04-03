@@ -30,7 +30,7 @@ spec:
       enabled: false
     query:
       enabled: true
-      replicaCount: 1
+      replicaCount: 2
       podAntiAffinityPreset: hard
       replicaLabel: ["__replica__"] # must match with kube-prometheus-stack value `.prometheus.prometheusSpec.replicaExternalLabelName`
       dnsDiscovery:
@@ -38,7 +38,7 @@ spec:
         sidecarsNamespace: monitoring
     bucketweb:
       enabled: true
-      replicaCount: 1
+      replicaCount: 2
       podAntiAffinityPreset: hard
     compactor:
       enabled: true
