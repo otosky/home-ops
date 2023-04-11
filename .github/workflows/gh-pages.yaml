@@ -21,7 +21,7 @@ jobs:
         run: curl -sSL https://install.python-poetry.org | python -
 
       - name: Setup Python
-        uses: actions/setup-python@48e4ac706204bab735867521ba54b3276c883d00 # v3
+        uses: actions/setup-python@d27e3f3d7c64b4bbf8e4abfb9b63b83e846e0435 # v4
         with:
           python-version: '3.10.10'
           cache: 'poetry'
