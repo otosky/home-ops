@@ -11,7 +11,7 @@ spec:
         kind: HelmRepository
         name: traefik
         namespace: flux-system
-      version: 10.33.0
+      version: 22.1.0
       interval: 5m
   values:
     ports:
@@ -19,11 +19,6 @@ spec:
         tls:
           enabled: true
           certResolver: leresolver
-      wireguard:
-        port: 51820
-        expose: true
-        exposedPort: 51820
-        protocol: UDP
     ingressRoute:
       dashboard:
         enabled: false
@@ -44,7 +39,6 @@ spec:
     additionalArguments:
       - --log.level=DEBUG
       - --serversTransport.insecureSkipVerify=true
-      - --entryPoints.wireguard.address=:51820/udp
       - --providers.kubernetesingress.ingressendpoint.hostname=toskbot.xyz
       # - --entryPoints.websecure.forwardedHeaders.trustedIPs=192.168.88.0/24,192.168.2.0/24
       # - --entryPoints.web.forwardedHeaders.trustedIPs=192.168.88.0/24,192.168.2.0/24
