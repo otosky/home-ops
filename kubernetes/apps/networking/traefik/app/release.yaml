@@ -11,7 +11,7 @@ spec:
         kind: HelmRepository
         name: traefik
         namespace: flux-system
-      version: 22.1.0
+      version: 23.0.1
       interval: 5m
   values:
     ports:
