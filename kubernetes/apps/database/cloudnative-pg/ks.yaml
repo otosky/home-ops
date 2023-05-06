@@ -20,6 +20,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
+  timeout: 5m
   dependsOn:
     - name: cluster-apps-cloudnative-pg
   path: ./kubernetes/apps/database/cloudnative-pg/cluster

@@ -284,14 +284,14 @@ files = [
 
 [[package]]
 name = "mkdocs"
-version = "1.4.2"
+version = "1.4.3"
 description = "Project documentation with Markdown."
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "mkdocs-1.4.2-py3-none-any.whl", hash = "sha256:c8856a832c1e56702577023cd64cc5f84948280c1c0fcc6af4cd39006ea6aa8c"},
-    {file = "mkdocs-1.4.2.tar.gz", hash = "sha256:8947af423a6d0facf41ea1195b8e1e8c85ad94ac95ae307fe11232e0424b11c5"},
+    {file = "mkdocs-1.4.3-py3-none-any.whl", hash = "sha256:6ee46d309bda331aac915cd24aab882c179a933bd9e77b80ce7d2eaaa3f689dd"},
+    {file = "mkdocs-1.4.3.tar.gz", hash = "sha256:5955093bbd4dd2e9403c5afaf57324ad8b04f16886512a3ee6ef828956481c57"},
 ]
 
 [package.dependencies]
@@ -313,14 +313,14 @@ min-versions = ["babel (==2.9.0)", "click (==7.0)", "colorama (==0.4)", "ghp-imp
 
 [[package]]
 name = "mkdocs-material"
-version = "9.1.7"
+version = "9.1.9"
 description = "Documentation that simply works"
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "mkdocs_material-9.1.7-py3-none-any.whl", hash = "sha256:4ab0e2f378bb811ca44a001a63d687403a2725f0485c41d6a2a7aed3aa34cd31"},
-    {file = "mkdocs_material-9.1.7.tar.gz", hash = "sha256:244f85d13e3aa773aaa66c74b95bb4b00d89a3a917f6f9d33704a5655bf0c423"},
+    {file = "mkdocs_material-9.1.9-py3-none-any.whl", hash = "sha256:7db24261cb17400e132c46d17eea712bfe71056d892a9beba32cf68210297141"},
+    {file = "mkdocs_material-9.1.9.tar.gz", hash = "sha256:74d8da1371ab3a326868fe47bae3cbc4aa22e93c048b4ca5117e6817b88bd734"},
 ]
 
 [package.dependencies]
