@@ -1,0 +1,25 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: owncloud-ocis
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart:
+        path: ./charts/ocis
+        sourceRef:
+          kind: GitRepository
+          name: owncloud-ocis
+          namespace: flux-system
+  values:
+    image:
+      repository: owncloud/ocis
+    insecure:
+      oidcIdpInsecure: true
+      ocisHttpApiInsecure: true
+    store:
+      type: redis-sentinel
+      nodes:
+        - redis.database.svc.cluster.local:26379
