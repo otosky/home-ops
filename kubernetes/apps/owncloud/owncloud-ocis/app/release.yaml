@@ -30,3 +30,6 @@ spec:
       storagesystemSecretRef: "owncloud-storage-system"
       thumbnailsSecretRef: "owncloud-thumbnails-transfer-secret"
       transferSecretSecretRef: "owncloud-transfer-secret"
+      ldapCaRef: "owncloud-ldap-ca"
+      ldapCertRef: "owncloud-ldap-cert"
+      ldapSecretRef: "owncloud-ldap-bind-secrets"
