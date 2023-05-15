@@ -22,7 +22,7 @@ spec:
     store:
       type: redis-sentinel
       nodes:
-        - redis.database.svc.cluster.local:26379
+        - redis.database.svc.cluster.local:26379/redis-master
     eventhistory:
       store:
         type: redis-sentinel
