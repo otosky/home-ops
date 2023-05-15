@@ -7,12 +7,11 @@ spec:
   interval: 15m
   chart:
     spec:
-      chart:
-        path: ./charts/ocis
-        sourceRef:
-          kind: GitRepository
-          name: owncloud-ocis
-          namespace: flux-system
+      chart: ./charts/ocis
+      sourceRef:
+        kind: GitRepository
+        name: owncloud-ocis
+        namespace: flux-system
   values:
     image:
       repository: owncloud/ocis
