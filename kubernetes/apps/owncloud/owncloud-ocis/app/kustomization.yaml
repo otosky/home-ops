@@ -4,5 +4,6 @@ kind: Kustomization
 namespace: owncloud
 resources:
   - externalsecret.yaml
+  - configmap.yaml
   - release.yaml
 
