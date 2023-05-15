@@ -31,8 +31,8 @@ spec:
     secretRefs:
       jwtSecretRef: "owncloud-jwt-secret"
       machineAuthApiKeySecretRef: "owncloud-machine-auth-api-key"
-      storagesystemJwtSecretRef: "owncloud-storage-system-jwt-secret"
-      storagesystemSecretRef: "owncloud-storage-system"
+      storageSystemJwtSecretRef: "owncloud-storage-system-jwt-secret"
+      storageSystemSecretRef: "owncloud-storage-system"
       thumbnailsSecretRef: "owncloud-thumbnails-transfer-secret"
       transferSecretSecretRef: "owncloud-transfer-secret"
       ldapCaRef: "owncloud-ldap-ca"
