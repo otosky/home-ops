@@ -6,4 +6,5 @@ resources:
   - externalsecret.yaml
   - configmap.yaml
   - release.yaml
+  - ingress.yaml
 
