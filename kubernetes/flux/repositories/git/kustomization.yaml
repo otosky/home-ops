@@ -5,4 +5,4 @@ resources:
   - local-path-provisioner.yaml
   - clickhouse-operator.yaml
   - redpanda-operator.yaml
-  - owncloud-oci.yaml
+  - owncloud-ocis.yaml
