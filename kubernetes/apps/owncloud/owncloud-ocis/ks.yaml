@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-owncloud-ocis
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/home/owncloud-ocis/app
+  path: ./kubernetes/apps/owncloud/owncloud-ocis/app
   prune: true
   sourceRef:
     kind: GitRepository
