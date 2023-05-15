@@ -23,6 +23,11 @@ spec:
       type: redis-sentinel
       nodes:
         - redis.database.svc.cluster.local:26379
+    eventhistory:
+      store:
+        type: redis-sentinel
+        nodes:
+          - redis.database.svc.cluster.local:26379/redis-master
     secretRefs:
       jwtSecretRef: "owncloud-jwt-secret"
       machineAuthApiKeySecretRef: "owncloud-machine-auth-api-key"
