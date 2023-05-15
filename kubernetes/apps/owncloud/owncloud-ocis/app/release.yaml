@@ -33,3 +33,5 @@ spec:
       ldapCaRef: "owncloud-ldap-ca"
       ldapCertRef: "owncloud-ldap-cert"
       ldapSecretRef: "owncloud-ldap-bind-secrets"
+      adminUserSecretRef: "owncloud-admin-user"
+      idpSecretRef: "owncloud-idp-secrets"
