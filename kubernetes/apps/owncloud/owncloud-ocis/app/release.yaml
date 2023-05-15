@@ -19,6 +19,7 @@ spec:
     insecure:
       oidcIdpInsecure: true
       ocisHttpApiInsecure: true
+    externalDomain: owncloud.kube.home.arpa
     store:
       type: redis-sentinel
       nodes:
