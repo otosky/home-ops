@@ -26,3 +26,7 @@ spec:
     secretRefs:
       jwtSecretRef: "owncloud-jwt-secret"
       machineAuthApiKeySecretRef: "owncloud-machine-auth-api-key"
+      storagesystemJwtSecretRef: "owncloud-storage-system-jwt-secret"
+      storagesystemSecretRef: "owncloud-storage-system"
+      thumbnailsSecretRef: "owncloud-thumbnails-transfer-secret"
+      transferSecretSecretRef: "owncloud-transfer-secret"
