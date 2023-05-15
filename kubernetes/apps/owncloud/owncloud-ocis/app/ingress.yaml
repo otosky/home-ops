@@ -6,7 +6,7 @@ metadata:
     kubernetes.io/ingress.class: traefik-external
 spec:
   entryPoints:
-    - web
+    - websecure
   routes:
     - match: Host(`owncloud.kube.home.arpa`)
       kind: Rule
@@ -19,7 +19,7 @@ kind: Ingress
 metadata:
   name: owncloud-external-dns
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: web
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
 spec:
   rules:
     - host: owncloud.kube.home.arpa
