@@ -51,7 +51,7 @@ spec:
         enabled: true
         type: pvc
         storageClass: longhorn-ssd
-        size: 20Gi
+        size: 40Gi
       media:
         enabled: true
         type: nfs
