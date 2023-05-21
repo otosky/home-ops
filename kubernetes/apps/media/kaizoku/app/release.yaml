@@ -31,9 +31,7 @@ spec:
       repository: ghcr.io/oae/kaizoku
       tag: v1.6.1
     podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
+      fsGroup: 1000
       fsGroupChangePolicy: "OnRootMismatch"
     env:
       TZ: America/New_York
