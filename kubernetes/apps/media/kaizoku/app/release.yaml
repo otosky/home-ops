@@ -36,8 +36,8 @@ spec:
     env:
       TZ: America/New_York
       KAIZOKU_PORT: 3000
-      REDIS_HOST: redis.database.svc.cluster.local
-      REDIS_PORT: 6379
+      REDIS_HOST: redis-headless.database.svc.cluster.local
+      REDIS_PORT: 26379
     envFrom:
       - secretRef:
           name: kaizoku-secret
