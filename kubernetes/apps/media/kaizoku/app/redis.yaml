@@ -1,0 +1,28 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: redis-kaizoku
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: redis
+      version: 17.10.3
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami
+        namespace: flux-system
+  values:
+    global:
+      storageClass: local-path-nvme
+    auth:
+      enabled: false
+      sentinel: false
+    sentinel:
+      enabled: false
+    replica:
+      replicaCount: 1
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: false

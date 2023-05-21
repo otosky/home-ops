@@ -3,5 +3,6 @@ kind: Kustomization
 namespace: media
 resources:
   - externalsecret.yaml
+  - redis.yaml
   - release.yaml
   - ingress.yaml
