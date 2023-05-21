@@ -16,3 +16,4 @@ resources:
   - ./unpackerr/ks.yaml
   - ./bazarr/ks.yaml
   - ./kaizoku/ks.yaml
+  - ./komga/ks.yaml
