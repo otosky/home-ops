@@ -30,6 +30,7 @@ spec:
       fsGroupChangePolicy: "OnRootMismatch"
     env:
       TZ: America/New_York
+      KOMGA_LIBRARIES_SCAN_CRON: "0 0 */2 * * ?"
     service:
       main:
         ports:
