@@ -1,0 +1,27 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: authelia
+  annotations:
+    kubernetes.io/ingress.class: traefik-external
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`auth.kube.home.arpa`)
+      kind: Rule
+      services:
+        - name: authelia
+          port: http
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: auth-external-dns
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+    ingress.kubernetes.io/custom-request-headers: Cache-Control:no-store||Pragma:no-cache||X-Frame-Options:SAMEORIGIN||X-XSS-Protection:1;mode=block
+    ingress.kubernetes.io/proxy-headers: Cache-Control,Pragma,X-Frame-Options,X-XSS-Protection
+spec:
+  rules:
+    - host: auth.kube.home.arpa
