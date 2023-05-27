@@ -18,7 +18,7 @@ spec:
       reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/onedr0p/sonarr-develop
-      tag: 4.0.0.507@sha256:4b427f1eea09c1b18c33173bb4fc07056ad7da73a6a4be23abdaf1906ffa2188
+      tag: 4.0.0.523@sha256:65ef92dbb009586a9fdfa0fff20699b33f6022b40a3769bde6527db648eac49e
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568
