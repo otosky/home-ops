@@ -1,5 +1,5 @@
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
   name: redpanda-operator
@@ -23,4 +23,3 @@ metadata:
 spec:
   interval: 5m0s
   url: https://charts.vectorized.io/
-
