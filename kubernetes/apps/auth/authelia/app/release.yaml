@@ -44,7 +44,7 @@ spec:
     args:
       [
         "--config",
-        "/config/configuration.yml",
+        "/config/configuration.yaml",
         "--config.experimental.filters",
         "expand-env",
       ]
