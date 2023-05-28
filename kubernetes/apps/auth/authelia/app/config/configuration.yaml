@@ -21,11 +21,6 @@ access_control:
     - domain: ["jellyfin.toskbot.xyz"]
       resources: ["^/metrics.*$"]
       policy: deny
-
-notifier:
-  disable_startup_check: false
-  filesystem:
-    filename: /usr/local/notification.txt
 # identity_providers:
 #   oidc:
 #     cors:
