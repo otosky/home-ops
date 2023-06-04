@@ -35,7 +35,7 @@ spec:
                     cidr: 0.0.0.0/0
               ports:
                 # VPN traffic
-                - port: 51820
+                - port: 1637
                   protocol: UDP
             - to:
                 - ipBlock:
@@ -58,7 +58,7 @@ spec:
           - name: FIREWALL_VPN_INPUT_PORTS
             value: 59539
           - name: VPN_ENDPOINT_PORT
-            value: 51820
+            value: 1637
         envFrom:
           - secretRef:
               name: pod-gateway-vpnconfig
