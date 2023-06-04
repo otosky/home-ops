@@ -35,7 +35,7 @@ spec:
                     cidr: 0.0.0.0/0
               ports:
                 # VPN traffic
-                - port: 1637
+                - port: 51820
                   protocol: UDP
             - to:
                 - ipBlock:
@@ -46,7 +46,7 @@ spec:
           - name: VPN_INTERFACE
             value: wg0
           - name: VPN_SERVICE_PROVIDER
-            value: airvpn
+            value: mullvad
           - name: FIREWALL
             value: "off"
           - name: DOT
@@ -58,10 +58,19 @@ spec:
           - name: FIREWALL_VPN_INPUT_PORTS
             value: 59539
           - name: VPN_ENDPOINT_PORT
-            value: 1637
-        envFrom:
-          - secretRef:
-              name: pod-gateway-vpnconfig
+            value: 51820
+          - name: SERVER_CITIES
+            value: Amsterdam
+          - name: WIREGUARD_PRIVATE_KEY
+            valueFrom:
+              secretKeyRef:
+                name: pod-gateway-vpnconfig
+                key: WIREGUARD_PRIVATE_KEY
+          - name: WIREGUARD_ADDRESSES
+            valueFrom:
+              secretKeyRef:
+                name: pod-gateway-vpnconfig
+                key: WIREGUARD_ADDRESSES
         securityContext:
           capabilities:
             add:
