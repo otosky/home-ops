@@ -5,7 +5,7 @@ ingress:
   #   originRequest:
   #     originServerName: ingress.toskbot.xyz
   - hostname: "jellyfin.toskbot.xyz"
-    service: https://traefik.networking.svc.cluster.local:443
+    service: http://traefik.networking.svc.cluster.local:80
     originRequest:
       originServerName: ingress.toskbot.xyz
   # - hostname: "*.toskbot.xyz"
