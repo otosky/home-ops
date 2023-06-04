@@ -1,0 +1,12 @@
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: cloudflared-tunnel
+  annotations:
+    external-dns.alpha.kubernetes.io/public: "true"
+spec:
+  endpoints:
+    - dnsName: ingress.toskbot.xyz
+      recordType: CNAME
+      targets: ["bec854a3-aad9-409b-99fc-0d82e07c68d6.cfargotunnel.com"]

@@ -1,0 +1,15 @@
+---
+ingress:
+  # - hostname: "toskbot.xyz"
+  #   service: https://traefik.networking.svc.cluster.local:443
+  #   originRequest:
+  #     originServerName: ingress.toskbot.xyz
+  - hostname: "jellyfin.toskbot.xyz"
+    service: https://traefik.networking.svc.cluster.local:443
+    originRequest:
+      originServerName: ingress.toskbot.xyz
+  # - hostname: "*.toskbot.xyz"
+  #   service: https://traefik.networking.svc.cluster.local:443
+  #   originRequest:
+  #     originServerName: ingress.toskbot.xyz
+  - service: http_status:404
