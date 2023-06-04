@@ -9,4 +9,4 @@ spec:
   endpoints:
     - dnsName: ingress.toskbot.xyz
       recordType: CNAME
-      targets: ["bec854a3-aad9-409b-99fc-0d82e07c68d6.cfargotunnel.com"]
+      targets: ["fe4c7c4f-cea1-4d3a-88d4-3bcd6d1609d8.cfargotunnel.com"]
