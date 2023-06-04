@@ -46,7 +46,7 @@ spec:
           - name: VPN_INTERFACE
             value: wg0
           - name: VPN_SERVICE_PROVIDER
-            value: mullvad
+            value: airvpn
           - name: FIREWALL
             value: "off"
           - name: DOT
@@ -59,18 +59,9 @@ spec:
             value: 59539
           - name: VPN_ENDPOINT_PORT
             value: 51820
-          - name: SERVER_CITIES
-            value: Amsterdam
-          - name: WIREGUARD_PRIVATE_KEY
-            valueFrom:
-              secretKeyRef:
-                name: pod-gateway-vpnconfig
-                key: WIREGUARD_PRIVATE_KEY
-          - name: WIREGUARD_ADDRESSES
-            valueFrom:
-              secretKeyRef:
-                name: pod-gateway-vpnconfig
-                key: WIREGUARD_ADDRESSES
+        envFrom:
+          - secretRef:
+              name: pod-gateway-vpnconfig
         securityContext:
           capabilities:
             add:
