@@ -59,10 +59,6 @@ spec:
             value: 59539
           - name: VPN_ENDPOINT_PORT
             value: 1637
-          - name: DNS_ADDRESS
-            value: 172.16.0.1
-          - name: DNS_KEEP_NAMESERVER
-            value: on
         envFrom:
           - secretRef:
               name: pod-gateway-vpnconfig
