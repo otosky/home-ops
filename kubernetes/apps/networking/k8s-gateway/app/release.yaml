@@ -16,3 +16,5 @@ spec:
   values:
     domain: kube.home.arpa
     replicaCount: 2
+    service:
+      loadBalancerIP: 10.66.1.105
