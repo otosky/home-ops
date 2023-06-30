@@ -36,7 +36,7 @@ spec:
     service:
       main:
         type: LoadBalancer
-        loadBalancerIP: 192.168.2.234
+        loadBalancerIP: 10.66.1.101
         externalTrafficPolicy: Local
         ports:
           http:

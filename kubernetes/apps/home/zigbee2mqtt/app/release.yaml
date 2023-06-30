@@ -54,7 +54,7 @@ spec:
           secretKeyRef:
             name: emqx-secret
             key: AUTH__USER__1__PASSWORD
-      ZIGBEE2MQTT_CONFIG_SERIAL_PORT: tcp://192.168.2.10:6638
+      ZIGBEE2MQTT_CONFIG_SERIAL_PORT: tcp://10.66.3.5:6638
       ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_OUTPUT: '["console"]'
       ZIGBEE2MQTT_CONFIG_ADVANCED_PAN_ID:
         valueFrom:
