@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`qbit.kube.home.arpa`)
+    - match: Host(`qbit.toskbot.xyz`)
       kind: Rule
       services:
         - name: qbittorrent
@@ -22,4 +22,4 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
   rules:
-    - host: qbit.kube.home.arpa
+    - host: qbit.toskbot.xyz
