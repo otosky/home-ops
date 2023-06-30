@@ -4,7 +4,7 @@ metadata:
   name: nfs-hdd
 provisioner: nfs.csi.k8s.io
 parameters:
-  server: "nas.home.arpa"
+  server: "nas.toskbot.xyz"
   share: /mnt/user/kubernetes/pvc
 reclaimPolicy: Delete
 volumeBindingMode: Immediate

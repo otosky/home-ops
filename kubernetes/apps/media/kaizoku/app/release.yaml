@@ -56,6 +56,6 @@ spec:
       data:
         enabled: true
         type: nfs
-        server: "nas.home.arpa"
+        server: "nas.toskbot.xyz"
         path: /mnt/user/data/media/manga
         mountPath: /data

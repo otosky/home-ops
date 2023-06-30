@@ -46,7 +46,7 @@ spec:
         enabled: true
         mountPath: /data/media
         path: /mnt/user/data/media/books
-        server: nas.home.arpa
+        server: nas.toskbot.xyz
         type: nfs
       cache:
         enabled: true

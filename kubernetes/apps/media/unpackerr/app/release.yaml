@@ -64,7 +64,7 @@ spec:
       complete:
         enabled: true
         type: nfs
-        server: "nas.home.arpa"
+        server: "nas.toskbot.xyz"
         path: /mnt/user/data/downloads/complete
         mountPath: /complete
     resources:

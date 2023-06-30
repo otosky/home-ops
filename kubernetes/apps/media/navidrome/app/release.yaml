@@ -57,14 +57,14 @@ spec:
       lidarr:
         enabled: true
         type: nfs
-        server: nas.home.arpa
+        server: nas.toskbot.xyz
         path: /mnt/user/data/media/music
         mountPath: /music/lidarr
         readOnly: true
       bandcamp:
         enabled: true
         type: nfs
-        server: nas.home.arpa
+        server: nas.toskbot.xyz
         path: /mnt/user/data/bandcamp
         mountPath: /music/bandcamp
         readOnly: true
