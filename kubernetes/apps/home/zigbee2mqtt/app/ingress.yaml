@@ -9,7 +9,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`z2m.kube.home.arpa`)
+    - match: Host(`z2m.toskbot.xyz`)
       kind: Rule
       services:
         - name: zigbee2mqtt
@@ -23,4 +23,4 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
   rules:
-    - host: z2m.kube.home.arpa
+    - host: z2m.toskbot.xyz

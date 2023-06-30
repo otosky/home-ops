@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`hass.kube.home.arpa`)
+    - match: Host(`hass.toskbot.xyz`)
       kind: Rule
       services:
         - name: home-assistant
@@ -22,7 +22,7 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
   rules:
-    - host: hass.kube.home.arpa
+    - host: hass.toskbot.xyz
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
@@ -34,7 +34,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`hass-code.kube.home.arpa`)
+    - match: Host(`hass-code.toskbot.xyz`)
       kind: Rule
       services:
         - name: home-assistant-addon-codeserver
@@ -48,4 +48,4 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
 spec:
   rules:
-    - host: hass-code.kube.home.arpa
+    - host: hass-code.toskbot.xyz
