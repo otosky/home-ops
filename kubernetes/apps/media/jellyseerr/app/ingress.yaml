@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`jellyseerr.kube.home.arpa`)
+    - match: Host(`jellyseerr.toskbot.xyz`)
       kind: Rule
       services:
         - name: jellyseerr
@@ -22,4 +22,4 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
   rules:
-    - host: jellyseerr.kube.home.arpa
+    - host: jellyseerr.toskbot.xyz

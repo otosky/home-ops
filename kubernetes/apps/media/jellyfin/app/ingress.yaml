@@ -8,11 +8,6 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`jellyfin.kube.home.arpa`)
-      kind: Rule
-      services:
-        - name: jellyfin
-          port: http
     - match: Host(`jellyfin.toskbot.xyz`)
       kind: Rule
       services:
@@ -29,5 +24,4 @@ metadata:
     external-dns.alpha.kubernetes.io/target: ingress.toskbot.xyz
 spec:
   rules:
-    - host: jellyfin.kube.home.arpa
     - host: jellyfin.toskbot.xyz
