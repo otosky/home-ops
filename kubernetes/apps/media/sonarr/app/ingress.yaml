@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`sonarr.kube.home.arpa`)
+    - match: Host(`sonarr.toskbot.xyz`)
       kind: Rule
       services:
         - name: sonarr
@@ -22,4 +22,4 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
   rules:
-    - host: sonarr.kube.home.arpa
+    - host: sonarr.toskbot.xyz

@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`radarr.kube.home.arpa`)
+    - match: Host(`radarr.toskbot.xyz`)
       kind: Rule
       services:
         - name: radarr
@@ -22,4 +22,4 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
   rules:
-    - host: radarr.kube.home.arpa
+    - host: radarr.toskbot.xyz

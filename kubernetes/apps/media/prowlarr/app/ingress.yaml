@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`prowlarr.kube.home.arpa`)
+    - match: Host(`prowlarr.toskbot.xyz`)
       kind: Rule
       services:
         - name: prowlarr
@@ -22,4 +22,4 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
   rules:
-    - host: prowlarr.kube.home.arpa
+    - host: prowlarr.toskbot.xyz
