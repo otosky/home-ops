@@ -9,7 +9,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`kaizoku.kube.home.arpa`)
+    - match: Host(`kaizoku.toskbot.xyz`)
       kind: Rule
       services:
         - name: kaizoku
@@ -23,4 +23,4 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
   rules:
-    - host: kaizoku.kube.home.arpa
+    - host: kaizoku.toskbot.xyz

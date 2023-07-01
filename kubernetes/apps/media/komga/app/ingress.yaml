@@ -9,7 +9,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`komga.kube.home.arpa`)
+    - match: Host(`komga.toskbot.xyz`)
       kind: Rule
       services:
         - name: komga
@@ -23,4 +23,4 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
   rules:
-    - host: komga.kube.home.arpa
+    - host: komga.toskbot.xyz
