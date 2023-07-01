@@ -9,7 +9,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`navidrome.kube.home.arpa`)
+    - match: Host(`navidrome.toskbot.xyz`)
       kind: Rule
       services:
         - name: navidrome
@@ -23,4 +23,4 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
   rules:
-    - host: navidrome.kube.home.arpa
+    - host: navidrome.toskbot.xyz
