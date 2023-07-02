@@ -43,6 +43,9 @@ spec:
       DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
     service:
       main:
+        type: LoadBalancer
+        loadBalancerIP: 10.66.1.103
+        externalTrafficPolicy: Cluster
         ports:
           http:
             port: 8096
