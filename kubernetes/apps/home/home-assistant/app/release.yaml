@@ -49,7 +49,7 @@ spec:
     service:
       main:
         type: LoadBalancer
-        LoadBalancerIP: 10.66.1.104
+        loadBalancerIP: 10.66.1.102
         ports:
           http:
             port: 8123
