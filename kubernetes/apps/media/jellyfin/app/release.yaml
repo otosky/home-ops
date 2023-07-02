@@ -49,7 +49,6 @@ spec:
         ports:
           http:
             port: 8096
-            targetPort: 8096
     persistence:
       config:
         enabled: true
