@@ -17,11 +17,21 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: jellyfin-external-dns
+  name: jellyfin-external
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: web
     external-dns.home.arpa/enabled: "true"
     external-dns.alpha.kubernetes.io/target: ingress.toskbot.xyz
+spec:
+  rules:
+    - host: jellyfin.toskbot.xyz
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jellyfin-internal
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
   rules:
     - host: jellyfin.toskbot.xyz
