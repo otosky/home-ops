@@ -20,4 +20,4 @@ spec:
       - name: MINIO_CONSOLE_TLS_ENABLE
         value: "on"
       - name: CLUSTER_DOMAIN
-        value: "kube.home.arpa"
+        value: "toskbot.xyz"

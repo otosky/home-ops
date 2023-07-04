@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`owncloud.kube.home.arpa`)
+    - match: Host(`owncloud.toskbot.xyz`)
       kind: Rule
       services:
         - name: proxy
@@ -22,5 +22,5 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
 spec:
   rules:
-    - host: owncloud.kube.home.arpa
+    - host: owncloud.toskbot.xyz
 

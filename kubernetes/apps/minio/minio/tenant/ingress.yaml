@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`s3.kube.home.arpa`)
+    - match: Host(`s3.toskbot.xyz`)
       kind: Rule
       services:
         - name: minio1-console
@@ -22,4 +22,4 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
 spec:
   rules:
-    - host: s3.kube.home.arpa
+    - host: s3.toskbot.xyz

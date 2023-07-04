@@ -9,7 +9,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`emqx.kube.home.arpa`)
+    - match: Host(`emqx.toskbot.xyz`)
       kind: Rule
       services:
         - name: emqx
@@ -23,4 +23,4 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
   rules:
-    - host: emqx.kube.home.arpa
+    - host: emqx.toskbot.xyz

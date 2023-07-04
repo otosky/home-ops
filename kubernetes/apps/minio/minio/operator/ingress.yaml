@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`minio.kube.home.arpa`)
+    - match: Host(`minio.toskbot.xyz`)
       kind: Rule
       services:
         - name: console
@@ -22,4 +22,4 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
   rules:
-    - host: minio.kube.home.arpa
+    - host: minio.toskbot.xyz

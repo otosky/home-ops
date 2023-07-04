@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`kubernetes.kube.home.arpa`)
+    - match: Host(`kubernetes.toskbot.xyz`)
       kind: Rule
       services:
         - name: kubernetes-dashboard
@@ -22,4 +22,4 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
 spec:
   rules:
-    - host: kubernetes.kube.home.arpa
+    - host: kubernetes.toskbot.xyz

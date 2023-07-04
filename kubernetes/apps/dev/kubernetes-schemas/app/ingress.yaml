@@ -9,7 +9,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`kubernetes-schemas.kube.home.arpa`)
+    - match: Host(`kubernetes-schemas.toskbot.xyz`)
       kind: Rule
       services:
         - name: kubernetes-schemas
@@ -23,4 +23,4 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
   rules:
-    - host: kubernetes-schemas.kube.home.arpa
+    - host: kubernetes-schemas.toskbot.xyz

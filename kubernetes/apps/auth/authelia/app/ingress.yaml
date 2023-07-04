@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`auth.kube.home.arpa`)
+    - match: Host(`auth.toskbot.xyz`)
       kind: Rule
       services:
         - name: authelia
@@ -24,4 +24,4 @@ metadata:
     ingress.kubernetes.io/proxy-headers: Cache-Control,Pragma,X-Frame-Options,X-XSS-Protection
 spec:
   rules:
-    - host: auth.kube.home.arpa
+    - host: auth.toskbot.xyz

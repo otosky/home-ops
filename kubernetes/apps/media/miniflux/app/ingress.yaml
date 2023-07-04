@@ -9,7 +9,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`miniflux.kube.home.arpa`)
+    - match: Host(`miniflux.toskbot.xyz`)
       kind: Rule
       services:
         - name: miniflux
@@ -23,4 +23,4 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
   rules:
-    - host: miniflux.kube.home.arpa
+    - host: miniflux.toskbot.xyz

@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`grafana.kube.home.arpa`)
+    - match: Host(`grafana.toskbot.xyz`)
       kind: Rule
       services:
         - name: grafana
@@ -22,4 +22,4 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
   rules:
-    - host: grafana.kube.home.arpa
+    - host: grafana.toskbot.xyz

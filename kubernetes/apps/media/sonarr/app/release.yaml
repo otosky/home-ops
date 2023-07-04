@@ -29,7 +29,7 @@ spec:
     env:
       SONARR__INSTANCE_NAME: Sonarr
       SONARR__PORT: &port 8989
-      SONARR__APPLICATION_URL: "https://sonarr.kube.home.arpa"
+      SONARR__APPLICATION_URL: "https://sonarr.toskbot.xyz"
       SONARR__LOG_LEVEL: info
     envFrom:
       - secretRef:

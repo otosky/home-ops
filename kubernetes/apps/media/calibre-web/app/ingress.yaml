@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`calibre.kube.home.arpa`)
+    - match: Host(`calibre.toskbot.xyz`)
       kind: Rule
       services:
         - name: calibre-web
@@ -22,4 +22,4 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
   rules:
-    - host: calibre.kube.home.arpa
+    - host: calibre.toskbot.xyz
