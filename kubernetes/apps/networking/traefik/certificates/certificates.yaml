@@ -1,0 +1,15 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/cert-manager.io/certificate_v1.json
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: toskbot-xyz
+spec:
+  secretName: toskbot-xyz-tls
+  issuerRef:
+    name: letsencrypt-staging
+    kind: ClusterIssuer
+  commonName: toskbot.xyz
+  dnsNames:
+    - toskbot.xyz
+    - "*.toskbot.xyz"

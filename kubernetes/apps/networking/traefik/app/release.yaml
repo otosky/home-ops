@@ -15,10 +15,11 @@ spec:
       interval: 5m
   values:
     ports:
+      # web:
+      #   redirectTo: websecure
       websecure:
         tls:
           enabled: true
-          certResolver: leresolver
     ingressRoute:
       dashboard:
         enabled: false
@@ -30,6 +31,10 @@ spec:
         publishedService:
           enabled: true
           pathOverride: networking/traefik
+    tlsStore:
+      default:
+        defaultCertificate:
+          secretName: toskbot-xyz-tls
     service:
       annotations:
         external-dns.alpha.kubernetes.io/hostname: "ingress.toskbot.xyz"
