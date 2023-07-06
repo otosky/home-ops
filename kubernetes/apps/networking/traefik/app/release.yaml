@@ -15,11 +15,16 @@ spec:
       interval: 5m
   values:
     ports:
-      # web:
-      #   redirectTo: websecure
+      web:
+        redirectTo: websecure
       websecure:
         tls:
           enabled: true
+          options: default
+          domains:
+            - main: toskbot.xyz
+              sans:
+                - "*.toskbot.xyz"
     ingressRoute:
       dashboard:
         enabled: false
