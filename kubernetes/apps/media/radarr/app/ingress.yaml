@@ -23,3 +23,6 @@ metadata:
 spec:
   rules:
     - host: radarr.toskbot.xyz
+  tls:
+  - hosts:
+    - radarr.toskbot.xyz
