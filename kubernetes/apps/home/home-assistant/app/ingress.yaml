@@ -6,7 +6,7 @@ metadata:
     kubernetes.io/ingress.class: traefik-external
 spec:
   entryPoints:
-    - web
+    - websecure
   routes:
     - match: Host(`hass.toskbot.xyz`)
       kind: Rule
@@ -19,10 +19,14 @@ kind: Ingress
 metadata:
   name: hass-external-dns
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: web
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
 spec:
   rules:
     - host: hass.toskbot.xyz
+  tls:
+  - hosts:
+    - hass.toskbot.xyz
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
