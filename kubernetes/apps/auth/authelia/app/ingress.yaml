@@ -6,7 +6,7 @@ metadata:
     kubernetes.io/ingress.class: traefik-external
 spec:
   entryPoints:
-    - web
+    - websecure
   routes:
     - match: Host(`auth.toskbot.xyz`)
       kind: Rule
@@ -19,7 +19,7 @@ kind: Ingress
 metadata:
   name: auth-external-dns
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: web
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
     ingress.kubernetes.io/custom-request-headers: Cache-Control:no-store||Pragma:no-cache||X-Frame-Options:SAMEORIGIN||X-XSS-Protection:1;mode=block
     ingress.kubernetes.io/proxy-headers: Cache-Control,Pragma,X-Frame-Options,X-XSS-Protection
 spec:

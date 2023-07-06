@@ -7,7 +7,7 @@ metadata:
     kubernetes.io/ingress.class: traefik-external
 spec:
   entryPoints:
-    - web
+    - websecure
   routes:
     - match: Host(`z2m.toskbot.xyz`)
       kind: Rule
@@ -20,7 +20,7 @@ kind: Ingress
 metadata:
   name: z2m-external-dns
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: web
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
 spec:
   rules:
     - host: z2m.toskbot.xyz
