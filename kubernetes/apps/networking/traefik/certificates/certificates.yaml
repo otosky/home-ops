@@ -7,7 +7,7 @@ metadata:
 spec:
   secretName: toskbot-xyz-tls
   issuerRef:
-    name: letsencrypt-staging
+    name: letsencrypt-production
     kind: ClusterIssuer
   commonName: toskbot.xyz
   dnsNames:
