@@ -22,7 +22,7 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     external-dns.home.arpa/enabled: "true"
     external-dns.alpha.kubernetes.io/target: ingress.toskbot.xyz
-    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
 spec:
   rules:
     - host: jellyfin.toskbot.xyz
