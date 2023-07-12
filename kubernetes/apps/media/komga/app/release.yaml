@@ -22,7 +22,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/gotson/komga
-      tag: 0.165.0
+      tag: 1.1.0
     podSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000
