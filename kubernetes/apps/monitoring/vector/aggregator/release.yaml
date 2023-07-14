@@ -87,7 +87,7 @@ spec:
     service:
       enabled: true
       type: LoadBalancer
-      loadBalancerIP: 10.66.1.102
+      loadBalancerIP: 10.66.1.104
       externalTrafficPolicy: Local
     podMonitor:
       enabled: true
