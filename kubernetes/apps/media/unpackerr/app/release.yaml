@@ -40,6 +40,13 @@ spec:
           secretKeyRef:
             name: lidarr-secret
             key: LIDARR__API_KEY
+      UN_READARR_0_URL: http://readarr.media.svc.cluster.local:8787
+      UN_READARR_0_PATHS_0: /complete
+      UN_READARR_0_API_KEY:
+        valueFrom:
+          secretKeyRef:
+            name: readarr-secret
+            key: READARR__API_KEY
     service:
       main:
         enabled: false
@@ -59,7 +66,7 @@ spec:
         - 100
     podAnnotations:
       secret.reloader.stakater.com/reload: |-
-        lidarr-secret,radarr-secret,sonarr-secret
+        lidarr-secret,radarr-secret,sonarr-secret,readarr-secret
     persistence:
       complete:
         enabled: true
