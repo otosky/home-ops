@@ -1,0 +1,29 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: readarr
+  annotations:
+    kubernetes.io/ingress.class: traefik-external
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`readarr.toskbot.xyz`)
+      kind: Rule
+      services:
+        - name: readarr
+          port: http
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: readarr
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+spec:
+  rules:
+    - host: readarr.toskbot.xyz
+  tls:
+    - hosts:
+        - readarr.toskbot.xyz

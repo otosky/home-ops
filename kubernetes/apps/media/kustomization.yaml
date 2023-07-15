@@ -20,3 +20,4 @@ resources:
   - ./miniflux/ks.yaml
   - ./jellyseerr/ks.yaml
   - ./calibre-web/ks.yaml
+  - ./readarr/ks.yaml

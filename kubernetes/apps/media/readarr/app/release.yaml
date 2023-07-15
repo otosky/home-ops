@@ -1,0 +1,69 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.toskbot.xyz/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app readarr
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    controller:
+      type: statefulset
+      annotations:
+        reloader.stakater.com/auto: "true"
+    image:
+      repository: ghcr.io/onedr0p/readarr-nightly
+      tag: 0.2.3.1953@sha256:3b8f0e23a826c669d8d4ac9fd95bf1428fac1c0155de9d2808eaede4929501cf
+    env:
+      READARR__INSTANCE_NAME: Readarr
+      READARR__LOG_LEVEL: info
+      READARR__PORT: &port 8787
+      READARR__APPLICATION_URL: "https://readarr.toskbot.xyz"
+    envFrom:
+      - secretRef:
+          name: readarr-secret
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: "OnRootMismatch"
+      supplementalGroups:
+        - 100
+    volumeClaimTemplates:
+      - name: config
+        mountPath: /config
+        accessMode: ReadWriteOnce
+        size: 5Gi
+        storageClass: longhorn-ssd
+    persistence:
+      media:
+        enabled: true
+        type: nfs
+        server: "nas.toskbot.xyz"
+        path: /mnt/user/data
+        mountPath: /data
+    resources:
+      requests:
+        cpu: 10m
+        memory: 1200Mi
+      limits:
+        memory: 2000Mi
