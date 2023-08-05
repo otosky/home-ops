@@ -236,6 +236,9 @@ spec:
       # set postgresql.enabled to be false to disable deploy of a PostgreSQL database and use an
       # existing external PostgreSQL database
       enabled: false
+      postgresqlHost: "postgres-rw.database.svc.cluster.local"
+      postgresqlUsername: dagster
+      postgresqlDatabase: dagster
 
     # Whether to generate a secret resource for the PostgreSQL password. Useful if
     # global.postgresqlSecretName is managed outside of this helm chart.

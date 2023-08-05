@@ -8,3 +8,4 @@ resources:
   - ./flink-operator/ks.yaml
   - ./spark-operator/ks.yaml
   - ./strimzi-operator/ks.yaml
+  - ./dagster/ks.yaml
