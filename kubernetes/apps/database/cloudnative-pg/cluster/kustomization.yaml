@@ -4,4 +4,4 @@ namespace: database
 resources:
   - ./externalsecret.yaml
   - ./cluster.yaml
-  # - ./scheduledbackup.yaml
+  - ./scheduledbackup.yaml
