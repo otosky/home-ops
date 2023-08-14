@@ -19,5 +19,5 @@ spec:
     cert-manager:
       enabled: false
       installCRDs: false
-    metric-server:
+    metrics-server:
       enabled: false
