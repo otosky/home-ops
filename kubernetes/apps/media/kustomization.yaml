@@ -21,3 +21,4 @@ resources:
   - ./jellyseerr/ks.yaml
   - ./calibre-web/ks.yaml
   - ./readarr/ks.yaml
+  - ./shiori/ks.yaml
