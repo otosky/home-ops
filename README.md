@@ -13,7 +13,7 @@ Standing on the shoulder of giants:
 
 ## Overview
 
-### Hardware :computer:
+### :computer: Hardware
 
 If I didn't get it on Craigslist, it came from eBay.
 
@@ -24,7 +24,7 @@ Control-Plane:
 - 1x Lenovo Thinkcentre m920q Tiny
 
 Worker:
-- 2x Dell Optiplex 3070 SFF
+- 3x Dell Optiplex 3070 SFF
   - each has a Mellanox ConnectX-3 10G NIC
   - 9th gen Intel i5 are clutch for Quicksync igpu video transcoding
 
@@ -39,14 +39,13 @@ NAS:
 #### Networking
 
 Router/Access Point:
-- Mikrotik hAP AC3
+- 1x Lenovo Thinkcentre m720q Tiny running VyOS
+  - see my [VyOS config](https://github.com/otosky/vyos-config)
 
 Switch:
 - Brocade ICX6450
 
-Someday I'll get to replacing the Mikrotik with an opnsense/pfsense box...
-
-### Kubernetes :anchor:
+### :anchor: Kubernetes 
 
 #### Installation
 A private repo with my ansible playbooks provision [k3s](https://k3s.io/) atop baremetal Fedora 37-Server installs. 
@@ -77,5 +76,4 @@ within.
 
 No `kubectl apply` or `helm install|upgrade` for me. The flux controllers on the cluster
 do all the work. :muscle:
-
 
