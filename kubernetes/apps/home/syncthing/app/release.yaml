@@ -34,6 +34,7 @@ spec:
       listdisc:
         enabled: true
         type: LoadBalancer
+        loadBalancerIP: 10.66.1.106
         ports:
           discovery:
             enabled: true
