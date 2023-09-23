@@ -84,12 +84,14 @@ spec:
         type: pvc
         accessMode: ReadWriteOnce
         storageClass: longhorn-ssd
+        size: 5Gi
         mountPath: /opt/recipes/mediafiles
       staticfiles:
         enabled: true
         type: pvc
         accessMode: ReadWriteOnce
         storageClass: longhorn-ssd
+        size: 5Gi
         mountPath: /opt/recipes/staticfiles
       nginx-config:
         enabled: "true"
