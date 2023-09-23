@@ -105,6 +105,10 @@ spec:
         volumeSpec:
           configMap:
             name: tandoor-nginx
+      django-js-reverse:
+        enabled: true
+        type: emptyDir
+        mountPath: /opt/recipes/cookbook/static/django_js_reverse
     resources:
       requests:
         cpu: 100m
