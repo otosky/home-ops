@@ -121,9 +121,9 @@ spec:
             readOnly: true
             mountPath: /etc/nginx/nginx.conf
             subPath: nginx-config
-          - name: files
+          - name: mediafiles
             mountPath: /media
             subPath: mediafiles
-          - name: files
+          - name: staticfiles
             mountPath: /static
             subPath: staticfiles
