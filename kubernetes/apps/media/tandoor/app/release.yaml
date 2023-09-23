@@ -51,6 +51,7 @@ spec:
       fsGroupChangePolicy: "OnRootMismatch"
       supplementalGroups:
         - 100
+        - 101
     service:
       main:
         ports:
