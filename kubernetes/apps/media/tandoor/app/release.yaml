@@ -131,7 +131,5 @@ spec:
             subPath: nginx-config
           - name: mediafiles
             mountPath: /media
-            subPath: mediafiles
           - name: staticfiles
             mountPath: /static
-            subPath: staticfiles
