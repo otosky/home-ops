@@ -28,7 +28,7 @@ spec:
         "-f",
         "flac",
         "-c",
-        "/config/cookies.txt",
+        "/config/cookies.json",
         "-d",
         "/media/bandcamp",
         "olivertosky",
