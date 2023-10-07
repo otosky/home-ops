@@ -18,7 +18,7 @@ spec:
       reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/onedr0p/lidarr-develop
-      tag: 1.4.2.3576@sha256:36ef4f94062be2aebde213ab2d1477f37bbb9557d5f893061a6530bb96150186
+      tag: 1.4.3.3586@sha256:83fed21bebd7d11740deb3d556cc7b43f8efa0eecfce4b1e55bbaefa3f905887
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568
