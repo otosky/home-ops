@@ -42,8 +42,8 @@ spec:
             command:
               - ls
               - /data
-            initialDelaySeconds: 120
-            periodSeconds: 300
+          initialDelaySeconds: 120
+          periodSeconds: 300
     env:
       TZ: America/New_York
       KAIZOKU_PORT: 3000
