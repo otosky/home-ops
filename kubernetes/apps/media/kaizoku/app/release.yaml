@@ -33,19 +33,6 @@ spec:
     podSecurityContext:
       fsGroup: 1000
       fsGroupChangePolicy: "OnRootMismatch"
-    probes:
-      liveness:
-        enabled: true
-        custom: true
-        spec:
-          exec:
-            command:
-              - ls
-              - /data
-          initialDelaySeconds: 120
-          periodSeconds: 300
-          failureThreshold: 1
-          terminationGracePeriodSeconds: 120
     env:
       TZ: America/New_York
       KAIZOKU_PORT: 3000

@@ -34,19 +34,6 @@ spec:
     image:
       repository: ghcr.io/gotson/komga
       tag: 1.5.1
-    probes:
-      liveness:
-        enabled: true
-        custom: true
-        spec:
-          exec:
-            command:
-              - ls
-              - /data
-          initialDelaySeconds: 120
-          periodSeconds: 300
-          failureThreshold: 1
-          terminationGracePeriodSeconds: 120
     podSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000
