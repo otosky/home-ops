@@ -45,6 +45,7 @@ spec:
           initialDelaySeconds: 120
           periodSeconds: 300
           failureThreshold: 1
+          terminationGracePeriodSeconds: 120
     env:
       TZ: America/New_York
       KAIZOKU_PORT: 3000

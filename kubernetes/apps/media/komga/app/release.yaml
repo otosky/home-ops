@@ -46,6 +46,7 @@ spec:
           initialDelaySeconds: 120
           periodSeconds: 300
           failureThreshold: 1
+          terminationGracePeriodSeconds: 120
     podSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000
