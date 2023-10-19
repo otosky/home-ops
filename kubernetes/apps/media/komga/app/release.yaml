@@ -45,6 +45,7 @@ spec:
               - /data
           initialDelaySeconds: 120
           periodSeconds: 300
+          failureThreshold: 1
     podSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000

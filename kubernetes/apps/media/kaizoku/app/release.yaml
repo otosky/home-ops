@@ -44,6 +44,7 @@ spec:
               - /data
           initialDelaySeconds: 120
           periodSeconds: 300
+          failureThreshold: 1
     env:
       TZ: America/New_York
       KAIZOKU_PORT: 3000
