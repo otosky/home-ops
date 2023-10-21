@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
+  - ./nfs-pvc.yaml
   # Flux-Kustomizations
   - ./qbittorrent/ks.yaml
   - ./prowlarr/ks.yaml
