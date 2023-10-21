@@ -1,4 +1,12 @@
 ---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: media
+provisioner: nfs.csi.k8s.io
+parameters:
+  archiveOnDelete: "false"
+---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
