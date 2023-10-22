@@ -6,6 +6,11 @@ metadata:
 provisioner: nfs.csi.k8s.io
 parameters:
   archiveOnDelete: "false"
+mountOptions:
+  - nfsvers=4.2
+  - nconnect=8
+  - hard
+  - noatime
 ---
 apiVersion: v1
 kind: PersistentVolume
