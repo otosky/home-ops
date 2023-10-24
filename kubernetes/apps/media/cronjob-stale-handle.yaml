@@ -1,0 +1,52 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: nfs-checker-sa
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: read-only-pods-role
+rules:
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list", "delete"]
+  - apiGroups: [""]
+    resources: ["pods/exec"]
+    verbs: ["create"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: nfs-checker-role-binding
+subjects:
+  - kind: ServiceAccount
+    name: nfs-checker-sa
+    namespace: media
+roleRef:
+  kind: ClusterRole
+  name: read-only-pods-role
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: restart-pods-with-stale-nfs-mount
+spec:
+  schedule: "*/10 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: pod-command-container
+              image: ghcr.io/onedr0p/kubernetes-kubectl:1.28.3@sha256:6b68063623c22be538727998ccc1bf0433ea71c7a73f73e3f2250896a390901a
+              command:
+                [
+                  "/bin/bash",
+                  "-c",
+                  "kubectl exec kaizoku-0 -- ls /data || kubectl delete pods kaizoku-0 komga-0",
+                ]
+          restartPolicy: OnFailure
+          serviceAccountName: nfs-checker-sa
