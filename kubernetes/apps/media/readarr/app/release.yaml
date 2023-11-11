@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.2.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -21,39 +21,49 @@ spec:
     remediation:
       retries: 3
   values:
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/onedr0p/readarr-nightly
-      tag: 0.3.10.2287@sha256:05770d10d0d5fb85deba534aa80a862008764ae8cfcbd3390bad9539f72a9d0e
-    env:
-      READARR__INSTANCE_NAME: Readarr
-      READARR__LOG_LEVEL: info
-      READARR__PORT: &port 8787
-      READARR__APPLICATION_URL: "https://readarr.toskbot.xyz"
-    envFrom:
-      - secretRef:
-          name: readarr-secret
+    controllers:
+      main:
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/readarr-nightly
+              tag: 0.3.10.2287@sha256:05770d10d0d5fb85deba534aa80a862008764ae8cfcbd3390bad9539f72a9d0e
+            env:
+              READARR__INSTANCE_NAME: Readarr
+              READARR__LOG_LEVEL: info
+              READARR__PORT: &port 8787
+              READARR__APPLICATION_URL: "https://readarr.toskbot.xyz"
+            envFrom:
+              - secretRef:
+                  name: readarr-secret
+            resources:
+              requests:
+                cpu: 10m
+                memory: 1200Mi
+              limits:
+                memory: 2000Mi
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
+            supplementalGroups:
+              - 100
+        volumeClaimTemplates:
+          - name: config
+            mountPath: /config
+            accessMode: ReadWriteOnce
+            size: 5Gi
+            storageClass: longhorn-ssd
     service:
       main:
         ports:
           http:
             port: *port
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
-      supplementalGroups:
-        - 100
-    volumeClaimTemplates:
-      - name: config
-        mountPath: /config
-        accessMode: ReadWriteOnce
-        size: 5Gi
-        storageClass: longhorn-ssd
     persistence:
       media:
         enabled: true
@@ -61,9 +71,3 @@ spec:
         server: "nas.toskbot.xyz"
         path: /mnt/user/data
         mountPath: /data
-    resources:
-      requests:
-        cpu: 10m
-        memory: 1200Mi
-      limits:
-        memory: 2000Mi
