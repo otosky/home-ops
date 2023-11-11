@@ -53,12 +53,13 @@ spec:
             fsGroupChangePolicy: "OnRootMismatch"
             supplementalGroups:
               - 100
-        volumeClaimTemplates:
-          - name: config
-            mountPath: /config
-            accessMode: ReadWriteOnce
-            size: 5Gi
-            storageClass: longhorn-ssd
+        statefulset:
+          volumeClaimTemplates:
+            - name: config
+              mountPath: /config
+              accessMode: ReadWriteOnce
+              size: 5Gi
+              storageClass: longhorn-ssd
     service:
       main:
         ports:
