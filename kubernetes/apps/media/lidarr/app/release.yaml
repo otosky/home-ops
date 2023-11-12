@@ -39,7 +39,7 @@ spec:
               limits:
                 memory: 2000Mi
         pod:
-          podSecurityContext:
+          securityContext:
             runAsUser: 568
             runAsGroup: 568
             fsGroup: 568
