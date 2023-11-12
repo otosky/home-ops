@@ -7,53 +7,60 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.2.0
       interval: 30m
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
   values:
-    annotations:
-      reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/onedr0p/lidarr-develop
-      tag: 2.0.1.3769@sha256:66cd16bf734e3ad372fe48ca13edbd43f7785323d5bc13ef2283a28341428b97
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
-      supplementalGroups:
-        - 100
-    env:
-      LIDARR__INSTANCE_NAME: Lidarr
-      LIDARR__PORT: &port 8020
-      LIDARR__LOG_LEVEL: info
-      LIDARR__APPLICATION_URL: "https://lidarr.toskbot.xyz"
-    envFrom:
-      - secretRef:
-          name: lidarr-secret
+    controllers:
+      main:
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/lidarr-develop
+              tag: 2.0.1.3769@sha256:66cd16bf734e3ad372fe48ca13edbd43f7785323d5bc13ef2283a28341428b97
+            env:
+              LIDARR__INSTANCE_NAME: Lidarr
+              LIDARR__PORT: &port 8020
+              LIDARR__LOG_LEVEL: info
+              LIDARR__APPLICATION_URL: "https://lidarr.toskbot.xyz"
+            envFrom:
+              - secretRef:
+                  name: lidarr-secret
+            resources:
+              requests:
+                cpu: 15m
+                memory: 500Mi
+              limits:
+                memory: 2000Mi
+        pod:
+          podSecurityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
+            supplementalGroups:
+              - 100
+        statefulset:
+          volumeClaimTemplates:
+            - name: config
+              mountPath: /config
+              accessMode: ReadWriteOnce
+              size: 5Gi
+              storageClass: longhorn-ssd
     service:
       main:
         ports:
           http:
             port: *port
     persistence:
-      config:
-        enabled: true
-        type: pvc
-        storageClass: longhorn-ssd
-        size: 5Gi
       media:
         enabled: true
-        type: nfs
-        server: "nas.toskbot.xyz"
-        path: /mnt/user/data
+        type: pvc
+        existingClaim: media
         mountPath: /data
-    resources:
-      requests:
-        cpu: 15m
-        memory: 500Mi
-      limits:
-        memory: 2000Mi
