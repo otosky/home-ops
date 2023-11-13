@@ -91,16 +91,6 @@ spec:
             envFrom:
               - secretRef:
                   name: *secret
-        statefulset:
-          volumeClaimTemplates:
-            - name: mediafiles
-              accessMode: ReadWriteOnce
-              size: 5Gi
-              storageClass: longhorn-ssd
-            - name: staticfiles
-              accessMode: ReadWriteOnce
-              size: 5Gi
-              storageClass: longhorn-ssd
     service:
       main:
         ports:
@@ -112,7 +102,7 @@ spec:
     persistence:
       mediafiles:
         type: persistentVolumeClaim
-        existingClaim: mediafiles-tandoor-0
+        existingClaim: tandoor-mediafiles
         advancedMounts:
           main:
             main:
@@ -121,7 +111,7 @@ spec:
               - path: /media
       staticfiles:
         type: persistentVolumeClaim
-        existingClaim: staticfiles-tandoor-0
+        existingClaim: tandoor-staticfiles
         advancedMounts:
           main:
             main:
