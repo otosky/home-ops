@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.2.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -26,32 +26,84 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      annotations:
-        secret.reloader.stakater.com/reload: &secret tandoor-secret
-        configMap.reloader.stakater.com/reload: &configmap tandoor-configmap
-    initContainers:
-      init-db:
-        image: ghcr.io/onedr0p/postgres-init:14.9
-        envFrom:
-          - secretRef:
-              name: *secret
-    image:
-      repository: ghcr.io/tandoorrecipes/recipes
-      tag: "1.5.6"
-    envFrom:
-      - secretRef:
-          name: *secret
-      - configMapRef:
-          name: *configmap
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
-      supplementalGroups:
-        - 100
-        - 101
+    controllers:
+      main:
+        type: statefulset
+        annotations:
+          secret.reloader.stakater.com/reload: &secret tandoor-secret
+          configMap.reloader.stakater.com/reload: &configmap tandoor-configmap
+        containers:
+          main:
+            image:
+              repository: ghcr.io/tandoorrecipes/recipes
+              tag: "1.5.6"
+            envFrom:
+              - secretRef:
+                  name: *secret
+              - configMapRef:
+                  name: *configmap
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /accounts/login/
+                    port: gunicorn
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /accounts/login/
+                    port: gunicorn
+                  failureThreshold: 30
+                  periodSeconds: 10
+            resources:
+              requests:
+                cpu: 100m
+                memory: 256Mi
+              limits:
+                memory: 512Mi
+          nginx:
+            image:
+              repository: public.ecr.aws/nginx/nginx
+              tag: 1.25.3
+            volumeMounts:
+              - name: nginx-config
+                readOnly: true
+                mountPath: /etc/nginx/nginx.conf
+                subPath: nginx-config
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
+            supplementalGroups:
+              - 100
+              - 101
+        initContainers:
+          init-db:
+            image: ghcr.io/onedr0p/postgres-init:14.9
+            envFrom:
+              - secretRef:
+                  name: *secret
+        statefulset:
+          volumeClaimTemplates:
+            - name: mediafiles
+              accessMode: ReadWriteOnce
+              size: 5Gi
+              storageClass: longhorn-ssd
+            - name: staticfiles
+              accessMode: ReadWriteOnce
+              size: 5Gi
+              storageClass: longhorn-ssd
     service:
       main:
         ports:
@@ -60,76 +112,34 @@ spec:
             port: 80
           gunicorn:
             port: 8080
-    probes:
-      liveness: &probes
-        enabled: true
-        custom: true
-        spec:
-          httpGet:
-            path: /accounts/login/
-            port: gunicorn
-          initialDelaySeconds: 0
-          periodSeconds: 10
-          timeoutSeconds: 1
-          failureThreshold: 3
-      readiness: *probes
-      startup:
-        enabled: true
-        custom: true
-        spec:
-          httpGet:
-            path: /accounts/login/
-            port: gunicorn
-          failureThreshold: 30
-          periodSeconds: 10
     persistence:
       mediafiles:
-        enabled: true
-        type: pvc
-        accessMode: ReadWriteOnce
-        storageClass: longhorn-ssd
-        size: 5Gi
-        mountPath: /opt/recipes/mediafiles
+        type: persistentVolumeClaim
+        existingClaim: mediafiles-tandoor-0
+        advancedMounts:
+          main:
+            main:
+              - path: /opt/recipes/mediafiles
+            nginx:
+              - path: /media
       staticfiles:
-        enabled: true
-        type: pvc
-        accessMode: ReadWriteOnce
-        storageClass: longhorn-ssd
-        size: 5Gi
-        mountPath: /opt/recipes/staticfiles
+        type: persistentVolumeClaim
+        existingClaim: staticfiles-tandoor-0
+        advancedMounts:
+          main:
+            main:
+              - path: /opt/recipes/staticfiles
+            nginx:
+              - path: /static
       nginx-config:
-        enabled: "true"
-        mountPath: /etc/nginx/nginx.conf
-        subPath: nginx-config
-        type: "custom"
-        volumeSpec:
-          configMap:
-            name: tandoor-nginx
+        type: configMap
+        name: tandoor-nginx
+        advancedMounts:
+          main:
+            nginx:
+              - path: /etc/nginx/nginx.conf
+                subPath: nginx-config
+                readOnly: true
       django-js-reverse:
-        enabled: true
         type: emptyDir
         mountPath: /opt/recipes/cookbook/static/django_js_reverse
-    resources:
-      requests:
-        cpu: 100m
-        memory: 256Mi
-      limits:
-        memory: 512Mi
-    additionalContainers:
-      nginx:
-        name: nginx
-        image: public.ecr.aws/nginx/nginx:1.25.3
-        imagePullPolicy: IfNotPresent
-        ports:
-          - name: http
-            containerPort: 80
-            protocol: TCP
-        volumeMounts:
-          - name: nginx-config
-            readOnly: true
-            mountPath: /etc/nginx/nginx.conf
-            subPath: nginx-config
-          - name: mediafiles
-            mountPath: /media
-          - name: staticfiles
-            mountPath: /static
