@@ -18,43 +18,43 @@ spec:
         type: statefulset
         annotations:
           reloader.stakater.com/auto: "true"
-      containers:
-        main:
-          image:
-            repository: deluan/navidrome
-            tag: sha-4f9418b
-          env:
-            TZ: America/New_York
-            ND_DATAFOLDER: /config
-            ND_ENABLEGRAVATAR: "true"
-            ND_LOGLEVEL: info
-            ND_MUSICFOLDER: /music
-            ND_PORT: &port 80
-            ND_PROMETHEUS_ENABLED: "true"
-            ND_SCANSCHEDULE: "@every 1h"
-          envFrom:
-            - secretRef:
-                name: navidrome-secret
-          resources:
-            requests:
-              cpu: 10m
-              memory: 250Mi
-            limits:
-              memory: 750Mi
-      pod:
-        securityContext:
-          runAsUser: 568
-          runAsGroup: 568
-          fsGroup: 568
-          fsGroupChangePolicy: "OnRootMismatch"
-          supplementalGroups: [10000]
-      statefulset:
-        volumeClaimTemplates:
-          - name: config
-            mountPath: /config
-            accessMode: ReadWriteOnce
-            size: 5Gi
-            storageClass: longhorn-ssd
+        containers:
+          main:
+            image:
+              repository: deluan/navidrome
+              tag: sha-4f9418b
+            env:
+              TZ: America/New_York
+              ND_DATAFOLDER: /config
+              ND_ENABLEGRAVATAR: "true"
+              ND_LOGLEVEL: info
+              ND_MUSICFOLDER: /music
+              ND_PORT: &port 80
+              ND_PROMETHEUS_ENABLED: "true"
+              ND_SCANSCHEDULE: "@every 1h"
+            envFrom:
+              - secretRef:
+                  name: navidrome-secret
+            resources:
+              requests:
+                cpu: 10m
+                memory: 250Mi
+              limits:
+                memory: 750Mi
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
+            supplementalGroups: [10000]
+        statefulset:
+          volumeClaimTemplates:
+            - name: config
+              mountPath: /config
+              accessMode: ReadWriteOnce
+              size: 5Gi
+              storageClass: longhorn-ssd
     service:
       main:
         ports:
