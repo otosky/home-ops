@@ -86,10 +86,7 @@ spec:
       main:
         ports:
           http:
-            primary: true
             port: 80
-          gunicorn:
-            port: 8080
     persistence:
       mediafiles:
         type: persistentVolumeClaim
