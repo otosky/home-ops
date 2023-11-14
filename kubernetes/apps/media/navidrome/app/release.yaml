@@ -75,6 +75,6 @@ spec:
         enabled: true
         type: persistentVolumeClaim
         existingClaim: media
-        subPath: data/bandcamp
+        subPath: bandcamp
         mountPath: /music/bandcamp
         readOnly: true
