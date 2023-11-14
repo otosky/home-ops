@@ -79,4 +79,4 @@ spec:
         globalMounts:
           - path: /music/bandcamp
             readOnly: true
-            subPath: media/bandcamp
+            subPath: bandcamp
