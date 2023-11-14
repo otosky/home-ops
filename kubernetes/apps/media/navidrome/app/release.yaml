@@ -65,18 +65,20 @@ spec:
         enabled: true
     persistence:
       lidarr:
-        enabled: true
         type: persistentVolumeClaim
         existingClaim: media
-        globalMounts:
-          - path: /music/lidarr
-            readOnly: true
-            subPath: media/music
+        advancedMounts:
+          main:
+            main:
+              - path: /music/lidarr
+                readOnly: true
+                subPath: media/music/
       bandcamp:
-        enabled: true
         type: persistentVolumeClaim
         existingClaim: media
-        globalMounts:
-          - path: /music/bandcamp
-            readOnly: true
-            subPath: bandcamp
+        advancedMounts:
+          main:
+            main:
+              - path: /music/bandcamp
+                readOnly: true
+                subPath: bandcamp/
