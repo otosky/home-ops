@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.2.0
       interval: 5m
       sourceRef:
         kind: HelmRepository
@@ -27,36 +27,41 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/gotson/komga
-      tag: 1.7.2
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-      fsGroupChangePolicy: "OnRootMismatch"
-    env:
-      TZ: America/New_York
-      KOMGA_LIBRARIES_SCAN_CRON: "0 0 */2 * * ?"
+    controllers:
+      main:
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
+      containers:
+        main:
+          image:
+            repository: ghcr.io/gotson/komga
+            tag: 1.7.2
+          env:
+            TZ: America/New_York
+            KOMGA_LIBRARIES_SCAN_CRON: "0 */3 * * * ?"
+      pod:
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
+          fsGroup: 1000
+          fsGroupChangePolicy: "OnRootMismatch"
+      statefulset:
+        volumeClaimTemplates:
+          - name: config
+            mountPath: /config
+            accessMode: ReadWriteOnce
+            size: 20Gi
+            storageClass: longhorn-ssd
     service:
       main:
         ports:
           http:
             port: 25600
-    volumeClaimTemplates:
-      - name: config
-        mountPath: /config
-        accessMode: ReadWriteOnce
-        size: 20Gi
-        storageClass: longhorn-ssd
     persistence:
       data:
-        enabled: true
-        type: pvc
+        type: persistentVolumeClaim
         existingClaim: media
-        subPath: media/manga
-        mountPath: /data
+        globalMounts:
+          - path: /data
+            subPath: media/manga
