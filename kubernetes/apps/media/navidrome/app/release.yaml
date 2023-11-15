@@ -67,12 +67,10 @@ spec:
       nas:
         type: persistentVolumeClaim
         existingClaim: media
-        advancedMounts:
-          main:
-            main:
-              - path: /music/lidarr
-                readOnly: true
-                subPath: media/music/
-              - path: /music/bandcamp
-                readOnly: true
-                subPath: bandcamp/
+        globalMounts:
+          - path: /music/lidarr
+            readOnly: true
+            subPath: media/music/
+          - path: /music/bandcamp
+            readOnly: true
+            subPath: bandcamp/
