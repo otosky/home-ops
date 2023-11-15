@@ -64,7 +64,7 @@ spec:
       main:
         enabled: true
     persistence:
-      lidarr:
+      nas:
         type: persistentVolumeClaim
         existingClaim: media
         advancedMounts:
@@ -73,12 +73,6 @@ spec:
               - path: /music/lidarr
                 readOnly: true
                 subPath: media/music/
-      bandcamp:
-        type: persistentVolumeClaim
-        existingClaim: media
-        advancedMounts:
-          main:
-            main:
               - path: /music/bandcamp
                 readOnly: true
                 subPath: bandcamp/
