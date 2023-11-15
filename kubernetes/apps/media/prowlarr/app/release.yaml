@@ -7,47 +7,55 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.2.0
       interval: 30m
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
   values:
-    annotations:
-      reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/onedr0p/prowlarr-nightly
-      tag: 1.10.3.4070@sha256:aac28aa15995696a46de0c75814b07a051a339474abeb80490cf8a39887c9afd
-    podAnnotations:
-      setGateway: "true"
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
-    env:
-      PROWLARR__INSTANCE_NAME: Prowlarr
-      PROWLARR__PORT: &port 9696
-      PROWLARR__LOG_LEVEL: info
-      PROWLARR__ANALYTICS_ENABLED: "False"
-    envFrom:
-      - secretRef:
-          name: prowlarr-secret
-    hostname: prowlarr
+    controllers:
+      main:
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/prowlarr-nightly
+              tag: 1.10.3.4070@sha256:aac28aa15995696a46de0c75814b07a051a339474abeb80490cf8a39887c9afd
+            env:
+              PROWLARR__INSTANCE_NAME: Prowlarr
+              PROWLARR__PORT: &port 9696
+              PROWLARR__LOG_LEVEL: info
+              PROWLARR__ANALYTICS_ENABLED: "False"
+            envFrom:
+              - secretRef:
+                  name: prowlarr-secret
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100Mi
+              limits:
+                memory: 500Mi
+        pod:
+          annotations:
+            setGateway: "true"
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
+          hostname: prowlarr
+        statefulset:
+          volumeClaimTemplates:
+            - name: config
+              mountPath: /config
+              accessMode: ReadWriteOnce
+              size: 1Gi
+              storageClass: longhorn-ssd
     service:
       main:
         ports:
           http:
             port: *port
-    persistence:
-      config:
-        enabled: true
-        type: pvc
-        storageClass: longhorn-ssd
-    resources:
-      requests:
-        cpu: 10m
-        memory: 100Mi
-      limits:
-        memory: 500Mi
