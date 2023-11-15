@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.2.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -25,20 +25,23 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      replicas: 2
-      strategy: RollingUpdate
-    image:
-      repository: ghcr.io/onedr0p/kubernetes-schemas
-      tag: latest@sha256:54cd7753fc0c633cde8e932976bf0999f5f91569bdcfb1402f7e9ef9241316a5
+    controllers:
+      main:
+        replicas: 2
+        strategy: RollingUpdate
+      containers:
+        main:
+          image:
+            repository: ghcr.io/onedr0p/kubernetes-schemas
+            tag: latest@sha256:54cd7753fc0c633cde8e932976bf0999f5f91569bdcfb1402f7e9ef9241316a5
+          resources:
+            requests:
+              cpu: 10m
+              memory: 50Mi
+            limits:
+              memory: 100Mi
     service:
       main:
         ports:
           http:
             port: 8080
-    resources:
-      requests:
-        cpu: 10m
-        memory: 50Mi
-      limits:
-        memory: 100Mi
