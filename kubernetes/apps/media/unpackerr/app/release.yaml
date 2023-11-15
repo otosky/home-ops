@@ -7,76 +7,82 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.2.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
   values:
-    image:
-      repository: ghcr.io/onedr0p/unpackerr
-      tag: 0.12.0@sha256:8bbf35be449b89041f07fc069812f79b4eadf56e1c7c7720935fe166016376ef
-    env:
-      TZ: America/New_York
-      UN_START_DELAY: 30s
-      UN_SONARR_0_URL: http://sonarr.media.svc.cluster.local:8989
-      UN_SONARR_0_PATHS_0: /complete
-      UN_SONARR_0_API_KEY:
-        valueFrom:
-          secretKeyRef:
-            name: sonarr-secret
-            key: SONARR__API_KEY
-      UN_RADARR_0_URL: http://radarr.media.svc.cluster.local:7878
-      UN_RADARR_0_PATHS_0: /complete
-      UN_RADARR_0_API_KEY:
-        valueFrom:
-          secretKeyRef:
-            name: radarr-secret
-            key: RADARR__API_KEY
-      UN_LIDARR_0_URL: http://lidarr.media.svc.cluster.local:8020
-      UN_LIDARR_0_PATHS_0: /complete
-      UN_LIDARR_0_API_KEY:
-        valueFrom:
-          secretKeyRef:
-            name: lidarr-secret
-            key: LIDARR__API_KEY
-      UN_READARR_0_URL: http://readarr.media.svc.cluster.local:8787
-      UN_READARR_0_PATHS_0: /complete
-      UN_READARR_0_API_KEY:
-        valueFrom:
-          secretKeyRef:
-            name: readarr-secret
-            key: READARR__API_KEY
+    controllers:
+      main:
+        type: deployment
+        annotations:
+          secret.reloader.stakater.com/reload: |-
+            lidarr-secret,radarr-secret,sonarr-secret,readarr-secret
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/unpackerr
+              tag: 0.12.0@sha256:8bbf35be449b89041f07fc069812f79b4eadf56e1c7c7720935fe166016376ef
+            resources:
+              requests:
+                cpu: 10m
+                memory: 250Mi
+              limits:
+                memory: 3000Mi
+            env:
+              TZ: America/New_York
+              UN_START_DELAY: 30s
+              UN_SONARR_0_URL: http://sonarr.media.svc.cluster.local:8989
+              UN_SONARR_0_PATHS_0: /complete
+              UN_SONARR_0_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: sonarr-secret
+                    key: SONARR__API_KEY
+              UN_RADARR_0_URL: http://radarr.media.svc.cluster.local:7878
+              UN_RADARR_0_PATHS_0: /complete
+              UN_RADARR_0_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: radarr-secret
+                    key: RADARR__API_KEY
+              UN_LIDARR_0_URL: http://lidarr.media.svc.cluster.local:8020
+              UN_LIDARR_0_PATHS_0: /complete
+              UN_LIDARR_0_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: lidarr-secret
+                    key: LIDARR__API_KEY
+              UN_READARR_0_URL: http://readarr.media.svc.cluster.local:8787
+              UN_READARR_0_PATHS_0: /complete
+              UN_READARR_0_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: readarr-secret
+                    key: READARR__API_KEY
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
+            supplementalGroups:
+              - 100
     service:
       main:
         enabled: false
-    probes:
-      liveness:
-        enabled: false
-      readiness:
-        enabled: false
-      startup:
-        enabled: false
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
-      supplementalGroups:
-        - 100
-    podAnnotations:
-      secret.reloader.stakater.com/reload: |-
-        lidarr-secret,radarr-secret,sonarr-secret,readarr-secret
     persistence:
-      complete:
-        enabled: true
-        type: nfs
-        server: "nas.toskbot.xyz"
-        path: /mnt/user/data/downloads/complete
-        mountPath: /complete
-    resources:
-      requests:
-        cpu: 10m
-        memory: 250Mi
-      limits:
-        memory: 3000Mi
+      data:
+        type: persistentVolumeClaim
+        existingClaim: media
+        globalMounts:
+          - path: /complete
+            subPath: downloads/complete
