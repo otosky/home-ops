@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.2.0
       interval: 5m
       sourceRef:
         kind: HelmRepository
@@ -16,46 +16,51 @@ spec:
         namespace: flux-system
   interval: 5m
   values:
-    initContainers:
-      01-init-db:
-        image: ghcr.io/onedr0p/postgres-initdb:14.8
-        imagePullPolicy: IfNotPresent
-        envFrom:
-          - secretRef:
-              name: kaizoku-secret
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/oae/kaizoku
-      tag: v1.6.1
-    podSecurityContext:
-      fsGroup: 1000
-      fsGroupChangePolicy: "OnRootMismatch"
-    env:
-      TZ: America/New_York
-      KAIZOKU_PORT: 3000
-      REDIS_HOST: redis-kaizoku-master.media.svc.cluster.local
-      REDIS_PORT: 6379
-    envFrom:
-      - secretRef:
-          name: kaizoku-secret
+    controllers:
+      main:
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          01-init-db:
+            image: ghcr.io/onedr0p/postgres-initdb:14.8
+            imagePullPolicy: IfNotPresent
+            envFrom:
+              - secretRef:
+                  name: kaizoku-secret
+        containers:
+          main:
+            image:
+              repository: ghcr.io/oae/kaizoku
+              tag: v1.6.1
+            env:
+              TZ: America/New_York
+              KAIZOKU_PORT: 3000
+              REDIS_HOST: redis-kaizoku-master.media.svc.cluster.local
+              REDIS_PORT: 6379
+            envFrom:
+              - secretRef:
+                  name: kaizoku-secret
+        pod:
+          securityContext:
+            fsGroup: 1000
+            fsGroupChangePolicy: "OnRootMismatch"
+        statefulset:
+          volumeClaimTemplates:
+            - name: config
+              mountPath: /config
+              accessMode: ReadWriteOnce
+              size: 10Gi
+              storageClass: longhorn-ssd
     service:
       main:
         ports:
           http:
             port: 3000
-    volumeClaimTemplates:
-      - name: config
-        mountPath: /config
-        accessMode: ReadWriteOnce
-        size: 10Gi
-        storageClass: longhorn-ssd
     persistence:
       data:
-        enabled: true
-        type: pvc
+        type: persistentVolumeClaim
         existingClaim: media
-        subPath: media/manga
-        mountPath: /data
+        globalMounts:
+          - path: /data
+            subPath: media/manga
