@@ -32,27 +32,27 @@ spec:
         type: statefulset
         annotations:
           reloader.stakater.com/auto: "true"
-      containers:
-        main:
-          image:
-            repository: ghcr.io/gotson/komga
-            tag: 1.7.2
-          env:
-            TZ: America/New_York
-            KOMGA_LIBRARIES_SCAN_CRON: "0 */3 * * * ?"
-      pod:
-        securityContext:
-          runAsUser: 1000
-          runAsGroup: 1000
-          fsGroup: 1000
-          fsGroupChangePolicy: "OnRootMismatch"
-      statefulset:
-        volumeClaimTemplates:
-          - name: config
-            mountPath: /config
-            accessMode: ReadWriteOnce
-            size: 20Gi
-            storageClass: longhorn-ssd
+        containers:
+          main:
+            image:
+              repository: ghcr.io/gotson/komga
+              tag: 1.7.2
+            env:
+              TZ: America/New_York
+              KOMGA_LIBRARIES_SCAN_CRON: "0 */3 * * * ?"
+        pod:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: "OnRootMismatch"
+        statefulset:
+          volumeClaimTemplates:
+            - name: config
+              mountPath: /config
+              accessMode: ReadWriteOnce
+              size: 20Gi
+              storageClass: longhorn-ssd
     service:
       main:
         ports:
