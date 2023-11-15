@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.2.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -21,36 +21,41 @@ spec:
     remediation:
       retries: 3
   values:
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/go-shiori/shiori
-      tag: v1.5.5
-    env:
-      SHIORI_DIR: "/config"
+    controllers:
+      main:
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/go-shiori/shiori
+              tag: v1.5.5
+            env:
+              SHIORI_DIR: "/config"
+            resources:
+              requests:
+                cpu: 10m
+                memory: 1200Mi
+              limits:
+                memory: 2000Mi
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
+            supplementalGroups:
+              - 100
+        statefulset:
+          volumeClaimTemplates:
+            - name: config
+              mountPath: /config
+              accessMode: ReadWriteOnce
+              size: 10Gi
+              storageClass: longhorn-ssd
     service:
       main:
         ports:
           http:
             port: 8080
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
-      supplementalGroups:
-        - 100
-    volumeClaimTemplates:
-      - name: config
-        mountPath: /config
-        accessMode: ReadWriteOnce
-        size: 10Gi
-        storageClass: longhorn-ssd
-    resources:
-      requests:
-        cpu: 10m
-        memory: 1200Mi
-      limits:
-        memory: 2000Mi
