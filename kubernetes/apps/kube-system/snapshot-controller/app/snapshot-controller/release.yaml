@@ -29,3 +29,5 @@ spec:
   values:
     serviceMonitor:
       create: true
+    webhook:
+      enabled: false
