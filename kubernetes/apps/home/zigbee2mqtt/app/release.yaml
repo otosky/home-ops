@@ -26,7 +26,7 @@ spec:
               tag: 1.34.0
             env:
               TZ: America/New_York
-              ZIGBEE2MQTT_DATA: /data
+              ZIGBEE2MQTT_DATA: /config
               ZIGBEE2MQTT_CONFIG_ADVANCED_HOMEASSISTANT_DISCOVERY_TOPIC: homeassistant
               ZIGBEE2MQTT_CONFIG_ADVANCED_HOMEASSISTANT_LEGACY_ENTITY_ATTRIBUTES: "true"
               ZIGBEE2MQTT_CONFIG_ADVANCED_HOMEASSISTANT_LEGACY_TRIGGERS: "true"
@@ -105,8 +105,6 @@ spec:
               accessMode: ReadWriteOnce
               size: 1Gi
               storageClass: longhorn-ssd
-              globalMounts:
-                - path: /data
     service:
       main:
         ports:
