@@ -32,9 +32,9 @@ spec:
           reloader.stakater.com/auto: "true"
         initContainers:
           init-db:
-            image: 
-            repository: ghcr.io/onedr0p/postgres-initdb
-            tag: 14.8
+            image:
+              repository: ghcr.io/onedr0p/postgres-initdb
+              tag: 14.8
             envFrom:
               - secretRef:
                   name: home-assistant-secret
