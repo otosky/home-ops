@@ -8,59 +8,104 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.2.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
   values:
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/koenkk/zigbee2mqtt
-      tag: 1.34.0
-    env:
-      TZ: America/New_York
-      ZIGBEE2MQTT_DATA: /data
-      ZIGBEE2MQTT_CONFIG_ADVANCED_HOMEASSISTANT_DISCOVERY_TOPIC: homeassistant
-      ZIGBEE2MQTT_CONFIG_ADVANCED_HOMEASSISTANT_LEGACY_ENTITY_ATTRIBUTES: "true"
-      ZIGBEE2MQTT_CONFIG_ADVANCED_HOMEASSISTANT_LEGACY_TRIGGERS: "true"
-      ZIGBEE2MQTT_CONFIG_ADVANCED_HOMEASSISTANT_STATUS_TOPIC: homeassistant/status
-      ZIGBEE2MQTT_CONFIG_ADVANCED_LAST_SEEN: ISO_8601
-      ZIGBEE2MQTT_CONFIG_ADVANCED_LEGACY_API: "false"
-      ZIGBEE2MQTT_CONFIG_ADVANCED_LEGACY_AVAILABILITY_PAYLOAD: "false"
-      ZIGBEE2MQTT_CONFIG_AVAILABILITY_ACTIVE_TIMEOUT: 60
-      ZIGBEE2MQTT_CONFIG_AVAILABILITY_PASSIVE_TIMEOUT: 2000
-      ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_LEGACY: "false"
-      ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_RETAIN: "true"
-      ZIGBEE2MQTT_CONFIG_EXPERIMENTAL_NEW_API: "true"
-      ZIGBEE2MQTT_CONFIG_FRONTEND_URL: https://z2m.toskbot.xyz
-      ZIGBEE2MQTT_CONFIG_HOMEASSISTANT: "true"
-      ZIGBEE2MQTT_CONFIG_PERMIT_JOIN: "false"
-      ZIGBEE2MQTT_CONFIG_MQTT_INCLUDE_DEVICE_INFORMATION: "true"
-      ZIGBEE2MQTT_CONFIG_MQTT_KEEPALIVE: 60
-      ZIGBEE2MQTT_CONFIG_MQTT_REJECT_UNAUTHORIZED: "true"
-      ZIGBEE2MQTT_CONFIG_MQTT_SERVER: mqtt://emqx.home.svc.cluster.local
-      ZIGBEE2MQTT_CONFIG_MQTT_VERSION: 5
-      ZIGBEE2MQTT_CONFIG_MQTT_USER:
-        valueFrom:
-          secretKeyRef:
-            name: emqx-secret
-            key: AUTH__USER__1__USERNAME
-      ZIGBEE2MQTT_CONFIG_MQTT_PASSWORD:
-        valueFrom:
-          secretKeyRef:
-            name: emqx-secret
-            key: AUTH__USER__1__PASSWORD
-      ZIGBEE2MQTT_CONFIG_SERIAL_PORT: tcp://10.66.3.5:6638
-      ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_OUTPUT: '["console"]'
-      ZIGBEE2MQTT_CONFIG_ADVANCED_PAN_ID:
-        valueFrom:
-          secretKeyRef:
-            name: zigbee2mqtt-secret
-            key: ZIGBEE2MQTT_CONFIG_ADVANCED_PAN_ID
+    controllers:
+      main:
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/koenkk/zigbee2mqtt
+              tag: 1.34.0
+            env:
+              TZ: America/New_York
+              ZIGBEE2MQTT_DATA: /data
+              ZIGBEE2MQTT_CONFIG_ADVANCED_HOMEASSISTANT_DISCOVERY_TOPIC: homeassistant
+              ZIGBEE2MQTT_CONFIG_ADVANCED_HOMEASSISTANT_LEGACY_ENTITY_ATTRIBUTES: "true"
+              ZIGBEE2MQTT_CONFIG_ADVANCED_HOMEASSISTANT_LEGACY_TRIGGERS: "true"
+              ZIGBEE2MQTT_CONFIG_ADVANCED_HOMEASSISTANT_STATUS_TOPIC: homeassistant/status
+              ZIGBEE2MQTT_CONFIG_ADVANCED_LAST_SEEN: ISO_8601
+              ZIGBEE2MQTT_CONFIG_ADVANCED_LEGACY_API: "false"
+              ZIGBEE2MQTT_CONFIG_ADVANCED_LEGACY_AVAILABILITY_PAYLOAD: "false"
+              ZIGBEE2MQTT_CONFIG_AVAILABILITY_ACTIVE_TIMEOUT: 60
+              ZIGBEE2MQTT_CONFIG_AVAILABILITY_PASSIVE_TIMEOUT: 2000
+              ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_LEGACY: "false"
+              ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_RETAIN: "true"
+              ZIGBEE2MQTT_CONFIG_EXPERIMENTAL_NEW_API: "true"
+              ZIGBEE2MQTT_CONFIG_FRONTEND_URL: https://z2m.toskbot.xyz
+              ZIGBEE2MQTT_CONFIG_HOMEASSISTANT: "true"
+              ZIGBEE2MQTT_CONFIG_PERMIT_JOIN: "false"
+              ZIGBEE2MQTT_CONFIG_MQTT_INCLUDE_DEVICE_INFORMATION: "true"
+              ZIGBEE2MQTT_CONFIG_MQTT_KEEPALIVE: 60
+              ZIGBEE2MQTT_CONFIG_MQTT_REJECT_UNAUTHORIZED: "true"
+              ZIGBEE2MQTT_CONFIG_MQTT_SERVER: mqtt://emqx.home.svc.cluster.local
+              ZIGBEE2MQTT_CONFIG_MQTT_VERSION: 5
+              ZIGBEE2MQTT_CONFIG_MQTT_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: emqx-secret
+                    key: AUTH__USER__1__USERNAME
+              ZIGBEE2MQTT_CONFIG_MQTT_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: emqx-secret
+                    key: AUTH__USER__1__PASSWORD
+              ZIGBEE2MQTT_CONFIG_SERIAL_PORT: tcp://10.66.3.5:6638
+              ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_OUTPUT: '["console"]'
+              ZIGBEE2MQTT_CONFIG_ADVANCED_PAN_ID:
+                valueFrom:
+                  secretKeyRef:
+                    name: zigbee2mqtt-secret
+                    key: ZIGBEE2MQTT_CONFIG_ADVANCED_PAN_ID
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100Mi
+              limits:
+                memory: 500Mi
+          exporter:
+            image:
+              repository: ghcr.io/kpetremann/mqtt-exporter 
+              tag: 1.3.0
+            env:
+              LOG_LEVEL: "DEBUG"
+              LOG_MQTT_MESSAGE: "True"
+              MQTT_ADDRESS: "emqx.home.svc.cluster.local"
+              MQTT_TOPIC: "zigbee2mqtt/#"
+              MQTT_V5_PROTOCOL: "True"
+              PROMETHEUS_PORT: "80"
+              PROMETHEUS_PREFIX: "zigbee2mqtt_"
+              ZIGBEE2MQTT_AVAILABILITY: "True"
+              MQTT_USERNAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: emqx-secret
+                    key: AUTH__USER__1__USERNAME
+              MQTT_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: emqx-secret
+                    key: AUTH__USER__1__PASSWORD
+        pod:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: "OnRootMismatch"
+        statefulset:
+          volumeClaimTemplates:
+            - name: config
+              mountPath: /data
+              accessMode: ReadWriteOnce
+              size: 1Gi
+              storageClass: longhorn-ssd
     service:
       main:
         ports:
@@ -78,43 +123,3 @@ spec:
             path: /metrics
             interval: 1m
             scrapeTimeout: 10s
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-      fsGroupChangePolicy: "OnRootMismatch"
-    volumeClaimTemplates:
-      - name: config
-        mountPath: /data
-        accessMode: ReadWriteOnce
-        size: 1Gi
-        storageClass: longhorn-ssd
-    resources:
-      requests:
-        cpu: 10m
-        memory: 100Mi
-      limits:
-        memory: 500Mi
-    sidecars:
-      exporter:
-        image: ghcr.io/kpetremann/mqtt-exporter:1.3.0
-        imagePullPolicy: IfNotPresent
-        env:
-          - { name: LOG_LEVEL, value: DEBUG }
-          - { name: LOG_MQTT_MESSAGE, value: "True" }
-          - { name: MQTT_ADDRESS, value: emqx.home.svc.cluster.local }
-          - { name: MQTT_TOPIC, value: "zigbee2mqtt/#" }
-          - { name: MQTT_V5_PROTOCOL, value: "True" }
-          - { name: PROMETHEUS_PORT, value: "80" }
-          - { name: PROMETHEUS_PREFIX, value: zigbee2mqtt_ }
-          - { name: ZIGBEE2MQTT_AVAILABILITY, value: "True" }
-          - name: MQTT_USERNAME
-            valueFrom:
-              secretKeyRef:
-                name: emqx-secret
-                key: AUTH__USER__1__USERNAME
-          - name: MQTT_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: emqx-secret
-                key: AUTH__USER__1__PASSWORD
