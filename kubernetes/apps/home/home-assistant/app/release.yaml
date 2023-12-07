@@ -83,13 +83,3 @@ spec:
         ports:
           http:
             port: 8123
-    persistence:
-      configfile:
-        enabled: true
-        type: configMap
-        name: ha-config
-        items:
-          - key: configuration.yaml
-            path: configuration.yaml
-        globalMounts:
-          - path: /config/configuration.yaml
