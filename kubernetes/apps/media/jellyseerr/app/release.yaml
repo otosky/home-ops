@@ -8,39 +8,46 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.2.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
   values:
-    image:
-      repository: docker.io/fallenbagel/jellyseerr
-      tag: 1.7.0
-    env:
-      TZ: "America/New_York"
-      LOG_LEVEL: "info"
+    controllers:
+      main:
+        type: deployment
+        containers:
+          main:
+            image:
+              repository: docker.io/fallenbagel/jellyseerr
+              tag: 1.7.0
+            env:
+              TZ: "America/New_York"
+              LOG_LEVEL: "info"
+            resources:
+              requests:
+                cpu: 10m
+                memory: 50Mi
+              limits:
+                memory: 300Mi
+                cpu: 200m
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
     service:
       main:
         ports:
           http:
             port: 5055
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
     persistence:
       config:
         enabled: true
-        type: pvc
+        type: persistentVolumeClaim
         storageClass: longhorn-ssd
         size: 10Gi
-        mountPath: /app/config
-    resources:
-      requests:
-        cpu: 10m
-        memory: 50Mi
-      limits:
-        memory: 300Mi
-        cpu: 200m
+        globalMounts:
+          - path: /app/config
