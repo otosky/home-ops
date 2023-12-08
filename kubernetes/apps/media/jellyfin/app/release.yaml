@@ -84,7 +84,7 @@ spec:
         existingClaim: media
         globalMounts:
           - path: /storage/media
-            subpath: media/
+            subPath: media/
       transcode:
         enabled: true
         type: emptyDir
