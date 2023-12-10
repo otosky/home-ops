@@ -48,10 +48,15 @@ spec:
             port: *port
     persistence:
       config:
+        enabled: true
         type: persistentVolumeClaim
         storageClass: longhorn-ssd
         accessMode: ReadWriteOnce
         size: 5Gi
+        advancedMounts:
+          main:
+            main:
+              - path: /config
       media:
         enabled: true
         type: persistentVolumeClaim
