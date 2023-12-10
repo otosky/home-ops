@@ -25,6 +25,7 @@ spec:
       nameOverride: *app
     controllers:
       main:
+        type: statefulset
         containers:
           main:
             image:
@@ -33,6 +34,14 @@ spec:
             env:
               PUID: "1000"
               PGID: "1000"
+        statefulset:
+          volumeClaimTemplates:
+            - name: config
+              accessMode: ReadWriteOnce
+              size: 5Gi
+              storageClass: longhorn-ssd
+              globalMounts:
+                - path: /var/syncthing
     service:
       main:
         ports:
@@ -52,10 +61,3 @@ spec:
             enabled: true
             port: 22000
             protocol: TCP
-    persistence:
-      config:
-        enabled: true
-        type: persistentVolumeClaim
-        storageClass: longhorn-ssd
-        globalMounts:
-          - path: /var/syncthing
