@@ -23,7 +23,7 @@ spec:
           main:
             image:
               repository: ghcr.io/onedr0p/lidarr-develop
-              tag: 2.0.4.3802@sha256:bdd7420e1c9056048b3531baccfd18ff14709cbba9773ced65fed6a3740f4883
+              tag: 2.0.6.3818@sha256:58128c7750b54a705a7709b8ccc811a0560a2a33a71db7576a352f039782616d
             env:
               LIDARR__INSTANCE_NAME: Lidarr
               LIDARR__PORT: &port 8020
