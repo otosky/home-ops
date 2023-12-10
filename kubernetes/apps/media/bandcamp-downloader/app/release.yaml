@@ -7,32 +7,35 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.2.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
   values:
-    controller:
-      type: cronjob
-      cronjob:
-        concurrencyPolicy: Forbid
-        schedule: "0 12 * * *"
-    restartPolicy: OnFailure
-    image:
-      repository: otosky/bc-dl
-      tag: test
-    command: ["java", "-jar", "/app/bandcamp-collection-downloader.jar"]
-    args:
-      [
-        "-f",
-        "flac",
-        "-c",
-        "/config/cookies.json",
-        "-d",
-        "/media/bandcamp",
-        "olivertosky",
-      ]
+    controllers:
+      main:
+        type: cronjob
+        cronjob:
+          concurrencyPolicy: Forbid
+          schedule: "0 12 * * *"
+          restartPolicy: OnFailure
+        containers:
+          main:
+            image:
+              repository: otosky/bc-dl
+              tag: test
+            command: ["java", "-jar", "/app/bandcamp-collection-downloader.jar"]
+            args:
+              [
+                "-f",
+                "flac",
+                "-c",
+                "/config/cookies.json",
+                "-d",
+                "/media/bandcamp",
+                "olivertosky",
+              ]
     service:
       main:
         enabled: false
@@ -43,7 +46,8 @@ spec:
         name: bandcamp-secret
       media:
         enabled: true
-        type: nfs
-        server: "nas.toskbot.xyz"
-        path: /mnt/user/data/bandcamp
-        mountPath: /media/bandcamp
+        type: persistentVolumeClaim
+        existingClaim: media
+        globalMounts:
+          - path: /media/bandcamp
+            subPath: bandcamp/
