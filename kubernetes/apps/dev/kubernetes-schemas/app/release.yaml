@@ -34,7 +34,7 @@ spec:
           main:
             image:
               repository: ghcr.io/onedr0p/kubernetes-schemas
-              tag: latest@sha256:d4c47cb44136c56553254722420959ba818455aedb2844ab532deadce8a9e497
+              tag: latest@sha256:68608131012624d668220768d567199739035133cb98ff4d3068ad3300635cae
             resources:
               requests:
                 cpu: 10m
