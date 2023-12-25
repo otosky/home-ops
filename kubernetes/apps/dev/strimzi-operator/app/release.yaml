@@ -8,6 +8,8 @@ spec:
   chart:
     spec:
       chart: strimzi-kafka-operator
+      version: 0.38.0
+      interval: 30m
       sourceRef:
         kind: HelmRepository
         name: strimzi
