@@ -22,7 +22,7 @@ spec:
       resizerReplicaCount: 1
       snapshotterReplicaCount: 1
     defaultSettings:
-      backupTarget: s3://55hope-longhorn-storage@us-east-2/
+      backupTarget: s3://toskbot-xyz-longhorn@us-east-005/
       backupTargetCredentialSecret: longhorn-secret
       backupstorePollInterval: 0
-      defaultLonghornStaticStorageClass: longhorn
+      defaultLonghornStaticStorageClass: longhorn-ssd
