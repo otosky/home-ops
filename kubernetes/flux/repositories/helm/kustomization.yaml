@@ -43,3 +43,4 @@ resources:
   - piraeus.yaml
   - metrics-server.yaml
   - dagster.yaml
+  - intel.yaml
