@@ -24,7 +24,7 @@ spec:
           main:
             image:
               repository: otosky/bc-dl
-              tag: test
+              tag: test2
             command: ["java", "-jar", "/app/bandcamp-collection-downloader.jar"]
             args:
               [
