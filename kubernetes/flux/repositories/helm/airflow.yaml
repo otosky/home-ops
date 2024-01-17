@@ -1,0 +1,10 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: airflow
+  namespace: flux-system
+spec:
+  interval: 30m
+  url: https://airflow.apache.org
+  timeout: 3m

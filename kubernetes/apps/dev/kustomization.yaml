@@ -9,3 +9,4 @@ resources:
   - ./spark-operator/ks.yaml
   - ./strimzi-operator/ks.yaml
   - ./dagster/ks.yaml
+  - ./airflow/ks.yaml

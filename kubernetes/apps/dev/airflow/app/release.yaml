@@ -1,0 +1,38 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: airflow
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: airflow
+      version: 1.11.0
+      sourceRef:
+        kind: HelmRepository
+        name: airflow
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    useStandardNaming: true
+    createUserJob:
+      useHelmHooks: false
+      applyCustomEnv: false
+    migrateDatabaseJob:
+      useHelmHooks: false
+      applyCustomEnv: false
+    executor: KubernetesExecutor
+    postgresql:
+      enabled: false
+    data:
+      metadataSecretName: airflow-postgresql-secret
