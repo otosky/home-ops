@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: airflow-initdb
+spec:
+  template:
+    metadata:
+      name: airflow-initdb
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: initdb
+        image: ghcr.io/onedr0p/postgres-initdb:14.8
+        imagePullPolicy: IfNotPresent
+        envFrom:
+          - secretRef:
+              name: airflow-postgresql-secret
