@@ -44,3 +44,4 @@ resources:
   - metrics-server.yaml
   - dagster.yaml
   - intel.yaml
+  - airflow.yaml
