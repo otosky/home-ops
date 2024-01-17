@@ -45,3 +45,4 @@ resources:
   - dagster.yaml
   - intel.yaml
   - airflow.yaml
+  - gitea.yaml
