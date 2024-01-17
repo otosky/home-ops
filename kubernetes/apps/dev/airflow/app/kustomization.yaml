@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: dev
 resources:
   - ./externalsecret.yaml
+  - ./initdb-job.yaml
   - ./release.yaml
 labels:
   - pairs:
