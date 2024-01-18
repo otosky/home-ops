@@ -25,14 +25,13 @@ spec:
       ssh:
         type: LoadBalancer
         port: 2222
-        annotations:
-          metallb.universe.tf/loadBalancerIPs: "${CLUSTER_EXTERNAL_SUBNET_PREFIX}.${CLUSTER_LB_GITEA}"
+        # annotations:
+        #   metallb.universe.tf/loadBalancerIPs: "${CLUSTER_EXTERNAL_SUBNET_PREFIX}.${CLUSTER_LB_GITEA}"
     ingress:
       enabled: false
     persistence:
       enabled: true
-      create: false
-      claimName: nfs-gitea
+      create: true
 
     redis-cluster:
       enabled: false
