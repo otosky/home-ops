@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: gitea-initdb
+spec:
+  template:
+    metadata:
+      name: gitea-initdb
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: initdb
+        image: ghcr.io/onedr0p/postgres-initdb:14.8
+        imagePullPolicy: IfNotPresent
+        envFrom:
+          - secretRef:
+              name: gitea-secret
+

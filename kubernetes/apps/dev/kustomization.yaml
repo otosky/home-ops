@@ -10,3 +10,4 @@ resources:
   - ./strimzi-operator/ks.yaml
   - ./dagster/ks.yaml
   - ./airflow/ks.yaml
+  - ./gitea/ks.yaml
