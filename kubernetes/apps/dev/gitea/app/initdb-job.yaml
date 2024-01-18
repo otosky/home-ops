@@ -14,5 +14,5 @@ spec:
         imagePullPolicy: IfNotPresent
         envFrom:
           - secretRef:
-              name: gitea-secret
+              name: gitea-postgres-secret
 
