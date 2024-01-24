@@ -23,8 +23,8 @@ spec:
         containers:
           main:
             image:
-              repository: otosky/bc-dl
-              tag: test2
+              repository: ghcr.io/otosky/bandcamp-collection-downloader
+              tag: 0.0.1@sha256:40ff4d510381a8409e1e689d42533af81fe278674d0416a021babd9311c3a1c8
             command: ["java", "-jar", "/app/bandcamp-collection-downloader.jar"]
             args:
               [
