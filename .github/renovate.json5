@@ -38,7 +38,7 @@
   },
   "regexManagers": [
     {
-      "description": "Process various other dependencies",
+      "description": ["Process various other dependencies"],
       "fileMatch": [
         "ansible/.+\\.ya?ml$",
         "kubernetes/.+\\.ya?ml$"
