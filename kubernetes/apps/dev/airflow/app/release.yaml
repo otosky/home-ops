@@ -42,4 +42,4 @@ spec:
         repo: "https://github.com/otosky/airflow_dags.git"
         branch: main
         subPath: "airflow_dags/dags"
-        period: "1m0s"
+        wait: 60
