@@ -68,7 +68,7 @@ spec:
     persistence:
       media:
         enabled: true
-        type: nfs
-        server: "nas.toskbot.xyz"
-        path: /mnt/user/data
-        mountPath: /data
+        type: persistentVolumeClaim
+        existingClaim: media
+        globalMounts:
+          - path: /data
