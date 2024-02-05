@@ -36,3 +36,10 @@ spec:
       enabled: false
     data:
       metadataSecretName: airflow-postgresql-secret
+    dags:
+      gitSync:
+        enabled: true
+        repo:
+        branch: main
+        subPath: "airflow_dags/dags"
+        period: "1m0s"
