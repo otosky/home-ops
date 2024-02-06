@@ -7,3 +7,4 @@ resources:
   # Flux-Kustomizations
   - ./cloudnative-pg/ks.yaml
   - ./redis/ks.yaml
+  - ./elastic-stack/ks.yaml
