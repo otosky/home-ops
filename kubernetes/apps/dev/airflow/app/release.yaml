@@ -24,6 +24,11 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    airflowVersion: "2.8.1"
+    images:
+      airflow:
+        repository: "apache/airflow"
+        tag: "slim-2.8.1-python3.11"
     useStandardNaming: true
     createUserJob:
       useHelmHooks: false
