@@ -28,7 +28,7 @@ spec:
     images:
       airflow:
         repository: "apache/airflow"
-        tag: "slim-2.8.1-python3.11"
+        tag: "2.8.1-python3.11"
     useStandardNaming: true
     createUserJob:
       useHelmHooks: false
