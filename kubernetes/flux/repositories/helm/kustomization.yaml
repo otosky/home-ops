@@ -47,3 +47,4 @@ resources:
   - airflow.yaml
   - gitea.yaml
   - elastic.yaml
+  - open-metadata.yaml
