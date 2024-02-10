@@ -19,36 +19,37 @@ spec:
       shared_buffers: 512MB
   monitoring:
     enablePodMonitor: true
-  bootstrap:
-    recovery:
-      source: &previousCluster postgres-v1
   backup:
     retentionPolicy: 30d
     barmanObjectStore:
       wal:
         compression: bzip2
         maxParallel: 8
-      destinationPath: &s3_path s3://55hope-pg-backup
-      serverName: &currentCluster postgres-v2
+      destinationPath: &s3_path s3://toskbot-xyz-cloudnativepg
+      endpointURL: https://s3.us-east-005.backblazeb2.com
+      serverName: &currentCluster postgres-v3
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
-          key: aws-access-key-id
+          key: backblaze-access-key-id
         secretAccessKey:
           name: cloudnative-pg-secret
-          key: aws-secret-access-key
-  # Note: externalClusters is needed when recovering from an existing cnpg cluster
-  externalClusters:
-    - name: *previousCluster
-      barmanObjectStore:
-        wal:
-          compression: bzip2
-          maxParallel: 8
-        destinationPath: *s3_path
-        s3Credentials:
-          accessKeyId:
-            name: cloudnative-pg-secret
-            key: aws-access-key-id
-          secretAccessKey:
-            name: cloudnative-pg-secret
-            key: aws-secret-access-key
+          key: backblaze-secret-access-key
+  # bootstrap:
+  #   recovery:
+  #     source: &previousCluster postgres-v2
+  # # Note: externalClusters is needed when recovering from an existing cnpg cluster
+  # externalClusters:
+  #   - name: *previousCluster
+  #     barmanObjectStore:
+  #       wal:
+  #         compression: bzip2
+  #         maxParallel: 8
+  #       destinationPath: *s3_path
+  #       s3Credentials:
+  #         accessKeyId:
+  #           name: cloudnative-pg-secret
+  #           key: backblaze-access-key-id
+  #         secretAccessKey:
+  #           name: cloudnative-pg-secret
+  #           key: backblaze-secret-access-key
