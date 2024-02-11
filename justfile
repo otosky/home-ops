@@ -8,3 +8,5 @@ scale-nfs-related COUNT:
 scale-nfs-down: (scale-nfs-related "0")
 scale-nfs-up: (scale-nfs-related "1")
 
+mkdocs:
+  poetry run mkdocs serve
