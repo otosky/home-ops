@@ -17,33 +17,15 @@ Standing on the shoulder of giants:
 
 If I didn't get it on Craigslist, it came from eBay.
 
-#### Servers
-
-Control-Plane:
-- 2x Lenovo Thinkcentre m720q Tiny
-- 1x Lenovo Thinkcentre m920q Tiny
-
-Worker:
-- 3x Dell Optiplex 3070 SFF
-  - each has a Mellanox ConnectX-3 10G NIC
-  - 9th gen Intel i5 are clutch for Quicksync igpu video transcoding
-
-NAS:
-- A custom thing I threw together in a Fractal 304 case
-- Unraid
-- 20TB of mixed size HDDs
-- 16TB HDD for parity
-- 4TB HDD cache drive
-- Mellanox ConnectX-3 10G NIC
-
-#### Networking
-
-Router/Access Point:
-- 1x Lenovo Thinkcentre m720q Tiny running VyOS
-  - see my [VyOS config](https://github.com/otosky/vyos-config)
-
-Switch:
-- Brocade ICX6450
+|                  Device                   | Count | OS Disk Size | Data Disk Size |           NIC           |               Operating System                |         Purpose          |
+|:-----------------------------------------:|:-----:|:------------:|:--------------:|:-----------------------:|:---------------------------------------------:|:------------------------:|
+|         Lenovo Thinkcentre m720q          |   2   |              |                |                         |                    Fedora                     | Kubernetes Control Plane |
+|         Lenovo Thinkcentre m920q          |   1   |              |                |                         |                    Fedora                     | Kubernetes Control Plane |
+| Dell Optiplex 3070 SFF (9th-gen Intel i5) |   3   |              |                | Mellanox ConnectX-3 10G |                    Fedora                     |     Kubernetes Agent     |
+|         Custom NAS (Fractal 304)          |   1   |              |                | Mellanox ConnectX-3 10G |                    Unraid                     |           NAS            |
+|         Lenovo Thinkcentre m720q          |   1   |              |                |                         | [VyOS](https://github.com/otosky/vyos-config) |          Router          |
+|              Brocade ICX6450              |   1   |              |                |                         |                                               |          Switch          |
+|              TP-Link EAP650               |   1   |              |                |                         |                                               |         Wifi AP          |
 
 ### :anchor: Kubernetes 
 
