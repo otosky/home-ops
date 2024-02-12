@@ -52,7 +52,11 @@ spec:
       features:
         bucketDNS: true
         domains: {}
-      buckets: []
+      buckets:
+        - name: airflow-logs
+        - name: loki
+        - name: thanos
+        - name: example-test
       users: []
       exposeServices: {}
       prometheusOperator: false
