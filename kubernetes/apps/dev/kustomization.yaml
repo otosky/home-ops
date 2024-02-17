@@ -4,7 +4,6 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
-  - ./kubernetes-schemas/ks.yaml
   - ./flink-operator/ks.yaml
   - ./spark-operator/ks.yaml
   - ./strimzi-operator/ks.yaml
