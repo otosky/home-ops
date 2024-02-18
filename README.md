@@ -17,17 +17,17 @@ Standing on the shoulder of giants:
 
 If I didn't get it on Craigslist, it came from eBay.
 
-|                  Device                   | Count | OS Disk Size | Data Disk Size |           NIC           |               Operating System                |         Purpose          |
-|:-----------------------------------------:|:-----:|:------------:|:--------------:|:-----------------------:|:---------------------------------------------:|:------------------------:|
-|         Lenovo Thinkcentre m720q          |   2   |              |                |                         |                    Fedora                     | Kubernetes Control Plane |
-|         Lenovo Thinkcentre m920q          |   1   |              |                |                         |                    Fedora                     | Kubernetes Control Plane |
-| Dell Optiplex 3070 SFF (9th-gen Intel i5) |   3   |              |                | Mellanox ConnectX-3 10G |                    Fedora                     |     Kubernetes Agent     |
-|         Custom NAS (Fractal 304)          |   1   |              |                | Mellanox ConnectX-3 10G |                    Unraid                     |           NAS            |
-|         Lenovo Thinkcentre m720q          |   1   |              |                |                         | [VyOS](https://github.com/otosky/vyos-config) |          Router          |
-|              Brocade ICX6450              |   1   |              |                |                         |                                               |          Switch          |
-|              TP-Link EAP650               |   1   |              |                |                         |                                               |         Wifi AP          |
-|              Unifi Flex-Mini              |   2   |              |                |                         |                                               |    Switch (per room)     |
-|       RPI 4B w/ Hifiberry DAC2 Pro        |   1   |              |                |                         |                                               |         Volumio          |
+|                  Device                   | Count | OS Disk Size |     Data Disk Size      |           NIC           |               Operating System                |         Purpose          |
+|:-----------------------------------------:|:-----:|:------------:|:-----------------------:|:-----------------------:|:---------------------------------------------:|:------------------------:|
+|         Lenovo Thinkcentre m720q          |   2   |  500GB NVME  |                         |                         |                    Fedora                     | Kubernetes Control Plane |
+|         Lenovo Thinkcentre m920q          |   1   |  500GB NVME  |                         |                         |                    Fedora                     | Kubernetes Control Plane |
+| Dell Optiplex 3070 SFF (9th-gen Intel i5) |   3   |  250GB SSD   | 1x 1TB SSD; 1x 1TB NVME | Mellanox ConnectX-3 10G |                    Fedora                     |     Kubernetes Agent     |
+|         Custom NAS (Fractal 304)          |   1   |              |                         | Mellanox ConnectX-3 10G |                    Unraid                     |           NAS            |
+|         Lenovo Thinkcentre m720q          |   1   |              |                         |                         | [VyOS](https://github.com/otosky/vyos-config) |          Router          |
+|              Brocade ICX6450              |   1   |              |                         |                         |                                               |          Switch          |
+|              TP-Link EAP650               |   1   |              |                         |                         |                                               |         Wifi AP          |
+|              Unifi Flex-Mini              |   2   |              |                         |                         |                                               |    Switch (per room)     |
+|       RPI 4B w/ Hifiberry DAC2 Pro        |   1   |              |                         |                         |                                               |         Volumio          |
 
 ### :anchor: Kubernetes 
 
