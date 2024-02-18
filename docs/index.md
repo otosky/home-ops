@@ -28,6 +28,8 @@ The structure of this repo stands on the shoulder of giants:
 |         Lenovo Thinkcentre m720q          |   1   |              |                |                         | [VyOS](https://github.com/otosky/vyos-config) |          Router          |
 |              Brocade ICX6450              |   1   |              |                |                         |                                               |          Switch          |
 |              TP-Link EAP650               |   1   |              |                |                         |                                               |         Wifi AP          |
+|              Unifi Flex-Mini              |   2   |              |                |                         |                                               |    Switch (per room)     |
+|       RPI 4B w/ Hifiberry DAC2 Pro        |   1   |              |                |                         |                                               |         Volumio          |
 
 ## :anchor: Kubernetes 
 
