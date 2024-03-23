@@ -666,8 +666,8 @@
 <h2 id="general">General</h2>
 <h3 id="how-do-i-force-reconcile-flux-from-main">How do I force reconcile <code>flux</code> from main?</h3>
 <p>execute</p>
-<pre><code class="language-sh">flux reconcile source git home-ops-kubernetes
-</code></pre>
+<div class="highlight"><pre><span></span><code>flux<span class="w"> </span>reconcile<span class="w"> </span><span class="nb">source</span><span class="w"> </span>git<span class="w"> </span>home-ops-kubernetes
+</code></pre></div>
 <h2 id="longhorn">Longhorn</h2>
 <h3 id="how-do-i-restore-volumes-from-longhorn-backups">How do I restore volumes from Longhorn backups?</h3>
 <ol>
@@ -678,10 +678,11 @@
 <li>Scale the deployments or statefulsets connected to volume back to previous count.</li>
 </ol>
 <h3 id="how-do-i-set-up-new-disks-in-longhorn">How do I set up new disks in Longhorn?</h3>
-<p>!!! note
-    You will need to set up the disk to automount on the host by adding an entry to /etc/fstab.</p>
-<pre><code>For k3s, I've settled on a path convention of `/var/lib/longhorn-int-&lt;ssd|nvme&gt;&lt;number&gt;/` where number is a count starting at 1.
-</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You will need to set up the disk to automount on the host by adding an entry to /etc/fstab.
+For k3s, I've settled on a path convention of <code>/var/lib/longhorn-int-&lt;ssd|nvme&gt;&lt;number&gt;/</code> where number is a count starting at 1.</p>
+</div>
 <ol>
 <li>Under the "Node" tab, find the kubernetes node associated with the disks you'd like to add.</li>
 <li>Select it and click "Edit Node"</li>

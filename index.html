@@ -799,11 +799,11 @@ on dedicated SSD and NVME drives per worker node. </p>
 <p>A separate NAS runs <a href="https://unraid.net/">Unraid</a> for NFS, but that is solely for media storage.</p>
 <h3 id="layout">Layout</h3>
 <p>This Git repository contains the following directories under <a href="https://github.com/otosky/home-ops/tree/main/kubernetes">kubernetes</a>.</p>
-<pre><code class="language-sh">📁 kubernetes      # Kubernetes cluster defined as code
-├─📁 bootstrap     # Flux installation
-├─📁 flux          # Main Flux configuration of repository
-└─📁 apps          # Apps deployed into my cluster grouped by namespace
-</code></pre>
+<div class="highlight"><pre><span></span><code>📁<span class="w"> </span>kubernetes<span class="w">      </span><span class="c1"># Kubernetes cluster defined as code</span>
+├─📁<span class="w"> </span>bootstrap<span class="w">     </span><span class="c1"># Flux installation</span>
+├─📁<span class="w"> </span>flux<span class="w">          </span><span class="c1"># Main Flux configuration of repository</span>
+└─📁<span class="w"> </span>apps<span class="w">          </span><span class="c1"># Apps deployed into my cluster grouped by namespace</span>
+</code></pre></div>
 <p><a href="https://github.com/fluxcd/flux2">Flux</a> is continually syncing the state of this repository to the cluster 
 and applying any changes found in the <a href="https://fluxcd.io/flux/components/kustomize/kustomization/">kustomizations</a>
 within.</p>
