@@ -455,6 +455,17 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    FAQ
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -464,6 +475,82 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#general" class="md-nav__link">
+    <span class="md-ellipsis">
+      General
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="General">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-force-reconcile-flux-from-main" class="md-nav__link">
+    <span class="md-ellipsis">
+      How do I force reconcile flux from main?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#longhorn" class="md-nav__link">
+    <span class="md-ellipsis">
+      Longhorn
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Longhorn">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-restore-volumes-from-longhorn-backups" class="md-nav__link">
+    <span class="md-ellipsis">
+      How do I restore volumes from Longhorn backups?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-set-up-new-disks-in-longhorn" class="md-nav__link">
+    <span class="md-ellipsis">
+      How do I set up new disks in Longhorn?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -497,6 +584,71 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#general" class="md-nav__link">
+    <span class="md-ellipsis">
+      General
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="General">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-force-reconcile-flux-from-main" class="md-nav__link">
+    <span class="md-ellipsis">
+      How do I force reconcile flux from main?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#longhorn" class="md-nav__link">
+    <span class="md-ellipsis">
+      Longhorn
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Longhorn">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-restore-volumes-from-longhorn-backups" class="md-nav__link">
+    <span class="md-ellipsis">
+      How do I restore volumes from Longhorn backups?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-set-up-new-disks-in-longhorn" class="md-nav__link">
+    <span class="md-ellipsis">
+      How do I set up new disks in Longhorn?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -511,6 +663,34 @@
 
 
 <h1 id="faq">FAQ</h1>
+<h2 id="general">General</h2>
+<h3 id="how-do-i-force-reconcile-flux-from-main">How do I force reconcile <code>flux</code> from main?</h3>
+<p>execute</p>
+<pre><code class="language-sh">flux reconcile source git home-ops-kubernetes
+</code></pre>
+<h2 id="longhorn">Longhorn</h2>
+<h3 id="how-do-i-restore-volumes-from-longhorn-backups">How do I restore volumes from Longhorn backups?</h3>
+<ol>
+<li>Scale any deployments or statefulsets connected to volume to 0</li>
+<li>Delete the volume in Longhorn</li>
+<li>In the "Backup" tab, find the PVC associated with the workload you want to restore</li>
+<li>Select the checkbox for that PVC and hit the "Restore Latest Backup" button</li>
+<li>Scale the deployments or statefulsets connected to volume back to previous count.</li>
+</ol>
+<h3 id="how-do-i-set-up-new-disks-in-longhorn">How do I set up new disks in Longhorn?</h3>
+<p>!!! note
+    You will need to set up the disk to automount on the host by adding an entry to /etc/fstab.</p>
+<pre><code>For k3s, I've settled on a path convention of `/var/lib/longhorn-int-&lt;ssd|nvme&gt;&lt;number&gt;/` where number is a count starting at 1.
+</code></pre>
+<ol>
+<li>Under the "Node" tab, find the kubernetes node associated with the disks you'd like to add.</li>
+<li>Select it and click "Edit Node"</li>
+<li>Click "Add Disk" and populate the following:</li>
+<li>Add a tag; either <code>ssd</code> or <code>nvme</code></li>
+<li>Give the disk a name of the form <code>internal-&lt;ssd|nvme&gt;-&lt;number&gt;</code></li>
+<li>Set the mount path of the disk from the prerequisite step.</li>
+<li>Set "Scheduling" to "Enable"</li>
+</ol>
 
 
 
