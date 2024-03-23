@@ -5,15 +5,23 @@ kind: HelmRelease
 metadata:
   name: thanos
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: thanos
-      version: 12.23.2
+      version: 14.0.2
       sourceRef:
         kind: HelmRepository
         name: bitnami
         namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
   values:
     image:
       registry: quay.io
@@ -27,7 +35,17 @@ spec:
         http_config:
           insecure_skip_verify: true
     queryFrontend:
-      enabled: false
+      enabled: true
+      replicaCount: 2
+      config: &config |-
+        type: REDIS
+        config:
+          addr: >-
+            redis-node-0.redis-headless.database.svc.cluster.local:26379,
+            redis-node-1.redis-headless.database.svc.cluster.local:26379,
+            redis-node-2.redis-headless.database.svc.cluster.local:26379
+          db: 13
+          master_name: redis-master
     query:
       enabled: true
       replicaCount: 2
@@ -42,7 +60,9 @@ spec:
       podAntiAffinityPreset: hard
     compactor:
       enabled: true
-      extraFlags: ["--compact.concurrency", "4"]
+      extraFlags: 
+        - --compact.concurrency=4
+        - --delete-delay=30m
       retentionResolutionRaw: 7d
       retentionResolution5m: 14d
       retentionResolution1h: 30d
@@ -53,6 +73,7 @@ spec:
     storegateway:
       enabled: true
       replicaCount: 2
+      config: *config
       podAntiAffinityPreset: hard
       persistence:
         enabled: true
@@ -65,16 +86,20 @@ spec:
       dnsDiscovery:
         enabled: true
       alertmanagers:
-        [
-          "http://kube-prometheus-stack-alertmanager.monitoring.svc.cluster.local:9093",
-        ]
-      extraFlags: ["--web.prefix-header=X-Forwarded-Prefix"]
+        - http://kube-prometheus-stack-alertmanager.monitoring.svc.cluster.local:9093
+      extraFlags:
+        - --web.prefix-header=X-Forwarded-Prefix
       config: |-
         groups:
-          - name: "PrometheusWatcher"
+          - name: PrometheusWatcher
             rules:
-              - alert: "PrometheusDown"
+              - alert: PrometheusDown
+                annotations:
+                  summary: A Prometheus has disappeared from Prometheus target discovery
                 expr: absent(up{job="kube-prometheus-stack-prometheus"})
+                for: 5m
+                labels:
+                  severity: critical
       persistence:
         enabled: true
         storageClass: local-path-ssd
@@ -84,14 +109,6 @@ spec:
       serviceMonitor:
         enabled: true
   valuesFrom:
-    # - targetPath: objstoreConfig.config.bucket
-    #   kind: ConfigMap
-    #   name: thanos-bucket-v1
-    #   valuesKey: BUCKET_NAME
-    # - targetPath: objstoreConfig.config.endpoint
-    #   kind: ConfigMap
-    #   name: thanos-bucket-v1
-    #   valuesKey: BUCKET_HOST
     - targetPath: objstoreConfig.config.access_key
       kind: Secret
       name: thanos-secret
