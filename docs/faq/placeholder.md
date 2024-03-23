@@ -24,9 +24,7 @@ flux reconcile source git home-ops-kubernetes
 
 !!! note
     You will need to set up the disk to automount on the host by adding an entry to /etc/fstab.
-
     For k3s, I've settled on a path convention of `/var/lib/longhorn-int-<ssd|nvme><number>/` where number is a count starting at 1.
-
 
 1. Under the "Node" tab, find the kubernetes node associated with the disks you'd like to add.
 2. Select it and click "Edit Node"
