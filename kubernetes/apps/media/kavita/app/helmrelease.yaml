@@ -48,10 +48,11 @@ spec:
         statefulset:
           volumeClaimTemplates:
             - name: config
-              mountPath: /kavita/config
               accessMode: ReadWriteOnce
               size: 10Gi
               storageClass: longhorn-ssd
+              globalMounts:
+                - path: /kavita/config
     service:
       main:
         ports:
