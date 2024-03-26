@@ -24,3 +24,5 @@ resources:
   - ./readarr/ks.yaml
   - ./shiori/ks.yaml
   - ./tandoor/ks.yaml
+  - ./kavita/ks.yaml
+
