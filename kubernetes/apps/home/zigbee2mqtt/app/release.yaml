@@ -73,7 +73,7 @@ spec:
           exporter:
             image:
               repository: ghcr.io/kpetremann/mqtt-exporter 
-              tag: 1.4.1
+              tag: 1.4.2
             env:
               LOG_LEVEL: "DEBUG"
               LOG_MQTT_MESSAGE: "True"
