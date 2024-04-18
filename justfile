@@ -1,7 +1,7 @@
 scale-nfs-related COUNT:
   #!/bin/bash
   kubectl get deploy,statefulset --all-namespaces -o json |
-  jq -r '[.items[] | select(.spec.template.spec.volumes[]?.nfs != null) | "\(.kind) \(.metadata.name) \(.metadata.namespace)"] | .[]' |
+  jq -r '[.items[] | select(.spec.template.spec.volumes[]?.persistentVolumeClaim.claimName == "media") | "\(.kind) \(.metadata.name) \(.metadata.namespace)"] | .[]' |
   xargs -n 3 |
   parallel -j 1 --verbose --colsep ' ' 'kubectl scale {1}/{2} -n {3} --replicas={{COUNT}}'
 
