@@ -15,7 +15,7 @@ spec:
     # include dir for crd
     !/src/go/k8s/config/crd
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: redpanda
