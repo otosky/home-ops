@@ -64,7 +64,6 @@ spec:
         statefulset:
           volumeClaimTemplates:
             - name: config
-              mountPath: /config
               accessMode: ReadWriteOnce
               size: 1Gi
               storageClass: longhorn-ssd
@@ -74,11 +73,10 @@ spec:
           http:
             port: 6767
     persistence:
-      media:
+      data:
         enabled: true
         type: persistentVolumeClaim
         existingClaim: media
-        mountPath: /data
       add-ons:
         enabled: true
         type: emptyDir
