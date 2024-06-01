@@ -30,6 +30,10 @@ spec:
         #   type: vector
         #   address: 0.0.0.0:6000
         #   version: "2"
+        external_syslogs:
+          address: 0.0.0.0:6001
+          mode: udp
+          type: syslog
         kubernetes_logs:
           type: vector
           address: 0.0.0.0:6010
@@ -60,6 +64,17 @@ spec:
         #   labels:
         #     hostname: >-
         #       {{`{{ host }}`}}
+        external_syslogs:
+          type: loki
+          inputs:
+            - syslog_source
+          endpoint: http://loki-gateway.monitoring.svc.cluster.local:80
+          encoding:
+            codec: json
+          out_of_order_action: rewrite_timestamp
+          labels:
+            hostname: "{{ host }}"
+            datasource: source_syslog
         loki_kubernetes:
           type: loki
           inputs:
