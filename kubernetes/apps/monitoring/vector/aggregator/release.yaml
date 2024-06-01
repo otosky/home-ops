@@ -73,7 +73,8 @@ spec:
             codec: json
           out_of_order_action: rewrite_timestamp
           labels:
-            hostname: "{{ host }}"
+            hostname: >-
+              {{`{{ host }}`}}
             datasource: source_syslog
         loki_kubernetes:
           type: loki
