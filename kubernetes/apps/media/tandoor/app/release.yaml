@@ -73,7 +73,7 @@ spec:
           nginx:
             image:
               repository: public.ecr.aws/nginx/nginx
-              tag: 1.26.0
+              tag: 1.27.0
         initContainers:
           init-db:
             image:
