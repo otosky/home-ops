@@ -113,9 +113,9 @@ spec:
         analytics:
           reporting_enabled: false
     gateway:
-      replicas: 2
+      replicas: 3
     read:
-      replicas: 2
+      replicas: 3
       persistence:
         storageClass: local-path-ssd
       extraVolumeMounts:
@@ -125,11 +125,11 @@ spec:
         - name: rules
           emptyDir: {}
     write:
-      replicas: 2
+      replicas: 3
       persistence:
         storageClass: local-path-ssd
     backend:
-      replicas: 2
+      replicas: 3
       persistence:
         storageClass: local-path-ssd
       extraVolumeMounts:
@@ -156,14 +156,6 @@ spec:
     test:
       enabled: false
   valuesFrom:
-    # - targetPath: loki.structuredConfig.common.storage.s3.bucketnames
-    #   kind: ConfigMap
-    #   name: loki-bucket-v1
-    #   valuesKey: BUCKET_NAME
-    # - targetPath: loki.structuredConfig.common.storage.s3.endpoint
-    #   kind: ConfigMap
-    #   name: loki-bucket-v1
-    #   valuesKey: BUCKET_HOST
     - targetPath: loki.structuredConfig.common.storage.s3.access_key_id
       kind: Secret
       name: loki-secret
