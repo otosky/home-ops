@@ -32,7 +32,6 @@ spec:
         #   version: "2"
         external_syslogs:
           address: 0.0.0.0:6001
-          mode: udp
           type: syslog
         kubernetes_logs:
           type: vector
