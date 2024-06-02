@@ -64,7 +64,7 @@ spec:
         #   labels:
         #     hostname: >-
         #       {{`{{ host }}`}}
-        external_syslogs:
+        loki_syslogs:
           type: loki
           inputs:
             - external_syslogs
