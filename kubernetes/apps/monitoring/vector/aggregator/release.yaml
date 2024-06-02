@@ -34,10 +34,6 @@ spec:
           address: 0.0.0.0:6001
           mode: udp
           type: syslog
-        unraid_logs:
-          address: 0.0.0.0:6005
-          type: vector
-          version: "2"
         kubernetes_logs:
           type: vector
           address: 0.0.0.0:6010
@@ -80,17 +76,6 @@ spec:
             hostname: >-
               {{`{{ host }}`}}
             datasource: source_syslog
-        loki_unraid:
-          type: loki
-          inputs:
-            - unraid_logs
-          endpoint: http://loki-gateway.monitoring.svc.cluster.local:80
-          encoding:
-            codec: json
-          out_of_order_action: rewrite_timestamp
-          labels:
-            datasource: unraid
-
         loki_kubernetes:
           type: loki
           inputs:
