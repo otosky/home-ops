@@ -47,7 +47,7 @@ spec:
                 period: 24h
         common:
           path_prefix: /var/loki
-          replication_factor: 2
+          replication_factor: 3
           storage:
             s3:
               s3: https://minio.minio.svc.cluster.local
