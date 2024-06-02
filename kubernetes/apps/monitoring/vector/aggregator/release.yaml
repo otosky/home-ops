@@ -33,7 +33,7 @@ spec:
         external_syslogs:
           address: 0.0.0.0:6001
           mode: udp
-          type: syslog
+          type: socket
         unraid_logs:
           address: 0.0.0.0:6005
           type: vector
