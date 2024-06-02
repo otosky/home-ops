@@ -67,7 +67,7 @@ spec:
         external_syslogs:
           type: loki
           inputs:
-            - syslog_source
+            - external_syslogs
           endpoint: http://loki-gateway.monitoring.svc.cluster.local:80
           encoding:
             codec: json
