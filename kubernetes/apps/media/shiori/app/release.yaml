@@ -30,7 +30,7 @@ spec:
           main:
             image:
               repository: ghcr.io/go-shiori/shiori
-              tag: v1.6.3
+              tag: v1.7.0
             env:
               SHIORI_DIR: "/config"
             resources:
