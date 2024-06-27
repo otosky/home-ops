@@ -30,7 +30,7 @@ spec:
           main:
             image:
               repository: ghcr.io/onedr0p/readarr-nightly
-              tag: 0.3.29.2565@sha256:a06be2de30c1bdd39c336bc78c8e3fcf377e0151328e61ff798e4ca6379dc4ff
+              tag: 0.3.30.2572@sha256:867b517768920ee7d2346306172609d68e8a334b2b8a4a390e01049618a5376e
             env:
               READARR__INSTANCE_NAME: Readarr
               READARR__LOG_LEVEL: info
