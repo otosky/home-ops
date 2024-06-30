@@ -5,6 +5,7 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   - ./nfs-pvc.yaml
+  - ./restart-pods-with-stale-nfs.yaml
   # Flux-Kustomizations
   - ./qbittorrent/ks.yaml
   - ./prowlarr/ks.yaml
