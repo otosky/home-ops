@@ -23,7 +23,7 @@ spec:
             image:
               # https://github.com/1Password/connect/issues/56
               repository: docker.io/1password/connect-api
-              tag: 1.7.2
+              tag: 1.7.3
             env:
               XDG_DATA_HOME: &configDir /config
               OP_BUS_PORT: "11220"
