@@ -23,7 +23,7 @@ spec:
             - /bin/bash
             - -c
             - kubectl exec kaizoku-0 -- ls /data || (kubectl delete pods kaizoku-0 komga-0 navidrome-0 && kubectl delete pods -l app.kubernetes.io/name=unpackerr)
-            image: ghcr.io/onedr0p/kubernetes-kubectl:1.28.3@sha256:6b68063623c22be538727998ccc1bf0433ea71c7a73f73e3f2250896a390901a
+            image: ghcr.io/onedr0p/kubernetes-kubectl:1.29.2@sha256:6324f99979877f3ded7647f4efa4df6d73f11bb9d8302dc81ab4a5d38e406867
             imagePullPolicy: IfNotPresent
             name: pod-command-container
           restartPolicy: OnFailure
