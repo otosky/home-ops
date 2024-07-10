@@ -5,3 +5,6 @@ namespace: media
 resources:
   - ./helmrelease.yaml
   - ./ingress.yaml
+labels:
+  - pairs:
+      unraid.mover-sensitive: true
