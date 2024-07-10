@@ -5,6 +5,3 @@ resources:
   - externalsecret.yaml
   - release.yaml
   - ingress.yaml
-labels:
-  - pairs:
-      unraid.mover-sensitive: "true"
