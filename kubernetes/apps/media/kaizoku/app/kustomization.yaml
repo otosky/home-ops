@@ -6,3 +6,8 @@ resources:
   - redis.yaml
   - release.yaml
   - ingress.yaml
+labels:
+  - pairs:
+      app.kubernetes.io/name: kaizoku
+      app.kubernetes.io/instance: kaizoku
+      unraid.mover-sensitive: "true"

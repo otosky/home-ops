@@ -7,4 +7,4 @@ resources:
   - ingress.yaml
 labels:
   - pairs:
-      unraid.mover-sensitive: true
+      unraid.mover-sensitive: "true"

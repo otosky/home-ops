@@ -7,4 +7,4 @@ labels:
   - pairs:
       app.kubernetes.io/name: unpackerr
       app.kubernetes.io/instance: unpackerr
-      unraid.mover-sensitive: true
+      unraid.mover-sensitive: "true"
