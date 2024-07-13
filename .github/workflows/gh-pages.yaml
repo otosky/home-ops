@@ -7,10 +7,11 @@ on:
 
 jobs:
   build:
-    permissions:
-      contents: write
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
 
