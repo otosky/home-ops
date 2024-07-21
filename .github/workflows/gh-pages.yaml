@@ -8,3 +8,4 @@ on:
 jobs:
   build_and_deploy:
     uses: otosky/github_workflows/.github/workflows/build-deploy-mkdocs-gh-pages.yml@main
+    secrets: inherit
