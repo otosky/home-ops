@@ -10,3 +10,4 @@ resources:
   - ./dagster/ks.yaml
   - ./airflow/ks.yaml
   - ./gitea/ks.yaml
+  - ./argo-workflows/ks.yaml
