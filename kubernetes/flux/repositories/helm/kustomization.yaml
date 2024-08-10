@@ -48,3 +48,4 @@ resources:
   - gitea.yaml
   - elastic.yaml
   - open-metadata.yaml
+  - argo.yaml
