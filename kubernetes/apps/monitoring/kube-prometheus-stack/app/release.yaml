@@ -134,7 +134,7 @@ spec:
           repository: prometheus/prometheus
           tag: v2.54.0-dedupelabels
         thanos:
-          image: quay.io/thanos/thanos:v0.36.0
+          image: quay.io/thanos/thanos:v0.36.1
           objectStorageConfig:
             existingSecret:
               name: thanos-objstore-secret
