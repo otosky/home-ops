@@ -6,6 +6,7 @@ namespace: dev
 resources:
   - ./helmrelease.yaml
   - ./ingress.yaml
+  - ./rbac.yaml
 commonLabels:
   app.kubernetes.io/name: argo-workflows
   app.kubernetes.io/instance: argo-workflows
