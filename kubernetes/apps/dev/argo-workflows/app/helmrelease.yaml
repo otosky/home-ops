@@ -38,6 +38,12 @@ spec:
         limits:
           memory: 100Mi
 
+    workflow:
+      rbac:
+        serviceAccounts:
+          - name: argo-workflows-sa
+            namespace: dev
+
     executor:
       image:
         registry: quay.io

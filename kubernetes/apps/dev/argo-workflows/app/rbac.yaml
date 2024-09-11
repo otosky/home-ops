@@ -2,28 +2,28 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: argo-workflows-sa
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  name: executor
-rules:
-  - apiGroups:
-      - argoproj.io
-    resources:
-      - workflowtaskresults
-    verbs:
-      - create
-      - patch
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: argo-workflows-rolebinding
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: executor
-subjects:
-  - kind: ServiceAccount
-    name: argo-workflows-sa
+# ---
+# apiVersion: rbac.authorization.k8s.io/v1
+# kind: Role
+# metadata:
+#   name: executor
+# rules:
+#   - apiGroups:
+#       - argoproj.io
+#     resources:
+#       - workflowtaskresults
+#     verbs:
+#       - create
+#       - patch
+# ---
+# apiVersion: rbac.authorization.k8s.io/v1
+# kind: RoleBinding
+# metadata:
+#   name: argo-workflows-rolebinding
+# roleRef:
+#   apiGroup: rbac.authorization.k8s.io
+#   kind: Role
+#   name: executor
+# subjects:
+#   - kind: ServiceAccount
+#     name: argo-workflows-sa
