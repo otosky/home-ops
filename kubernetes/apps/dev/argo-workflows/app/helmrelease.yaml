@@ -38,7 +38,7 @@ spec:
           # the database secrets must be in the same namespace of the controller
           userNameSecret:
             name: argo-workflows
-            key: postgresql-username
+            key: postgresql-user
           passwordSecret:
             name: argo-workflows
             key: postgresql-password
