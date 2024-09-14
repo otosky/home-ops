@@ -28,6 +28,21 @@ spec:
       resourceRateLimit:
         limit: 10
         burst: 1
+      persistence:
+        archive: true
+        postgresql:
+          host: postgres-rw.database.svc.cluster.local
+          port: 5432
+          database: argoproj
+          tableName: argo_workflows
+          # the database secrets must be in the same namespace of the controller
+          userNameSecret:
+            name: argo-workflows
+            key: postgresql-username
+          passwordSecret:
+            name: argo-workflows
+            key: postgresql-password
+
 
       namespaceParallelism: 10
 
@@ -65,19 +80,4 @@ spec:
 
       extraArgs:
         - --auth-mode=server
-
-      persistence:
-        archive: true
-        postgresql:
-          host: postgres-rw.database.svc.cluster.local
-          port: 5432
-          database: argoproj
-          tableName: argo_workflows
-          # the database secrets must be in the same namespace of the controller
-          userNameSecret:
-            name: argo-workflows
-            key: postgresql-username
-          passwordSecret:
-            name: argo-workflows
-            key: postgresql-password
 
