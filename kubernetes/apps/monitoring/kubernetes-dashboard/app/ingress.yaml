@@ -11,8 +11,8 @@ spec:
     - match: Host(`kubernetes.toskbot.xyz`)
       kind: Rule
       services:
-        - name: kubernetes-dashboard
-          port: https
+        - name: kubernetes-dashboard-web
+          port: web
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
