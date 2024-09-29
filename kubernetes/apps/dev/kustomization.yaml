@@ -11,3 +11,4 @@ resources:
   - ./airflow/ks.yaml
   - ./gitea/ks.yaml
   - ./argo-workflows/ks.yaml
+  - ./superset/ks.yaml
