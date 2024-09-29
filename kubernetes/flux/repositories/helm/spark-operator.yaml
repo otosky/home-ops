@@ -6,4 +6,4 @@ metadata:
     namespace: flux-system
 spec:
     interval: 1m
-    url: https://googlecloudplatform.github.io/spark-on-k8s-operator
+    url: https://kubeflow.github.io/spark-operator
