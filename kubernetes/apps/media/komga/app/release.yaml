@@ -36,7 +36,7 @@ spec:
           main:
             image:
               repository: ghcr.io/gotson/komga
-              tag: 1.14.0
+              tag: 1.14.1
             env:
               TZ: America/New_York
               KOMGA_LIBRARIES_SCAN_CRON: "0 */3 * * * ?"
