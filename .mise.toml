@@ -1,5 +1,5 @@
 [tools]
-kubectl = '1.31.1'
+kubectl = '1.31.2'
 python = {version='3.12.4', virtualenv='.venv'}
 poetry = '1.8.3'
 just = '1.35.0'
