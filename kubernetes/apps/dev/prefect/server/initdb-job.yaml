@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: prefect-initdb
+spec:
+  template:
+    metadata:
+      name: prefect-initdb
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: initdb
+        image: ghcr.io/onedr0p/postgres-init:14.8
+        imagePullPolicy: IfNotPresent
+        envFrom:
+          - secretRef:
+              name: prefect-postgresql-secret

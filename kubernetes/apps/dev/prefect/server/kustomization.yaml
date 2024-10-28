@@ -1,0 +1,13 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: dev
+resources:
+  - ./externalsecret.yaml
+  - ./initdb-job.yaml
+  - ./helmrelease.yaml
+labels:
+  - pairs:
+      app.kubernetes.io/name: prefect-server
+      app.kubernetes.io/instance: prefect-server
