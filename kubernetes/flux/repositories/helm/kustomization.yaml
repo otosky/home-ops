@@ -49,3 +49,5 @@ resources:
   - elastic.yaml
   - open-metadata.yaml
   - argo.yaml
+  - prefect.yaml
+
