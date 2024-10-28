@@ -38,6 +38,10 @@ spec:
 
       prefectApiUrl: http://prefect-server.dev.svc.cluster.local:4200/api
 
+      uiConfig:
+        enabled: true
+        prefectUiApiUrl: "https:prefect.toskbot.xyz/api"
+
       env:
         - name: PREFECT_API_DATABASE_MIGRATE_ON_START
           value: "True"
