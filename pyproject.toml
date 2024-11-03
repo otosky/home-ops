@@ -1,20 +1,11 @@
-[tool.poetry]
+[project]
 name = "home-ops"
 version = "0.1.0"
-description = ""
-authors = ["Oliver Tosky <olivertosky@gmail.com>"]
+description = "Homelab as Code"
 readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+authors = [{ name = "Oliver Tosky", email = "olivertosky@gmail.com" }]
 
-[tool.poetry.dependencies]
-python = "^3.9"
-python-qbittorrent = "^0.4.3"
-
-[tool.poetry.group.dev.dependencies]
-mkdocs = "^1.4.2"
-mkdocs-material = "^9.1.5"
-black = "*"
-isort = "*"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[tool.uv]
+dev-dependencies = ["mkdocs>=1.6.1", "mkdocs-material>=9.5.43", "ruff>=0.7.2"]
