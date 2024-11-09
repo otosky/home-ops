@@ -8,7 +8,7 @@ spec:
   interval: 5m0s
   url: https://github.com/redpanda-data/redpanda
   ref:
-    tag: v24.2.8
+    tag: v24.2.10
   ignore: |
     # exclude all
     /*
