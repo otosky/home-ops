@@ -2,8 +2,10 @@
 clusterName: home-cluster
 talosVersion: v1.8.2
 kubernetesVersion: v1.26.15
-endpoint: https://10.67.0.4:6443
+endpoint: https://10.66.1.30:6443
 allowSchedulingOnMasters: false
+additionalMachineCertSans:
+  - 10.66.1.30
 cniConfig:
   name: none
 patches:
@@ -49,8 +51,7 @@ patches:
       udev:
         rules:
           # Intel GPU
-          - SUBSYSTEM=="drm", KERNEL=="renderD*", GROUP="44", MODE="0660"         vm.nr_hugepages: "1024"
-  
+          - SUBSYSTEM=="drm", KERNEL=="renderD*", GROUP="44", MODE="0660"
 nodes:
   # control-plane
   - hostname: kube-cp-01
@@ -67,7 +68,7 @@ nodes:
           - network: 0.0.0.0/0
             gateway: 10.66.1.1
         vip:
-          ip: 10.67.0.4
+          ip: 10.66.1.30
   - hostname: kube-cp-02
     ipAddress: 10.66.1.32
     controlPlane: true
@@ -82,7 +83,7 @@ nodes:
           - network: 0.0.0.0/0
             gateway: 10.66.1.1
         vip:
-          ip: 10.67.0.4
+          ip: 10.66.1.30
   - hostname: kube-cp-03
     ipAddress: 10.66.1.33
     controlPlane: true
@@ -97,7 +98,7 @@ nodes:
           - network: 0.0.0.0/0
             gateway: 10.66.1.1
         vip:
-          ip: 10.67.0.4
+          ip: 10.66.1.30
   # workers
   - hostname: kube-worker-01
     ipAddress: 10.66.1.41
