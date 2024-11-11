@@ -1,5 +1,19 @@
 # Bootstrap
 
+## Talos
+
+### Generate Config && apply
+
+### Bootstrap etcd
+
+todo: add talosctl command for bootstrapping single control-plane node
+
+### Add Core Integrations
+
+todo: add helmfile command
+
+
+
 ## Flux
 
 ### Install Flux
