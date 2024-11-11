@@ -10,3 +10,16 @@ scale-nfs-up: (scale-nfs-related "1")
 
 mkdocs:
   poetry run mkdocs serve
+
+backup-pg:
+  #!/bin/env bash
+  kubectl apply -f - <<EOF
+  apiVersion: postgresql.cnpg.io/v1
+  kind: Backup
+  metadata:
+    namespace: database
+    name: manual-backup-$(date +%s)
+  spec:
+    cluster:
+      name: postgres
+  EOF
