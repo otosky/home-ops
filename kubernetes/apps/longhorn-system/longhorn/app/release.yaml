@@ -15,6 +15,7 @@ spec:
       interval: 5m
   values:
     persistence:
+      defaultClass: false
       defaultClassReplicaCount: 2
     csi:
       attacherReplicaCount: 1
