@@ -153,7 +153,7 @@ nodes:
     installDiskSelector:
       size: "<= 256GB"
     machineDisks:
-      - device: /dev/disk/by-id/ata-Samsung_SSD_860_EVO_1TB_FIXME
+      - device: /dev/disk/by-id/ata-Samsung_SSD_870_EVO_1TB_S75BNL0X722577P
         partitions:
           - mountpoint: /var/mnt/longhorn/ssd
             size: 500 GB
