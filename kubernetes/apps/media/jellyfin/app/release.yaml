@@ -26,7 +26,7 @@ spec:
           main:
             image:
               repository: docker.io/jellyfin/jellyfin
-              tag: 10.8.13-1@sha256:41fc4f9a51f638930bf16eace81acacbafaf26436d0efc0b0edd9447cb134a2c
+              tag: 10.9.11@sha256:efc2f4ebef76f0e8d3ea49c87b4c61c7d8847e496dc1fd5a91ce6652e33c116f
             env:
               DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
             resources:
