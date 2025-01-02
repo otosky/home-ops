@@ -11,8 +11,8 @@ spec:
       chart: thanos
       version: 15.9.2
       sourceRef:
-        kind: HelmRepository
-        name: bitnami
+        kind: OCIRepository
+        name: thanos
         namespace: flux-system
   install:
     remediation:
