@@ -46,7 +46,7 @@ spec:
               - -c
             args:
               - |
-                ytdl-sub --log-level=debug ----config=/config/config.yaml sub /media/youtube/subscriptions.yaml
+                ytdl-sub --log-level=debug --config=/config/config.yaml sub /media/youtube/subscriptions.yaml
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
