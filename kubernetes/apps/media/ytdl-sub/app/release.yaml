@@ -62,15 +62,6 @@ spec:
                 memory: 2Gi
 
     persistence:
-      config:
-        name: ytdl-sub
-        type: configMap
-        advancedMounts:
-          ytdl-sub:
-            app:
-              - path: /config/config.yaml
-                subPath: config.yaml
-                readOnly: true
       media:
         existingClaim: media
         advancedMounts:
@@ -85,7 +76,5 @@ spec:
             app:
               - path: /tmp
                 subPath: tmp
-              - path: /config
-                subPath: config
               - path: /workdir
                 subPath: workdir
