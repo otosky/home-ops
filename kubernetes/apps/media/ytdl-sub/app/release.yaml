@@ -72,7 +72,7 @@ spec:
                 subPath: config.yaml
                 readOnly: true
       media:
-        existingClaim: nas-media
+        existingClaim: media
         advancedMounts:
           ytdl-sub:
             app:
