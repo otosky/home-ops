@@ -25,4 +25,5 @@ resources:
   - ./shiori/ks.yaml
   - ./tandoor/ks.yaml
   - ./kavita/ks.yaml
+  - ./ytdl-sub/ks.yaml
 
