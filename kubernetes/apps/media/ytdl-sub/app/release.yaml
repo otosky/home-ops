@@ -33,8 +33,8 @@ spec:
           schedule: "0 */6 * * *"
           backoffLimit: 0
           concurrencyPolicy: Forbid
-          failedJobsHistory: 1
-          successfulJobsHistory: 0
+          failedJobsHistory: 2
+          successfulJobsHistory: 2
 
         containers:
           app:
