@@ -46,7 +46,7 @@ spec:
               - -c
             args:
               - |
-                ytdl-sub --log-level=debug sub /media/youtube/subscriptions.yaml
+                ytdl-sub --log-level=debug ----config=/config/config.yaml sub /media/youtube/subscriptions.yaml
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -62,6 +62,15 @@ spec:
                 memory: 2Gi
 
     persistence:
+      config:
+        name: ytdl-sub
+        type: configMap
+        advancedMounts:
+          ytdl-sub:
+            app:
+              - path: /config/config.yaml
+                subPath: config.yaml
+                readOnly: true
       media:
         existingClaim: media
         advancedMounts:
@@ -76,5 +85,7 @@ spec:
             app:
               - path: /tmp
                 subPath: tmp
+              - path: /config
+                subPath: config
               - path: /workdir
                 subPath: workdir
