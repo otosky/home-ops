@@ -62,6 +62,10 @@ spec:
       data:
         type: persistentVolumeClaim
         existingClaim: media
-        globalMounts:
-          - path: /data
-            subPath: media/manga
+        advandcedMounts:
+          main:
+            main:
+              - path: /data
+                subPath: media/manga
+              - path: /suwayomi
+                subPath: media/_manga
