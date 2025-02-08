@@ -27,4 +27,5 @@ resources:
   - ./kavita/ks.yaml
   - ./ytdl-sub/ks.yaml
   - ./suwayomi/ks.yaml
+  - ./komf/ks.yaml
 
