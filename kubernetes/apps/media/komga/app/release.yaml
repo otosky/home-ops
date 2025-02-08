@@ -62,7 +62,7 @@ spec:
       data:
         type: persistentVolumeClaim
         existingClaim: media
-        advandcedMounts:
+        advancedMounts:
           main:
             main:
               - path: /data
