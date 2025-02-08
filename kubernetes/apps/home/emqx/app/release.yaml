@@ -16,8 +16,12 @@ spec:
   values:
     image:
       repository: public.ecr.aws/emqx/emqx
-    replicaCount: 2
+    replicaCount: 3
     recreatePods: true
+    service:
+      type: LoadBalancer
+      loadBalancerIP: 10.66.1.108
+      externalTrafficPolicy: Local
     emqxConfig:
       EMQX_ALLOW_ANONYMOUS: "false"
       EMQX_AUTH__MNESIA__PASSWORD_HASH: plain
@@ -38,3 +42,11 @@ spec:
       kind: Secret
       name: emqx-secret
       valuesKey: AUTH__USER__1__PASSWORD
+    - targetPath: emqxConfig.EMQX_AUTH__USER__2__USERNAME
+      kind: Secret
+      name: emqx-secret
+      valuesKey: AUTH__USER__2__USERNAME
+    - targetPath: emqxConfig.EMQX_AUTH__USER__2__PASSWORD
+      kind: Secret
+      name: emqx-secret
+      valuesKey: AUTH__USER__2__PASSWORD
