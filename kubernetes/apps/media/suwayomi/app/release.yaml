@@ -25,6 +25,9 @@ spec:
   values:
     controllers:
       suwayomi:
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
@@ -40,6 +43,14 @@ spec:
               UPDATE_EXCLUDE_COMPLETED: "false"
               DOWNLOAD_AS_CBZ: "true"
               EXTENSION_REPOS: '["https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json"]'
+        statefulset:
+          volumeClaimTemplates:
+            - name: config
+              globalMounts:
+                - path: /home/suwayomi/.local/share/Tachidesk
+              accessMode: ReadWriteOnce
+              size: 5Gi
+              storageClass: longhorn-ssd
     defaultPodOptions:
       securityContext:
         runAsUser: 568
@@ -51,9 +62,3 @@ spec:
         ports:
           http:
             port: *port
-    persistence:
-      data:
-        existingClaim: media
-        globalMounts:
-          - path: /home/suwayomi/.local/share/Tachidesk
-            subPath: media/_manga
