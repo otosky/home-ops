@@ -62,3 +62,11 @@ spec:
         ports:
           http:
             port: *port
+    persistence:
+      data:
+        enabled: true
+        type: persistentVolumeClaim
+        existingClaim: media
+        globalMounts:
+          - path: /home/suwayomi/.local/share/Tachidesk/downloads
+            subpath: media/_manga
