@@ -26,8 +26,8 @@ spec:
             - /bin/bash
             - -c
             - |
-              kubectl exec kaizoku-0 -- ls /data ||
-              { kubectl delete pods kaizoku-0 komga-0 navidrome-0; kubectl delete pods -l app.kubernetes.io/name=unpackerr; }
+              kubectl exec komga-0 -- ls /data ||
+              { kubectl delete pods suwayomi-0 komga-0 navidrome-0; kubectl delete pods -l app.kubernetes.io/name=unpackerr; }
           restartPolicy: OnFailure
           serviceAccount: nfs-checker-sa
           serviceAccountName: nfs-checker-sa
