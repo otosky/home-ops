@@ -69,4 +69,4 @@ spec:
         existingClaim: media
         globalMounts:
           - path: /home/suwayomi/.local/share/Tachidesk/downloads
-            subPath: media/_manga
+            subPath: media/suwayomi
