@@ -63,7 +63,7 @@ spec:
       ## connection settings
       # -- one of 'cloud' or 'server'
       apiConfig: server
-      serverApiConfig:
+      selfHostedServerApiConfig:
         apiUrl: http://prefect-server.dev.svc.cluster.local:4200/api
 
       replicaCount: 1
