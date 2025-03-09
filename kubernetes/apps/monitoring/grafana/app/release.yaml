@@ -120,6 +120,15 @@ spec:
         kubernetes-pods:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
           datasource: Prometheus
+        truenas-scale:
+          url: https://raw.githubusercontent.com/Supporterino/truenas-graphite-to-prometheus/refs/heads/main/dashboards/truenas_scale.json
+          datasource: Prometheus
+        truenas-scale-disk-insights:
+          url: https://raw.githubusercontent.com/Supporterino/truenas-graphite-to-prometheus/refs/heads/main/dashboards/truenas_scale_disk_insights.json
+          datasource: Prometheus
+        truenas-scale-temperatures:
+          url: https://raw.githubusercontent.com/Supporterino/truenas-graphite-to-prometheus/refs/heads/main/dashboards/truenas_scale_temperatures.json
+          datasource: Prometheus
     sidecar:
       dashboards:
         enabled: true
