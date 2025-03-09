@@ -122,13 +122,16 @@ spec:
           datasource: Prometheus
         truenas-scale:
           url: https://raw.githubusercontent.com/Supporterino/truenas-graphite-to-prometheus/refs/heads/main/dashboards/truenas_scale.json
-          datasource: Prometheus
+          datasource:
+            - { name: DS_MIMIR, value: Prometheus }
         truenas-scale-disk-insights:
           url: https://raw.githubusercontent.com/Supporterino/truenas-graphite-to-prometheus/refs/heads/main/dashboards/truenas_scale_disk_insights.json
-          datasource: Prometheus
+          datasource:
+            - { name: DS_MIMIR, value: Prometheus }
         truenas-scale-temperatures:
           url: https://raw.githubusercontent.com/Supporterino/truenas-graphite-to-prometheus/refs/heads/main/dashboards/truenas_scale_temperatures.json
-          datasource: Prometheus
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
     sidecar:
       dashboards:
         enabled: true
