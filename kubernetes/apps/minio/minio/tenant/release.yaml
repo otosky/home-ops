@@ -58,7 +58,7 @@ spec:
         - name: thanos
       users: []
       exposeServices: {}
-      prometheusOperator: false
+      prometheusOperator: true
       log:
         disabled: true
       logging:
