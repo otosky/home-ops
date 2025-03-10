@@ -4,6 +4,8 @@ apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
   name: &name minio
+  labels:
+    release: kube-prometheus-stack
 spec:
   metricsPath: /minio/v2/metrics/cluster
   scheme: HTTPS
