@@ -46,7 +46,7 @@ spec:
       mountPath: /export
       subPath: /data
       metrics:
-        enabled: false
+        enabled: true
         port: 9000
         protocol: http
       features:
@@ -60,8 +60,6 @@ spec:
       exposeServices: {}
       prometheusOperator: false
       log:
-        disabled: true
-      prometheus:
         disabled: true
       logging:
         anonymous: true
