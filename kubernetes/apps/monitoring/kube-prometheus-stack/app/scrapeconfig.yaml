@@ -34,9 +34,15 @@ apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
   name: &name minio
+  namespace: minio
 spec:
   metricsPath: /minio/v2/metrics/cluster
   scheme: HTTPS
+  tlsConfig:
+    ca:
+      secret:
+        name: minio1-tls
+        key: public.crt
   staticConfigs:
     - targets:
         - minio.minio.svc.cluster.local:443
