@@ -5,3 +5,4 @@ resources:
   - ./externalsecret.yaml
   - ./release.yaml
   - ./ingress.yaml
+  - ./scrapeconfig.yaml
