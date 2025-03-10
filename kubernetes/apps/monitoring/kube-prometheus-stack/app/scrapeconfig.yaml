@@ -28,18 +28,3 @@ spec:
     - action: replace
       targetLabel: job
       replacement: *name
----
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/scrapeconfig_v1alpha1.json
-apiVersion: monitoring.coreos.com/v1alpha1
-kind: ScrapeConfig
-metadata:
-  name: &name minio
-spec:
-  staticConfigs:
-    - targets:
-        - minio1-hl.minio.svc.cluster.local:9000
-  metricsPath: /minio/v2/metrics/cluster
-  relabelings:
-    - action: replace
-      targetLabel: job
-      replacement: *name
