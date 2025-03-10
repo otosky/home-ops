@@ -28,7 +28,7 @@ spec:
         - servers: 4
           name: pool-0
           volumesPerServer: 4
-          size: 10Gi
+          size: 25Gi
           storageClassName: local-path-ssd
           annotations: {}
           affinity: {}
