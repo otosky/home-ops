@@ -17,8 +17,6 @@ spec:
     env:
       - name: MINIO_OPERATOR_TLS_ENABLE
         value: "on"
-      - name: MINIO_CONSOLE_TLS_ENABLE
-        value: "on"
       - name: CLUSTER_DOMAIN
         value: "toskbot.xyz"
       - name: PROMETHEUS_NAMESPACE
