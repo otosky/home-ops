@@ -66,4 +66,5 @@ spec:
         json: true
         quiet: true
       serviceMetadata: {}
-      env: []
+      env:
+        MINIO_PROMETHEUS_AUTH_TYPE: public
