@@ -9,4 +9,4 @@ spec:
     operation: copy
   url: oci://registry-1.docker.io/bitnamicharts/thanos
   ref:
-    tag: "15.13.2"
+    tag: "15.14.1"
