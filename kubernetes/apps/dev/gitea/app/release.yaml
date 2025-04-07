@@ -19,7 +19,7 @@ spec:
     replicaCount: 1
     image:
       repository: gitea/gitea
-      tag: 1.23.5
+      tag: 1.23.6
       pullPolicy: IfNotPresent
   
     service:
