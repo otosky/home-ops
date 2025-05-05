@@ -21,7 +21,7 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/bjw-s/calibre-web
+              repository: ghcr.io/bjw-s-labs/calibre-web
               tag: 0.6.24@sha256:fcb62aefb20943c96eb8e2b3b53803f5c77c97be3534830eb475bf76edfc7951
             env:
               CACHE_DIR: /cache
