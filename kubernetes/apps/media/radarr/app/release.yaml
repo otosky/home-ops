@@ -22,8 +22,8 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/onedr0p/radarr-develop
-              tag: 4.7.5.7809@sha256:f2044d2e8bd2e8d24e8a79f051404be80400f450a94b4c481cbc93cfeffbe745
+              repository: ghcr.io/home-operations/radarr
+              tag: 5.23.1@sha256:794fb31c2773491429cdf50906443c301c61298b1e53f1e95ccf723c30c73d3f
             env:
               RADARR__INSTANCE_NAME: Radarr
               RADARR__PORT: &port 7878
