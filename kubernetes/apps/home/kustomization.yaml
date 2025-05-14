@@ -7,4 +7,3 @@ resources:
   - ./emqx/ks.yaml
   - ./zigbee2mqtt/ks.yaml
   - ./home-assistant/ks.yaml
-  - ./syncthing/ks.yaml
