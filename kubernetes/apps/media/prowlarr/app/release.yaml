@@ -23,7 +23,7 @@ spec:
           main:
             image:
               repository: ghcr.io/home-operations/prowlarr
-              tag: 1.36.1@sha256:3e2cdb5bb709bf97e249d82c951132d3822084caaf13a5f073c13dbd929dfaba
+              tag: 1.36.1.5049@sha256:3e2cdb5bb709bf97e249d82c951132d3822084caaf13a5f073c13dbd929dfaba
             env:
               PROWLARR__INSTANCE_NAME: Prowlarr
               PROWLARR__PORT: &port 9696
