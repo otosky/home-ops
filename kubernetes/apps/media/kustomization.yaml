@@ -23,7 +23,6 @@ resources:
   - ./calibre-web/ks.yaml
   - ./shiori/ks.yaml
   - ./tandoor/ks.yaml
-  - ./kavita/ks.yaml
   - ./ytdl-sub/ks.yaml
   - ./suwayomi/ks.yaml
   - ./komf/ks.yaml
