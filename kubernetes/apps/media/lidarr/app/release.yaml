@@ -23,7 +23,7 @@ spec:
           main:
             image:
               repository: ghcr.io/home-operations/lidarr
-              tag: 2.12.0.4633@sha256:be4ba95475c2d44ac98feac32c967991d51a2c68e7e16d3c1f2396a55ad163ca
+              tag: 2.12.4.4658@sha256:2adf4c457faffbc587f7612f96a3f4d50795c5b2e343298aef7e67a91060bd6f
             env:
               LIDARR__INSTANCE_NAME: Lidarr
               LIDARR__PORT: &port 8020
