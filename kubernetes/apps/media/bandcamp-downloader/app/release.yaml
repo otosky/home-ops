@@ -18,7 +18,7 @@ spec:
         type: cronjob
         cronjob:
           concurrencyPolicy: Forbid
-          schedule: "0 12 * * *"
+          schedule: "0 */3 * * *"
           restartPolicy: OnFailure
         containers:
           main:
