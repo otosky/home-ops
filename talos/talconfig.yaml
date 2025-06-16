@@ -1,0 +1,141 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/budimanjojo/talhelper/master/pkg/config/schemas/talconfig.json
+---
+clusterName: kubernetes
+
+talosVersion: "${talosVersion}"
+kubernetesVersion: "${kubernetesVersion}"
+
+endpoint: https://10.66.1.51:6443
+additionalApiServerCertSans: &sans
+  - "127.0.0.1"
+  - "10.66.1.51"
+additionalMachineCertSans: *sans
+
+clusterPodNets: ["10.42.0.0/16"]
+clusterSvcNets: ["10.43.0.0/16"]
+
+# Disable built-in CNI to use Cilium
+cniConfig:
+  name: none
+
+nodes:
+  - hostname: "control-plane01"
+    ipAddress: "10.66.1.31"
+    installDiskSelector:
+      serial: "195111803033"
+    machineSpec:
+      secureboot: true
+    talosImageURL: factory.talos.dev/installer-secureboot/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
+    controlPlane: true
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "98:fa:9b:98:09:91"
+        dhcp: false
+        addresses:
+          - "10.66.1.31/24"
+        routes:
+          - network: "0.0.0.0/0"
+            gateway: "10.66.1.1"
+        mtu: 1500
+        vip:
+          ip: "10.66.1.51"
+    patches:
+      - # Encrypt system disk with TPM
+        |-
+        machine:
+          systemDiskEncryption:
+            state:
+              provider: luks2
+              keys:
+                - slot: 0
+                  tpm: {}
+            ephemeral:
+              provider: luks2
+              keys:
+                - slot: 0
+                  tpm: {}
+  - hostname: "control-plane02"
+    ipAddress: "10.66.1.32"
+    installDiskSelector:
+      serial: "S5P2NL0W205885B"
+    machineSpec:
+      secureboot: true
+    talosImageURL: factory.talos.dev/installer-secureboot/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
+    controlPlane: true
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "00:2b:67:5a:86:d5"
+        dhcp: false
+        addresses:
+          - "10.66.1.32/24"
+        routes:
+          - network: "0.0.0.0/0"
+            gateway: "10.66.1.1"
+        mtu: 1500
+        vip:
+          ip: "10.66.1.51"
+    patches:
+      - # Encrypt system disk with TPM
+        |-
+        machine:
+          systemDiskEncryption:
+            state:
+              provider: luks2
+              keys:
+                - slot: 0
+                  tpm: {}
+            ephemeral:
+              provider: luks2
+              keys:
+                - slot: 0
+                  tpm: {}
+  - hostname: "control-plane03"
+    ipAddress: "10.66.1.33"
+    installDiskSelector:
+      serial: "2241E6792A56"
+    machineSpec:
+      secureboot: true
+    talosImageURL: factory.talos.dev/installer-secureboot/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
+    controlPlane: true
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "54:05:db:50:6b:a2"
+        dhcp: false
+        addresses:
+          - "10.66.1.33/24"
+        routes:
+          - network: "0.0.0.0/0"
+            gateway: "10.66.1.1"
+        mtu: 1500
+        vip:
+          ip: "10.66.1.51"
+    patches:
+      - # Encrypt system disk with TPM
+        |-
+        machine:
+          systemDiskEncryption:
+            state:
+              provider: luks2
+              keys:
+                - slot: 0
+                  tpm: {}
+            ephemeral:
+              provider: luks2
+              keys:
+                - slot: 0
+                  tpm: {}
+
+# Global patches
+patches:
+  - "@./patches/global/machine-files.yaml"
+  - "@./patches/global/machine-kubelet.yaml"
+  - "@./patches/global/machine-network.yaml"
+  - "@./patches/global/machine-sysctls.yaml"
+  - "@./patches/global/machine-time.yaml"
+
+# Controller patches
+controlPlane:
+  patches:
+    - "@./patches/controller/admission-controller-patch.yaml"
+    - "@./patches/controller/cluster.yaml"
+
