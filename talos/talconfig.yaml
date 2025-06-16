@@ -124,6 +124,102 @@ nodes:
               keys:
                 - slot: 0
                   tpm: {}
+  - hostname: "agent01"
+    ipAddress: "10.66.1.41"
+    installDisk: "/dev/disk/by-id/ata-Samsung_SSD_870_EVO_250GB_S6PDNZ0R621553V"
+    machineSpec:
+      secureboot: true
+    talosImageURL: factory.talos.dev/installer-secureboot/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "e4:1d:2d:dd:7d:10"
+        dhcp: false
+        addresses:
+          - "10.66.1.41/24"
+        routes:
+          - network: "0.0.0.0/0"
+            gateway: "10.66.1.1"
+        mtu: 1500
+    patches:
+      - # Encrypt system disk with TPM
+        |-
+        machine:
+          systemDiskEncryption:
+            state:
+              provider: luks2
+              keys:
+                - slot: 0
+                  tpm: {}
+            ephemeral:
+              provider: luks2
+              keys:
+                - slot: 0
+                  tpm: {}
+  - hostname: "agent02"
+    ipAddress: "10.66.1.42"
+    installDisk: "/dev/disk/by-id/ata-CT250MX500SSD1_2004E284CD05"
+    machineSpec:
+      secureboot: true
+    talosImageURL: factory.talos.dev/installer-secureboot/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "24:8a:07:5d:9f:40"
+        dhcp: false
+        addresses:
+          - "10.66.1.42/24"
+        routes:
+          - network: "0.0.0.0/0"
+            gateway: "10.66.1.1"
+        mtu: 1500
+    patches:
+      - # Encrypt system disk with TPM
+        |-
+        machine:
+          systemDiskEncryption:
+            state:
+              provider: luks2
+              keys:
+                - slot: 0
+                  tpm: {}
+            ephemeral:
+              provider: luks2
+              keys:
+                - slot: 0
+                  tpm: {}
+  - hostname: "agent03"
+    ipAddress: "10.66.1.43"
+    installDisk: "/dev/disk/by-id/ata-CT250MX500SSD1_2029E2B8C244"
+    machineSpec:
+      secureboot: true
+    talosImageURL: factory.talos.dev/installer-secureboot/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "e4:1d:2d:2b:5a:20"
+        dhcp: false
+        addresses:
+          - "10.66.1.43/24"
+        routes:
+          - network: "0.0.0.0/0"
+            gateway: "10.66.1.1"
+        mtu: 1500
+    patches:
+      - # Encrypt system disk with TPM
+        |-
+        machine:
+          systemDiskEncryption:
+            state:
+              provider: luks2
+              keys:
+                - slot: 0
+                  tpm: {}
+            ephemeral:
+              provider: luks2
+              keys:
+                - slot: 0
+                  tpm: {}
 
 # Global patches
 patches:

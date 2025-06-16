@@ -2,3 +2,6 @@ kubernetes-control-plane01.yaml
 talosconfig
 kubernetes-control-plane02.yaml
 kubernetes-control-plane03.yaml
+kubernetes-agent03.yaml
+kubernetes-agent01.yaml
+kubernetes-agent02.yaml
