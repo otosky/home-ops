@@ -59,7 +59,7 @@ spec:
       enabled: true
 
     sources:
-      - route
+      - gateway-httproute
       - ingress
       - service
 
