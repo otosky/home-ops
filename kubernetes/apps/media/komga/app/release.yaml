@@ -51,7 +51,21 @@ spec:
       main:
         ports:
           http:
-            port: 25600
+            port: &port 25600
+    route:
+      app:
+        hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
+        parentRefs:
+          - name: external
+            namespace: kube-system
+            sectionName: https
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: http
+                port: *port
     persistence:
       data:
         type: persistentVolumeClaim
