@@ -13,7 +13,6 @@ spec:
         kind: HelmRepository
         name: external-dns
         namespace: flux-system
-      interval: 30m
 
   values:
     fullnameOverride: *app
