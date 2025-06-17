@@ -56,4 +56,3 @@ spec:
       cache:
         enabled: true
         type: emptyDir
-        mountPath: /cache
