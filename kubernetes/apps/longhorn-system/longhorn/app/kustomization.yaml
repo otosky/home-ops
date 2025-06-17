@@ -6,4 +6,3 @@ resources:
   - ./externalsecret.yaml
   - ./release.yaml
   - ./storage-class.yaml
-  - ./ingress.yaml
