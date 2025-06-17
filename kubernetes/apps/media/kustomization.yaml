@@ -22,7 +22,7 @@ resources:
   # - ./komga/ks.yaml
   # - ./miniflux/ks.yaml
   # - ./jellyseerr/ks.yaml
-  # - ./calibre-web/ks.yaml
+  - ./calibre-web/ks.yaml
   # - ./shiori/ks.yaml
   # - ./ytdl-sub/ks.yaml
   # - ./suwayomi/ks.yaml
