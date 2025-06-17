@@ -126,6 +126,8 @@ nodes:
                   tpm: {}
   - hostname: "agent01"
     ipAddress: "10.66.1.41"
+    nodeLabels:
+      intel.feature.node.kubernetes.io/gpu: "true"
     installDisk: "/dev/disk/by-id/ata-Samsung_SSD_870_EVO_250GB_S6PDNZ0R621553V"
     machineSpec:
       secureboot: true
@@ -171,6 +173,8 @@ nodes:
                   tpm: {}
   - hostname: "agent02"
     ipAddress: "10.66.1.42"
+    nodeLabels:
+      intel.feature.node.kubernetes.io/gpu: "true"
     installDisk: "/dev/disk/by-id/ata-CT250MX500SSD1_2004E284CD05"
     machineSpec:
       secureboot: true
@@ -216,6 +220,8 @@ nodes:
                   tpm: {}
   - hostname: "agent03"
     ipAddress: "10.66.1.43"
+    nodeLabels:
+      intel.feature.node.kubernetes.io/gpu: "true"
     installDisk: "/dev/disk/by-id/ata-CT250MX500SSD1_2029E2B8C244"
     machineSpec:
       secureboot: true
