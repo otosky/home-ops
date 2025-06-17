@@ -58,6 +58,7 @@ spec:
       config:
         enabled: true
         type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
         storageClass: longhorn-ssd
         size: 100Gi
       media:
