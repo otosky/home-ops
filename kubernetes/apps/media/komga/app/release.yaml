@@ -1,0 +1,65 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: komga
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  interval: 5m
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      main:
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/gotson/komga
+              tag: 1.21.3
+            env:
+              TZ: America/Los_Angeles
+              KOMGA_LIBRARIES_SCAN_CRON: "0 */3 * * * ?"
+        pod:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: "OnRootMismatch"
+        statefulset:
+          volumeClaimTemplates:
+            - name: config
+              globalMounts:
+                - path: /config
+              accessMode: ReadWriteOnce
+              size: 20Gi
+              storageClass: longhorn-ssd
+    service:
+      main:
+        ports:
+          http:
+            port: 25600
+    persistence:
+      data:
+        type: persistentVolumeClaim
+        existingClaim: media
+        advancedMounts:
+          main:
+            main:
+              - path: /data
+                subPath: media/manga
+              - path: /suwayomi
+                subPath: media/suwayomi
