@@ -64,10 +64,6 @@ spec:
           - name: internal
             namespace: kube-system
             sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: http
-                port: *port
     persistence:
       config:
         enabled: true
