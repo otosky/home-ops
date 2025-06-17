@@ -5,3 +5,4 @@ kind: Kustomization
 resources:
   - ./external-dns.yaml
   - ./bjw-s-labs.yaml
+  - ./longhorn.yaml

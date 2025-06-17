@@ -1,0 +1,29 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: longhorn
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: longhorn
+      sourceRef:
+        kind: HelmRepository
+        name: longhorn
+        namespace: flux-system
+      version: 1.8.1
+      interval: 5m
+  values:
+    persistence:
+      defaultClass: false
+      defaultClassReplicaCount: 2
+    csi:
+      attacherReplicaCount: 1
+      provisionerReplicaCount: 1
+      resizerReplicaCount: 1
+      snapshotterReplicaCount: 1
+    defaultSettings:
+      backupTarget: s3://toskbot-xyz-longhorn@us-east-005/
+      backupTargetCredentialSecret: longhorn-secret
+      backupstorePollInterval: 0
+      defaultLonghornStaticStorageClass: longhorn-ssd
