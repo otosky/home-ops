@@ -141,6 +141,19 @@ nodes:
           - network: "0.0.0.0/0"
             gateway: "10.66.1.1"
         mtu: 1500
+    userVolumes:
+      - name: local-hostpath-nvme
+        provisioning:
+          diskSelector:
+            match: disk.transport == "nvme"
+          minSize: 5GiB
+          grow: true
+      - name: longhorn-ssd
+        provisioning:
+          diskSelector:
+            match: disk.transport != "nvme" && !system_disk
+          minSize: 5GiB
+          grow: true
     patches:
       - # Encrypt system disk with TPM
         |-
@@ -173,6 +186,19 @@ nodes:
           - network: "0.0.0.0/0"
             gateway: "10.66.1.1"
         mtu: 1500
+    userVolumes:
+      - name: local-hostpath-nvme
+        provisioning:
+          diskSelector:
+            match: disk.transport == "nvme"
+          minSize: 5GiB
+          grow: true
+      - name: longhorn-ssd
+        provisioning:
+          diskSelector:
+            match: disk.transport != "nvme" && !system_disk
+          minSize: 5GiB
+          grow: true
     patches:
       - # Encrypt system disk with TPM
         |-
@@ -205,6 +231,19 @@ nodes:
           - network: "0.0.0.0/0"
             gateway: "10.66.1.1"
         mtu: 1500
+    userVolumes:
+      - name: local-hostpath-nvme
+        provisioning:
+          diskSelector:
+            match: disk.transport == "nvme"
+          minSize: 5GiB
+          grow: true
+      - name: longhorn-ssd
+        provisioning:
+          diskSelector:
+            match: disk.transport != "nvme" && !system_disk
+          minSize: 5GiB
+          grow: true
     patches:
       - # Encrypt system disk with TPM
         |-
