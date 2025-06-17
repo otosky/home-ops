@@ -15,7 +15,7 @@ resources:
   # - ./sonarr/ks.yaml
   # - ./lidarr/ks.yaml
   # - ./navidrome/ks.yaml
-  # - ./jellyfin/ks.yaml
+  - ./jellyfin/ks.yaml
   - ./bandcamp-downloader/ks.yaml
   # - ./unpackerr/ks.yaml
   # - ./bazarr/ks.yaml
