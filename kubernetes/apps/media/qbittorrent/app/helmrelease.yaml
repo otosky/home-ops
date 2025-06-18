@@ -115,10 +115,6 @@ spec:
           - name: internal
             namespace: kube-system
             sectionName: https
-        rules:
-          - backendRefs:
-              - name: qbittorrent
-                port: *port
     persistence:
       config:
         enabled: true
