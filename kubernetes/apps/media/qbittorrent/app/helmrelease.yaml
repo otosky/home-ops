@@ -28,7 +28,6 @@ spec:
               tag: v3.40.0
             env:
               DOT: "off"
-              DNS_ADDRESS: "127.0.0.2"
               VPN_SERVICE_PROVIDER: airvpn
               VPN_TYPE: wireguard
               VPN_INTERFACE: wg0
@@ -37,6 +36,13 @@ spec:
               - secretRef:
                   name: qbittorrent
             restartPolicy: Always
+            lifecycle:
+              postStart:
+                exec:
+                  command:
+                    - /bin/sh
+                    - -c
+                    - (ip rule del table 51820; ip -6 rule del table 51820) || true
             securityContext:
               capabilities:
                 add:
