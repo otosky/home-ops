@@ -35,7 +35,6 @@ spec:
               VPN_SERVICE_PROVIDER: airvpn
               VPN_TYPE: wireguard
               VPN_INTERFACE: wg0
-              VPN_PORT_FORWARDING: on
               FIREWALL_VPN_INPUT_PORTS: 13763
               FIREWALL_INPUT_PORTS: 8080
               FIREWALL_DEBUG: on
