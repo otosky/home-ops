@@ -93,8 +93,6 @@ spec:
             fsGroupChangePolicy: "OnRootMismatch"
             supplementalGroups:
               - 100
-          annotations:
-            setGateway: "true"
     service:
       main:
         ports:
