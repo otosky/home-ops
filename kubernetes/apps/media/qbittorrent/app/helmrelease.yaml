@@ -36,9 +36,6 @@ spec:
             envFrom:
               - secretRef:
                   name: qbittorrent
-            resources:
-              limits:
-                squat.ai/tun: "1"
             restartPolicy: Always
             securityContext:
               capabilities:
