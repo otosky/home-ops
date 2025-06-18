@@ -143,7 +143,7 @@ spec:
         type: configMap
         name: qbittorrent-coredns
         advancedMounts:
-          qbittorrent:
+          main:
             coredns:
               - path: /etc/coredns/Corefile
                 subPath: Corefile
