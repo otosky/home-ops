@@ -35,6 +35,7 @@ spec:
               VPN_SERVICE_PROVIDER: airvpn
               VPN_TYPE: wireguard
               VPN_INTERFACE: wg0
+              VPN_PORT_FORWARDING: on
               FIREWALL_VPN_INPUT_PORTS: 13763
               FIREWALL_INPUT_PORTS: 8080
               FIREWALL_DEBUG: on
@@ -49,7 +50,7 @@ spec:
                   command:
                     - /bin/sh
                     - -c
-                    - (ip rule del table 51820; ip -6 rule del table 51820) || true
+                    - (ip rule del table $WIREGUARD_ENDPOINT_PORT; ip -6 rule del table $WIREGUARD_ENDPOINT_PORT) || true
             securityContext:
               capabilities:
                 add:
