@@ -63,6 +63,10 @@ spec:
           - name: external
             namespace: kube-system
             sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: main
+                port: *port
     persistence:
       nas:
         type: persistentVolumeClaim
