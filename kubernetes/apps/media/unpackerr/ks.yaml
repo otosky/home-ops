@@ -1,0 +1,37 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: unpackerr
+  namespace: media
+spec:
+  dependsOn:
+    - name: onepassword-connect
+      namespace: external-secrets
+    - name: qbittorrent
+    - name: prowlarr
+    - name: radarr
+    - name: sonarr
+    - name: lidarr
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+  path: ./kubernetes/apps/media/unpackerr/app/
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: unpackerr
+      namespace: media
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
