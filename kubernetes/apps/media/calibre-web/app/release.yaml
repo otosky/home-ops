@@ -47,6 +47,13 @@ spec:
         ports:
           http:
             port: 8083
+    route:
+      main:
+        hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
+        parentRefs:
+          - name: external
+            namespace: kube-system
+            sectionName: https
     persistence:
       data:
         type: persistentVolumeClaim
