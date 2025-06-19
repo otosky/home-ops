@@ -4,6 +4,9 @@ metadata:
   name: lidarr
 spec:
   interval: 5m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
   values:
     controllers:
       main:
