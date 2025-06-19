@@ -11,9 +11,9 @@ resources:
   # Flux-Kustomizations
   - ./qbittorrent/ks.yaml
   - ./prowlarr/ks.yaml
-  # - ./radarr/ks.yaml
+  - ./radarr/ks.yaml
   - ./sonarr/ks.yaml
-  # - ./lidarr/ks.yaml
+  - ./lidarr/ks.yaml
   - ./navidrome/ks.yaml
   - ./jellyfin/ks.yaml
   - ./bandcamp-downloader/ks.yaml
