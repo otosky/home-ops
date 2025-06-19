@@ -53,6 +53,13 @@ spec:
         ports:
           http:
             port: *port
+    route:
+      main:
+        hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
     persistence:
       data:
         enabled: true
