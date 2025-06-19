@@ -6,3 +6,4 @@ resources:
   - ./externalsecret.yaml
   - ./release.yaml
   - ./storage-class.yaml
+  - ./httproute.yaml
