@@ -12,7 +12,7 @@ resources:
   - ./qbittorrent/ks.yaml
   - ./prowlarr/ks.yaml
   # - ./radarr/ks.yaml
-  # - ./sonarr/ks.yaml
+  - ./sonarr/ks.yaml
   # - ./lidarr/ks.yaml
   - ./navidrome/ks.yaml
   - ./jellyfin/ks.yaml
