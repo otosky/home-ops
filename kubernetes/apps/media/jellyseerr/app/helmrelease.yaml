@@ -49,6 +49,7 @@ spec:
       config:
         enabled: true
         type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
         storageClass: longhorn-ssd
         size: 10Gi
         globalMounts:
