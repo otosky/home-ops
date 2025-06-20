@@ -6,4 +6,4 @@ resources:
   - ./external-dns.yaml
   - ./bjw-s-labs.yaml
   - ./longhorn.yaml
-  - ./angelnu.yaml
+  - ./cloudnative-pg.yaml
