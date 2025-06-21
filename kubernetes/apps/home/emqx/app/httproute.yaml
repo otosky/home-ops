@@ -12,7 +12,7 @@ spec:
       sectionName: https
   rules:
     - backendRefs:
-        - name: emqx-dashboard
+        - name: emqx
           namespace: home
           port: 18083
       matches:
