@@ -1,0 +1,57 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.toskbot.xyz/postgresql.cnpg.io/cluster_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgres
+spec:
+  instances: 3
+  imageName: ghcr.io/cloudnative-pg/postgresql:14.5
+  primaryUpdateStrategy: unsupervised
+  storage:
+    size: 20Gi
+    storageClass: openebs-hostpath
+  superuserSecret:
+    name: cloudnative-pg-secret
+  postgresql:
+    parameters:
+      max_connections: "300"
+      shared_buffers: 512MB
+  monitoring:
+    enablePodMonitor: true
+  backup:
+    retentionPolicy: 14d
+    barmanObjectStore:
+      data:
+        compression: bzip2
+      wal:
+        compression: bzip2
+        maxParallel: 8
+      destinationPath: &s3_path s3://toskbot-xyz-cloudnativepg
+      endpointURL: https://s3.us-east-005.backblazeb2.com
+      serverName: &currentCluster postgres-v4
+      s3Credentials:
+        accessKeyId:
+          name: cloudnative-pg-secret
+          key: backblaze-access-key-id
+        secretAccessKey:
+          name: cloudnative-pg-secret
+          key: backblaze-secret-access-key
+  bootstrap:
+    recovery:
+      source: &previousCluster postgres-v3
+  # Note: externalClusters is needed when recovering from an existing cnpg cluster
+  externalClusters:
+    - name: *previousCluster
+      barmanObjectStore:
+        wal:
+          compression: bzip2
+          maxParallel: 8
+        destinationPath: *s3_path
+        s3Credentials:
+          accessKeyId:
+            name: cloudnative-pg-secret
+            key: backblaze-access-key-id
+          secretAccessKey:
+            name: cloudnative-pg-secret
+            key: backblaze-secret-access-key
