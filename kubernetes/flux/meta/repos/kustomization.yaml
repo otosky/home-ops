@@ -7,3 +7,4 @@ resources:
   - ./bjw-s-labs.yaml
   - ./longhorn.yaml
   - ./cloudnative-pg.yaml
+  - ./emqx.yaml
