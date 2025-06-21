@@ -83,4 +83,3 @@ spec:
       add-ons:
         enabled: true
         type: emptyDir
-        mountPath: /add-ons
