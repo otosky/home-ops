@@ -12,7 +12,7 @@ spec:
       sectionName: https
   rules:
     - backendRefs:
-        - name: emqx
+        - name: emqx-headless
           namespace: home
           port: 18083
       matches:
