@@ -28,7 +28,7 @@ spec:
         compression: bzip2
         maxParallel: 8
       destinationPath: &s3_path s3://toskbot-xyz-cloudnativepg
-      endpointURL: https://s3.us-east-005.backblazeb2.com
+      endpointURL: &s3_endpoint https://s3.us-east-005.backblazeb2.com
       serverName: &currentCluster postgres-v4
       s3Credentials:
         accessKeyId:
@@ -47,7 +47,10 @@ spec:
         wal:
           compression: bzip2
           maxParallel: 8
-        destinationPath: *s3_path
+        destinationPath: &s3_path s3://toskbot-xyz-cloudnativepg
+        endpointURL: &s3_endpoint https://s3.us-east-005.backblazeb2.com
+        # destinationPath: *s3_path
+        # endpointURL: &s3_endpoint
         s3Credentials:
           accessKeyId:
             name: cloudnative-pg-secret
