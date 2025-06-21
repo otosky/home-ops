@@ -18,7 +18,7 @@ resources:
   - ./jellyfin/ks.yaml
   - ./bandcamp-downloader/ks.yaml
   - ./unpackerr/ks.yaml
-  # - ./bazarr/ks.yaml
+  - ./bazarr/ks.yaml
   - ./komga/ks.yaml
   # - ./miniflux/ks.yaml
   - ./jellyseerr/ks.yaml

@@ -2,16 +2,12 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app prowlarr
+  name: &app bazarr
   namespace: media
 spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  dependsOn:
-    - name: onepassword-connect
-      namespace: external-secrets
-    - name: qbittorrent
   decryption:
     provider: sops
     secretRef:
@@ -20,17 +16,12 @@ spec:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
-  path: ./kubernetes/apps/media/prowlarr/app/
+  path: ./kubernetes/apps/media/bazarr/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: prowlarr
-      namespace: media
   interval: 30m
   retryInterval: 1m
-  timeout: 5m
+  timeout: 3m
