@@ -85,6 +85,3 @@ spec:
           - name: internal
             namespace: kube-system
             sectionName: https
-    serviceMonitor:
-      main:
-        enabled: true
