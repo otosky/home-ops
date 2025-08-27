@@ -65,7 +65,7 @@ spec:
               ZIGBEE2MQTT_CONFIG_ADVANCED_PAN_ID:
                 valueFrom:
                   secretKeyRef:
-                    name: zigbee2mqtt-secret
+                    name: zigbee-secret
                     key: ZIGBEE2MQTT_CONFIG_ADVANCED_PAN_ID
 
               ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: &port 80
@@ -93,9 +93,6 @@ spec:
                   secretKeyRef:
                     name: emqx-secret
                     key: AUTH__USER__1__PASSWORD
-            envFrom:
-              - secretRef:
-                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness:
                 enabled: true
