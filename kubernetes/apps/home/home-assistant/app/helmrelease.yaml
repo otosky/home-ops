@@ -29,7 +29,7 @@ spec:
           init-db:
             image:
               repository: ghcr.io/home-operations/postgres-init
-              tag: 14.8
+              tag: 17.0
             envFrom:
               - secretRef:
                   name: home-assistant-secret
