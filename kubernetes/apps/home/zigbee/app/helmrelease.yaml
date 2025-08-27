@@ -59,6 +59,7 @@ spec:
                     name: emqx-secret
                     key: AUTH__USER__1__PASSWORD
               ZIGBEE2MQTT_CONFIG_SERIAL_PORT: tcp://10.66.3.5:6638
+              ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: zstack
               ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_OUTPUT: '["console"]'
               ZIGBEE2MQTT_CONFIG_ADVANCED_PAN_ID:
                 valueFrom:
@@ -66,7 +67,7 @@ spec:
                     name: zigbee-secret
                     key: ZIGBEE2MQTT_CONFIG_ADVANCED_PAN_ID
 
-              ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: &port 80
+              ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: &port 8080
               # DEBUG: "zigbee-herdsman*"
           exporter:
             image:
@@ -130,6 +131,8 @@ spec:
         ports:
           http:
             port: *port
+          metrics:
+            port: 80
     route:
       app:
         hostnames: ["zigbee.toskbot.xyz"]
