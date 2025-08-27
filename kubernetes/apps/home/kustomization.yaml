@@ -6,5 +6,5 @@ components:
 resources:
   # Flux-Kustomizations
   - ./emqx/ks.yaml
-  # - ./zigbee2mqtt/ks.yaml
+  - ./zigbee/ks.yaml
   - ./home-assistant/ks.yaml
