@@ -7,7 +7,7 @@ spec:
   interval: 1h
   chart:
     spec:
-      chart: spark/spark-kubernetes-operator
+      chart: spark-kubernetes-operator
       version: 1.2.0
       sourceRef:
         kind: HelmRepository
