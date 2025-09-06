@@ -10,3 +10,4 @@ resources:
   - ./emqx.yaml
   - ./apache-spark.yaml
   - ./flink-operator.yaml
+  - ./apache-yunikorn.yaml
