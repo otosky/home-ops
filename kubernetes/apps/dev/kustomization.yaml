@@ -8,3 +8,4 @@ resources:
   # Flux-Kustomizations
   - ./spark-operator/ks.yaml
   - ./flink-operator/ks.yaml
+  - ./yunikorn/ks.yaml
