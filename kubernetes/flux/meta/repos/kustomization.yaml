@@ -9,3 +9,4 @@ resources:
   - ./cloudnative-pg.yaml
   - ./emqx.yaml
   - ./apache-spark.yaml
+  - ./flink-operator.yaml

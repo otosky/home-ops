@@ -7,3 +7,4 @@ components:
 resources:
   # Flux-Kustomizations
   - ./spark-operator/ks.yaml
+  - ./flink-operator/ks.yaml
