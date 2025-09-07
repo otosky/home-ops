@@ -46,7 +46,7 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
             - name: INIT_POSTGRES_DBNAME
-              value: temporal-visibility
+              value: temporal_visibility
           envFrom:
             - secretRef:
                 name: temporal-secret
