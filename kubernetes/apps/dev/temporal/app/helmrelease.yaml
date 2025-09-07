@@ -36,7 +36,8 @@ spec:
           image: ghcr.io/home-operations/postgres-init:17.6.0
           imagePullPolicy: IfNotPresent
           env:
-            INIT_POSTGRES_DBNAME: temporal
+            name: INIT_POSTGRES_DBNAME
+            value: temporal
           envFrom:
             - secretRef:
                 name: temporal-secret
@@ -44,7 +45,8 @@ spec:
           image: ghcr.io/home-operations/postgres-init:17.6.0
           imagePullPolicy: IfNotPresent
           env:
-            INIT_POSTGRES_DBNAME: temporal-visibility
+            name: INIT_POSTGRES_DBNAME
+            value: temporal-visibility
           envFrom:
             - secretRef:
                 name: temporal-secret
