@@ -31,6 +31,11 @@ spec:
     cassandra:
       enabled: false
     server:
+      namespaces:
+      create: true
+      namespace:
+        - name: default
+          retention: 3d
       additionalInitContainers:
         - name: init-db-default
           image: ghcr.io/home-operations/postgres-init:17.6.0
