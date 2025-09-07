@@ -11,3 +11,4 @@ resources:
   - ./apache-spark.yaml
   - ./flink-operator.yaml
   - ./apache-yunikorn.yaml
+  - ./temporal.yaml
