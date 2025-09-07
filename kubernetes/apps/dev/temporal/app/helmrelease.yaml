@@ -32,9 +32,19 @@ spec:
       enabled: false
     server:
       additionalInitContainers:
-        - name: init-db
+        - name: init-db-default
           image: ghcr.io/home-operations/postgres-init:17.6.0
           imagePullPolicy: IfNotPresent
+          env:
+            INIT_POSTGRES_DBNAME: temporal
+          envFrom:
+            - secretRef:
+                name: temporal-secret
+        - name: init-db-visibility
+          image: ghcr.io/home-operations/postgres-init:17.6.0
+          imagePullPolicy: IfNotPresent
+          env:
+            INIT_POSTGRES_DBNAME: temporal-visibility
           envFrom:
             - secretRef:
                 name: temporal-secret
@@ -58,3 +68,10 @@ spec:
             driver: "sql"
 
             sql: *sqlconn
+    schema:
+      createDatabase:
+        enabled: false
+      setup:
+        enabled: true
+      update:
+        enabled: true
