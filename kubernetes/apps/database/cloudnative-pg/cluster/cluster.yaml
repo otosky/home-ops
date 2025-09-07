@@ -11,7 +11,7 @@ spec:
   storage:
     size: 20Gi
     storageClass: openebs-hostpath
-  # enableSuperuserAccess: true
+  enableSuperuserAccess: true
   superuserSecret:
     name: cloudnative-pg-secret
   postgresql:
