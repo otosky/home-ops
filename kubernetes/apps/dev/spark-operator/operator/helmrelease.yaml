@@ -21,3 +21,10 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
+  values:
+    workloadResources:
+      namespaces:
+        create: true
+        overrideWatchedNamespaces: true
+        data:
+          - "spark-apps"
