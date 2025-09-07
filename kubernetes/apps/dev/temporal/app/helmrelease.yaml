@@ -69,7 +69,16 @@ spec:
           visibility:
             driver: "sql"
 
-            sql: *sqlconn
+            sql:
+              driver: "postgres12"
+              host: postgres-rw.database.svc.cluster.local
+              port: 5432
+              database: temporal_visibility
+              user: temporal
+              existingSecret: temporal-dbpass
+              maxConns: 20
+              maxIdleConns: 20
+              maxConnLifetime: "1h"
     schema:
       createDatabase:
         enabled: false
