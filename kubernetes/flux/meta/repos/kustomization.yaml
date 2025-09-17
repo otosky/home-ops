@@ -13,3 +13,4 @@ resources:
   - ./apache-yunikorn.yaml
   - ./temporal.yaml
   - ./lakekeeper.yaml
+  - ./openfga.yaml
