@@ -14,3 +14,4 @@ resources:
   - ./temporal.yaml
   - ./lakekeeper.yaml
   - ./openfga.yaml
+  - ./authentik.yaml
