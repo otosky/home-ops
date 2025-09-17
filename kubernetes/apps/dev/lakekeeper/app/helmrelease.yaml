@@ -16,7 +16,10 @@ spec:
   install:
     remediation:
       retries: -1
+    # https://github.com/lakekeeper/lakekeeper-charts/issues/81#issuecomment-2925285591
+    disableWait: true
   upgrade:
+    disableWait: true
     cleanupOnFail: true
     remediation:
       strategy: rollback
@@ -28,6 +31,18 @@ spec:
         encryptionKeySecretKey: "encryption-key"
     postgresql:
       enabled: false
+    dbMigrations:
+      enabled: true
+      extraInitContainers:
+        - name: init-db-default
+          image: ghcr.io/home-operations/postgres-init:17.6.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: INIT_POSTGRES_DBNAME
+              value: lakekeeper_catalog
+          envFrom:
+            - secretRef:
+                name: lakekeeper-secret
     externalDatabase:
       type: postgres
       host_read: "postgres-rw.database.svc.cluster.local"
