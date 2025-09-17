@@ -12,3 +12,4 @@ resources:
   - ./flink-operator.yaml
   - ./apache-yunikorn.yaml
   - ./temporal.yaml
+  - ./lakekeeper.yaml
