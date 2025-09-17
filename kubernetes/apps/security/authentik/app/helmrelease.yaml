@@ -61,5 +61,12 @@ spec:
           memory: 1Gi
     redis:
       enabled: true
-      persistence:
-        enabled: false
+      master:
+        persistence:
+          enabled: false
+      replica:
+        persistence:
+          enabled: false
+      sentinel:
+        persistence:
+          enabled: false
