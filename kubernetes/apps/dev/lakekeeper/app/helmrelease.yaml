@@ -67,7 +67,7 @@ spec:
         # and the openid-configuration needs to have the jwks_uri and issuer defined.
         # For keycloak set: https://keycloak.local/realms/test
         # For Entra-ID set: https://login.microsoftonline.com/{your-tenant-id}/v2.0
-        providerUri: "https://authentik-server.security.svc.cluster.local/application/o/lakekeeper"
+        providerUri: "https://auth.toskbot.xyz/application/o/lakekeeper"
         # -- The expected Audience of the OIDC App of lakekeeper.
         # The aud (audience) claim of the JWT token must match this value. Typically this is
         # the Client ID.
