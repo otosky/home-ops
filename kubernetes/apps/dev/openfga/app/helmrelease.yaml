@@ -40,6 +40,7 @@ spec:
           envFrom:
             - secretRef:
                 name: openfga-secret
+      annotations:
     serviceAccount:
       create: true
       annotations:
