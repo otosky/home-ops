@@ -31,9 +31,6 @@ spec:
       envFrom:
         - secretRef:
             name: &secret authentik-secret
-    authentik:
-      redis:
-        host: dragonfly.database.svc.cluster.local
     server:
       initContainers:
         - name: init-db
@@ -62,3 +59,5 @@ spec:
           cpu: 200m
         limits:
           memory: 1Gi
+    redis:
+      enabled: true
