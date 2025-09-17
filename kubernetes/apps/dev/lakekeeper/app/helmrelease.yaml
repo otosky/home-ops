@@ -57,4 +57,31 @@ spec:
       backend: "openfga"
       openfga:
         endpoint: http://openfga.dev.svc.cluster.local:8081
+    auth:
+      # -- Configuration for the authentication of the catalog.
+      # If `auth.oauth2.providerUri` is not set and `auth.kubernetes.enabled` is false,
+      # authentication is disabled.
+      oauth2:
+        # -- If set, access to rest endpoints is secured via an external OIDC-capable IdP.
+        # The IdP must expose `{provider_url}/.well-known/openid-configuration`
+        # and the openid-configuration needs to have the jwks_uri and issuer defined.
+        # For keycloak set: https://keycloak.local/realms/test
+        # For Entra-ID set: https://login.microsoftonline.com/{your-tenant-id}/v2.0
+        providerUri: "https://authentik-server.security.svc.cluster.local/application/o/lakekeeper"
+        # -- The expected Audience of the OIDC App of lakekeeper.
+        # The aud (audience) claim of the JWT token must match this value. Typically this is
+        # the Client ID.
+        audience: "9K14HbVe7lPexMUxaaFIWN61fvOltnp7gDyqdJYJ"
+        # -- Additional allow OIDC issuers.
+        # The issuer defined in the issuer field of the ``.well-known/openid-configuration``
+        # is always trusted. `additionalIssuers` has no effect if `providerUri` is not set.
+        additionalIssuers: []
 
+        ui:
+          # -- Client ID used for the Authorization Code Flow of the UI.
+          # Required if Authentication is enabled.
+          clientID: "9K14HbVe7lPexMUxaaFIWN61fvOltnp7gDyqdJYJ"
+          # -- Space separated scopes to request
+          # scopes: ""
+          # -- Resource to request
+          # resource: ""
