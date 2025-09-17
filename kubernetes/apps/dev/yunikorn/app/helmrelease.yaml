@@ -23,7 +23,5 @@ spec:
       retries: 3
   values:
     yunikornDefaults:
-      admissionController.filtering.processNamespaces:
-        - spark-apps
-      admissionController.filtering.labelNamespaces:
-        - spark-apps
+      admissionController.filtering.processNamespaces: "spark-"
+      admissionController.filtering.labelNamespaces: "spark-"
