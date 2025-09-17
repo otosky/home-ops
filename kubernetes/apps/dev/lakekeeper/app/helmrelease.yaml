@@ -1,0 +1,43 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: lakekeeper
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: lakekeeper
+      version: 0.7.1
+      sourceRef:
+        kind: HelmRepository
+        name: lakekeeper
+        namespace: flux-system
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    secretBackend:
+      postgres:
+        encryptionKeySecret: "lakekeeper-secret"
+        encryptionKeySecretKey: "encryption-key"
+    postgresql:
+      enabled: false
+    externalDatabase:
+      type: postgres
+      host_read: "postgres-rw.database.svc.cluster.local"
+      host_write: "postgres-rw.database.svc.cluster.local"
+      port: 5432
+      database: lakekeeper_catalog
+      user: catalog
+      passwordSecret: "lakekeeper-secret"
+      passwordSecretKey: "postgres-password"
+    authz:
+      backend: "openfga"
+      endpoint: openfga.dev.svc.cluster.local
+

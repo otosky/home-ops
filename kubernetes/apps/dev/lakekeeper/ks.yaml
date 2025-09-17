@@ -1,0 +1,19 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: lakekeeper
+  namespace: dev
+spec:
+  interval: 10m
+  path: ./kubernetes/apps/dev/lakekeeper/app/
+  dependsOn:
+    - name: onepassword-connect
+      namespace: external-secrets
+    - name: openfga
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  wait: true
