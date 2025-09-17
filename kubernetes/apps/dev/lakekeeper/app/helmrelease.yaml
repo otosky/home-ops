@@ -55,5 +55,5 @@ spec:
       passwordSecretKey: "postgres-password"
     authz:
       backend: "openfga"
-      endpoint: openfga.dev.svc.cluster.local
+      endpoint: openfga.dev.svc.cluster.local:8081
 
