@@ -14,7 +14,7 @@ spec:
     - backendRefs:
         - name: authentik-server
           namespace: security
-          port: 443
+          port: 80
       matches:
         - path:
             type: PathPrefix
