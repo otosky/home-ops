@@ -40,7 +40,8 @@ spec:
           envFrom:
             - secretRef:
                 name: openfga-secret
+    serviceAccount:
+      create: true
       annotations:
         helm.sh/hook: "pre-install"
-        helm.sh/hook-weight: "-5"
-        helm.sh/hook-delete-policy: "before-hook-creation"
+        helm.sh/hook-weight: "-6"
