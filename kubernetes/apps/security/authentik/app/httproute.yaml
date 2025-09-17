@@ -13,7 +13,7 @@ spec:
   rules:
     - backendRefs:
         - name: authentik-server
-          namespace: dev
+          namespace: security
           port: 443
       matches:
         - path:
