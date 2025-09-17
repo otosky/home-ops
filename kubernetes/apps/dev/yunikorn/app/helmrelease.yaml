@@ -25,3 +25,5 @@ spec:
     yunikornDefaults:
       admissionController.filtering.processNamespaces:
         - spark-apps
+      admissionController.filtering.labelNamespaces:
+        - spark-apps
