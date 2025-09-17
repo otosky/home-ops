@@ -56,5 +56,5 @@ spec:
     authz:
       backend: "openfga"
       openfga:
-        endpoint: openfga.dev.svc.cluster.local:8081
+        endpoint: http://openfga.dev.svc.cluster.local:8081
 
