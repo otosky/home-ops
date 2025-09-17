@@ -25,24 +25,25 @@ spec:
       strategy: rollback
       retries: 3
   values:
+    catalog:
+      dbMigrations:
+        enabled: true
+        extraInitContainers:
+          - name: init-db-default
+            image: ghcr.io/home-operations/postgres-init:17.6.0
+            imagePullPolicy: IfNotPresent
+            env:
+              - name: INIT_POSTGRES_DBNAME
+                value: lakekeeper_catalog
+            envFrom:
+              - secretRef:
+                  name: lakekeeper-secret
     secretBackend:
       postgres:
         encryptionKeySecret: "lakekeeper-secret"
         encryptionKeySecretKey: "encryption-key"
     postgresql:
       enabled: false
-    dbMigrations:
-      enabled: true
-      extraInitContainers:
-        - name: init-db-default
-          image: ghcr.io/home-operations/postgres-init:17.6.0
-          imagePullPolicy: IfNotPresent
-          env:
-            - name: INIT_POSTGRES_DBNAME
-              value: lakekeeper_catalog
-          envFrom:
-            - secretRef:
-                name: lakekeeper-secret
     externalDatabase:
       type: postgres
       host_read: "postgres-rw.database.svc.cluster.local"
