@@ -71,7 +71,7 @@ spec:
         # -- The expected Audience of the OIDC App of lakekeeper.
         # The aud (audience) claim of the JWT token must match this value. Typically this is
         # the Client ID.
-        audience: "9K14HbVe7lPexMUxaaFIWN61fvOltnp7gDyqdJYJ"
+        audience: "lakekeeper"
         # -- Additional allow OIDC issuers.
         # The issuer defined in the issuer field of the ``.well-known/openid-configuration``
         # is always trusted. `additionalIssuers` has no effect if `providerUri` is not set.
@@ -82,6 +82,6 @@ spec:
           # Required if Authentication is enabled.
           clientID: "9K14HbVe7lPexMUxaaFIWN61fvOltnp7gDyqdJYJ"
           # -- Space separated scopes to request
-          # scopes: ""
+          scopes: "lakekeeper"
           # -- Resource to request
           # resource: ""
