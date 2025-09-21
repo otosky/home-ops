@@ -67,6 +67,6 @@ spec:
           main:
             main:
               - path: /data
-                subPath: media/manga
+                subPath: manga
               - path: /suwayomi
-                subPath: media/suwayomi
+                subPath: suwayomi
