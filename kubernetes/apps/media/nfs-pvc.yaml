@@ -42,3 +42,34 @@ spec:
   resources:
     requests:
       storage: 1Mi # Size does not matter ...twss
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: truenas-media
+spec:
+  storageClassName: truenas-media
+  capacity:
+    storage: 1Mi # Size does not matter ...twss
+  accessModes: ["ReadWriteMany"]
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    server: truenas.toskbot.xyz
+    path: /mnt/tank/media/
+  mountOptions:
+    - nfsvers=4.2
+    - nconnect=8
+    - hard
+    - noatime
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: truenas-media
+  namespace: media
+spec:
+  accessModes: ["ReadWriteMany"]
+  storageClassName: truenas-media
+  resources:
+    requests:
+      storage: 1Mi # Size does not matter ...twss
