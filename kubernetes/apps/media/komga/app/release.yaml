@@ -35,9 +35,9 @@ spec:
               KOMGA_LIBRARIES_SCAN_CRON: "0 */3 * * * ?"
         pod:
           securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            fsGroup: 1000
+            runAsUser: 3000
+            runAsGroup: 3000
+            fsGroup: 3000
             fsGroupChangePolicy: "OnRootMismatch"
         statefulset:
           volumeClaimTemplates:
