@@ -5,7 +5,7 @@ kind: Kustomization
 namespace: media
 resources:
   - externalsecret.yaml
-  - release.yaml
+  - helmrelease.yaml
 configMapGenerator:
   - name: komf-configmap
     files:
