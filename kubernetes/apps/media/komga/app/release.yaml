@@ -62,7 +62,7 @@ spec:
     persistence:
       data:
         type: persistentVolumeClaim
-        existingClaim: media
+        existingClaim: truenas-media
         advancedMounts:
           main:
             main:
