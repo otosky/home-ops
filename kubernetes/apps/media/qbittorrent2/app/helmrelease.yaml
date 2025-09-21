@@ -99,7 +99,7 @@ spec:
           #         - ALL
         pod:
           securityContext:
-            fsGroup: 2000
+            fsGroup: 3000
             fsGroupChangePolicy: "OnRootMismatch"
             supplementalGroups:
               - 100
