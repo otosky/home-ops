@@ -7,7 +7,6 @@ components:
 resources:
   # Pre Flux-Kustomizations
   - ./nfs-pvc.yaml
-  # - ./restart-pods-with-stale-nfs.yaml
   # Flux-Kustomizations
   - ./qbittorrent/ks.yaml
   - ./prowlarr/ks.yaml
@@ -27,4 +26,5 @@ resources:
   - ./ytdl-sub/ks.yaml
   - ./suwayomi/ks.yaml
   - ./komf/ks.yaml
+  - ./qbittorrent2/ks.yaml
 
