@@ -27,9 +27,9 @@ spec:
                 memory: 470M
         pod:
           securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            fsGroup: 568
+            runAsUser: 3000
+            runAsGroup: 3000
+            fsGroup: 3000
             fsGroupChangePolicy: "OnRootMismatch"
             supplementalGroups:
               - 65539
@@ -57,10 +57,10 @@ spec:
     persistence:
       data:
         type: persistentVolumeClaim
-        existingClaim: media
+        existingClaim: truenas-media
         globalMounts:
           - path: /data/media
-            subPath: media/books
+            subPath: books
       cache:
         enabled: true
         type: emptyDir
