@@ -50,9 +50,9 @@ spec:
               - --root=/add-ons/subcleaner
         pod:
           securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            fsGroup: 568
+            runAsUser: 3000
+            runAsGroup: 3000
+            fsGroup: 3000
             fsGroupChangePolicy: OnRootMismatch
             supplementalGroups: [10000]
         statefulset:
@@ -79,7 +79,7 @@ spec:
       data:
         enabled: true
         type: persistentVolumeClaim
-        existingClaim: media
+        existingClaim: truenas-media
       add-ons:
         enabled: true
         type: emptyDir
