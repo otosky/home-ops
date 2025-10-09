@@ -36,10 +36,10 @@ A separate TrueNAS system also exists externally for NFS storage - mostly for me
 This Git repository contains the following directories under [kubernetes](./kubernetes/).
 
 ```sh
+📁 bootstrap       # Initial installation components
 📁 kubernetes      # Kubernetes cluster defined as code
-├─📁 bootstrap     # Flux installation
-├─📁 flux          # Main Flux configuration of repository
-└─📁 apps          # Apps deployed into my cluster grouped by namespace
+├─📁 apps          # Apps deployed into cluster grouped by namespace
+└─📁 flux          # Main Flux configuration of repository
 ```
 
 ---
