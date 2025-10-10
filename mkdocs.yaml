@@ -1,0 +1,53 @@
+# Project
+site_name: otosky | home-ops
+site_url: https://otosky.github.io/home-ops/
+site_author: Oliver Tosky
+
+# Repository
+repo_name: otosky/home-ops
+repo_url: https://github.com/otosky/home-ops
+edit_uri: ""
+
+# Config
+docs_dir: ./docs
+theme:
+  name: material
+  palette: 
+    # Palette toggle for light mode
+    - scheme: default
+      toggle:
+        icon: material/brightness-7 
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  icon:
+    repo: fontawesome/brands/github-alt
+  language: en
+  font: false
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.tracking
+    - search.highlight
+    - search.suggest
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+# Navigation
+nav:
+  - Home-Ops: index.md
+  - Quickstart:
+    - quickstart/setup.md
+  - FAQ:
+    - faq/placeholder.md
+
