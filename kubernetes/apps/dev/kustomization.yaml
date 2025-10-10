@@ -12,3 +12,4 @@ resources:
   - ./temporal/ks.yaml
   - ./openfga/ks.yaml
   - ./lakekeeper/ks.yaml
+  - ./strimzi-operator/ks.yaml
