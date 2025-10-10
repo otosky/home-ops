@@ -16,4 +16,5 @@ spec:
         namespace: flux-system
   values:
     watchNamespaces:
-      - dev
+      # never use the namespace that the operator exists in e.g. `dev`
+      - kafka
