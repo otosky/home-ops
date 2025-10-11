@@ -21,3 +21,5 @@ spec:
     extraEnvs:
       - name: KUBERNETES_SERVICE_DNS_DOMAIN
         value: "cluster.local"
+      - name: JAVA_OPTS
+        value: "-Xms128m -Xmx512m"
