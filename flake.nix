@@ -36,7 +36,6 @@
 
           just
           gum
-          go-task
           kustomize
           talosctl
           kubeconform
