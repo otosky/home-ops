@@ -1,0 +1,16 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: strimzi-operator
+  namespace: dev
+spec:
+  interval: 10m
+  path: ./kubernetes/apps/dev/strimzi-operator/operator
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  wait: true
+

@@ -1,0 +1,25 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: strimzi-operator
+spec:
+  interval: 60m
+  chart:
+    spec:
+      chart: strimzi-kafka-operator
+      version: 0.48.0
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: strimzi
+        namespace: flux-system
+  values:
+    watchNamespaces:
+      # never use the namespace that the operator exists in e.g. `dev`
+      - kafka
+    extraEnvs:
+      - name: KUBERNETES_SERVICE_DNS_DOMAIN
+        value: "cluster.local"
+      - name: JAVA_OPTS
+        value: "-Xms128m -Xmx512m"

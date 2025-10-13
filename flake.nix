@@ -35,7 +35,7 @@
           helmfile
 
           just
-          go-task
+          gum
           kustomize
           talosctl
           kubeconform

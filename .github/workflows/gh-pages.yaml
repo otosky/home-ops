@@ -1,0 +1,16 @@
+name: GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_deploy:
+    uses: otosky/github_workflows/.github/workflows/build-deploy-mkdocs-gh-pages.yml@main
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    secrets: inherit
+
