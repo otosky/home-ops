@@ -82,6 +82,10 @@ sync-oci:
 view-secret namespace secret:
     kubectl view-secret -n {{ namespace }} {{ secret }}
 
+[doc('Scaffold a new Kubernetes app')]
+scaffold-new:
+    ../scripts/scaffold-new-app.sh
+
 [private]
 render-local-ks ns ks:
     flux-local build ks --namespace "{{ ns }}" --path "{{ kubernetes_dir }}/flux/cluster" "{{ ks }}"
