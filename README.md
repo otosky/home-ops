@@ -48,17 +48,17 @@ This Git repository contains the following directories under [kubernetes](./kube
 
 All hardware was cobbled together second-hand from Craigslist or eBay.
 
-| Device | Count | OS Disk Size | Data Disk Size | NIC | Operating System | Purpose |
-|--------|-------|-------------|----------------|-----|------------------|---------|
-| Lenovo ThinkCentre M720q | 2 | 500GB NVMe | - | - | Fedora | Kubernetes Control Plane |
-| Lenovo ThinkCentre M920q | 1 | 500GB NVMe | - | - | Fedora | Kubernetes Control Plane |
-| Dell OptiPlex 3070 SFF (9th-gen Intel i5) | 3 | 250GB SSD | 1x 1TB SSD; 1x 1TB NVMe | Mellanox ConnectX-3 10G | Fedora | Kubernetes Agent |
-| Custom NAS (Fractal Design Node 304) | 1 | - | - | Mellanox ConnectX-3 10G | Unraid | NAS |
-| Lenovo ThinkCentre M720q | 1 | - | - | - | [VyOS](https://github.com/otosky/vyos-config) | Router |
-| Brocade ICX6450 | 1 | - | - | - | - | Switch |
-| TP-Link EAP650 | 1 | - | - | - | - | WiFi AP |
-| Unifi Flex-Mini | 2 | - | - | - | - | Switch (per room) |
-| Raspberry Pi 4B w/ HiFiBerry DAC2 Pro | 1 | - | - | - | - | Volumio |
+| Device                                    | Count | CPU      | RAM       | OS Disk Size            | Data Disk Size                                | NIC                     | Operating System | Purpose                  |   |   |
+|-------------------------------------------|-------|----------|-----------|-------------------------|-----------------------------------------------|-------------------------|------------------|--------------------------|---|---|
+| Lenovo ThinkCentre M720q                  | 2     | i3-8100T | 32GB      | 500GB NVMe              | -                                             | -                       | Talos            | Kubernetes Control Plane |   |   |
+| Lenovo ThinkCentre M920q                  | 1     | i5-8500T | 32GB      | 500GB NVMe              | -                                             | -                       | Talos            | Kubernetes Control Plane |   |   |
+| Dell OptiPlex 3070 SFF (9th-gen Intel i5) | 3     | i5 9500  | 64GB      | 250GB SSD               | 1x 1TB SSD; 1x 1TB NVMe                       | Mellanox ConnectX-3 10G | Talos            | Kubernetes Agent         |   |   |
+| Custom NAS (i3-8100; 128GB ECC RAM)       | 1     | i3-8100  | 128GB ECC | Mellanox ConnectX-3 10G | TrueNAS                                       | NAS                     |                  |                          |   |   |
+| Lenovo ThinkCentre M720q                  | 1     | -        | -         | -                       | [VyOS](https://github.com/otosky/vyos-config) | Router                  |                  |                          |   |   |
+| Brocade ICX6450                           | 1     | -        | -         | -                       | -                                             | Switch                  |                  |                          |   |   |
+| TP-Link EAP650                            | 1     | -        | -         | -                       | -                                             | WiFi AP                 |                  |                          |   |   |
+| Unifi Flex-Mini                           | 2     | -        | -         | -                       | -                                             | Switch (per room)       |                  |                          |   |   |
+| Raspberry Pi 4B w/ HiFiBerry DAC2 Pro     | 1     | -        | -         | -                       | -                                             | Volumio                 |                  |                          |   |   |
 
 ---
 
