@@ -17,3 +17,4 @@ resources:
   - ./authentik.yaml
   - ./strimzi.yaml
   - ./knative-operator.yaml
+  - ./dapr.yaml

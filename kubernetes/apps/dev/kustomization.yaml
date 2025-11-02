@@ -14,3 +14,4 @@ resources:
   - ./lakekeeper/ks.yaml
   - ./strimzi-operator/ks.yaml
   - ./knative-operator/ks.yaml
+  - ./dapr/ks.yaml
