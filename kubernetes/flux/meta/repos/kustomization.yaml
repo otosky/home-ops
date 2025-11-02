@@ -16,3 +16,4 @@ resources:
   - ./openfga.yaml
   - ./authentik.yaml
   - ./strimzi.yaml
+  - ./knative-operator.yaml

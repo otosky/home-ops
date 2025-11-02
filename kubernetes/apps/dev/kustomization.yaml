@@ -13,3 +13,4 @@ resources:
   - ./openfga/ks.yaml
   - ./lakekeeper/ks.yaml
   - ./strimzi-operator/ks.yaml
+  - ./knative-operator/ks.yaml
