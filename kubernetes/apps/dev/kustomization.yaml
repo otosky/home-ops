@@ -16,3 +16,4 @@ resources:
   - ./knative-operator/ks.yaml
   - ./dapr/ks.yaml
   - ./dagster/ks.yaml
+  - ./argo-workflows/ks.yaml

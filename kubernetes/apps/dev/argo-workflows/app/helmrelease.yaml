@@ -1,0 +1,91 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: argo-workflows
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: argo-workflows
+      version: 0.45.18
+      sourceRef:
+        kind: HelmRepository
+        name: argo
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    singleNamespace: false
+
+    controller:
+      image:
+        registry: quay.io
+        repository: argoproj/workflow-controller
+        tag: v3.6.10@sha256:c289d4cb4592022d48faf0085d657cee8a96ff49f0e978c7a1672736be7f2083
+      parallelism: 20
+      resourceRateLimit:
+        limit: 10
+        burst: 1
+      persistence:
+        archive: true
+        postgresql:
+          host: postgres-rw.database.svc.cluster.local
+          port: 5432
+          database: argoproj
+          tableName: argo_workflows
+          # the database secrets must be in the same namespace of the controller
+          userNameSecret:
+            name: argo-workflows
+            key: postgresql-user
+          passwordSecret:
+            name: argo-workflows
+            key: postgresql-password
+      extraInitContainers:
+        - name: init-db
+          image: ghcr.io/home-operations/postgres-init:17.6
+          envFrom:
+            - secretRef:
+                name: argo-workflows
+
+      namespaceParallelism: 10
+
+      resources:
+        requests:
+          cpu: 10m
+          memory: 100Mi
+        limits:
+          memory: 100Mi
+
+    workflow:
+      serviceAccount:
+        create: true
+
+    executor:
+      image:
+        registry: quay.io
+        repository: argoproj/argoexec
+        tag: v3.6.10@sha256:701da40bf65f9699ea7a1e732dbca696590fecb835d1c8719f000fb60aa30133
+
+    server:
+      enabled: true
+      image:
+        registry: quay.io
+        repository: argoproj/argocli
+        tag: v3.6.10@sha256:0e8f3c2ca13ed0a5e58fa9bbb8ee5e1253c3e119b6959a44f3aff1e4151dc9b9
+      resources:
+        requests:
+          cpu: 10m
+          memory: 100Mi
+        limits:
+          memory: 100Mi
+
+      extraArgs:
+        - --auth-mode=server

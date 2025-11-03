@@ -19,3 +19,4 @@ resources:
   - ./knative-operator.yaml
   - ./dapr.yaml
   - ./dagster.yaml
+  - ./argo.yaml
