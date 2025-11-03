@@ -12,7 +12,7 @@ spec:
       sectionName: https
   rules:
     - backendRefs:
-        - name: dagster
+        - name: dagster-dagster-webserver
           namespace: dev
           port: 3000
       matches:
