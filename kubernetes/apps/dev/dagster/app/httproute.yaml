@@ -14,7 +14,7 @@ spec:
     - backendRefs:
         - name: dagster-dagster-webserver
           namespace: dev
-          port: 3000
+          port: 80
       matches:
         - path:
             type: PathPrefix
