@@ -18,3 +18,4 @@ resources:
   - ./strimzi.yaml
   - ./knative-operator.yaml
   - ./dapr.yaml
+  - ./dagster.yaml

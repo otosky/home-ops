@@ -15,3 +15,4 @@ resources:
   - ./strimzi-operator/ks.yaml
   - ./knative-operator/ks.yaml
   - ./dapr/ks.yaml
+  - ./dagster/ks.yaml

@@ -1,0 +1,421 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: dagster
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart:
+      version: 1.10.20
+      sourceRef:
+        kind: HelmRepository
+        name: dagster
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    global:
+      postgresqlSecretName: &secret "dagster-postgresql-secret"
+      # The DAGSTER_HOME env var is set by default on all nodes from this value
+      dagsterHome: "/opt/dagster/dagster_home"
+
+    dagsterWebserver:
+      replicaCount: 1
+      image:
+        # When a tag is not supplied for a Dagster provided image,
+        # it will default as the Helm chart version.
+        repository: "docker.io/dagster/dagster-celery-k8s"
+        tag: ~
+        pullPolicy: Always
+
+      # Defines a workspace for the webserver. This should only be set if user deployments are enabled, but
+      # the subchart is disabled to manage user deployments in a separate Helm release.
+      # In this case, the webserver will need the addresses of the code servers in order to load the user code,
+      # or the name of an existing configmap to mount as the workspace file.
+      workspace:
+        enabled: false
+
+        # List of servers to include in the workflow file. When set,
+        # `externalConfigmap` must be empty.
+        servers:
+          - host: "k8s-example-user-code-1"
+            port: 3030
+            name: "user-code-example"
+
+        # Defines the name of a configmap provisioned outside of the
+        # Helm release to use as workspace file. When set, `servers`
+        # must be empty.
+        externalConfigmap: ~
+
+      # Deploy a separate instance of the webserver in --read-only mode (can't launch runs, disable schedules, etc.)
+      enableReadOnly: false
+
+      # resources:
+      #   limits:
+      #     cpu: 100m
+      #     memory: 128Mi
+      #   requests:
+      #     cpu: 100m
+      #     memory: 128Mi
+
+    computeLogManager:
+      # Type can be one of [
+      #   NoOpComputeLogManager,
+      #   AzureBlobComputeLogManager,
+      #   GCSComputeLogManager,
+      #   S3ComputeLogManager,
+      #   CustomComputeLogManager,
+      # ]
+      type: NoOpComputeLogManager
+      config: {}
+      ##  Uncomment this configuration if the S3ComputeLogManager is selected
+      #   s3ComputeLogManager:
+      #     bucket: ~
+      #     localDir: ~
+      #     prefix: ~
+      #     useSsl: ~
+      #     verify: ~
+      #     verifyCertPath: ~
+      #     endpointUrl: ~
+      #     skipEmptyFiles: ~
+      #     uploadInterval: ~
+      #     uploadExtraArgs: {}
+
+    pythonLogs: {}
+    ## The names of python loggers that will be captured as Dagster logs
+    #  managedPythonLoggers:
+    #    - foo_logger
+    ## The log level for the instance. Logs emitted below this severity will be ignored.
+    ## One of [NOTSET, DEBUG, INFO, WARNING, WARN, ERROR, FATAL, CRITICAL]
+    #  pythonLogLevel: INFO
+    ## Python log handlers that will be applied to all Dagster logs
+    #  dagsterHandlerConfig:
+    #    handlers:
+    #      myHandler:
+    #        class: logging.FileHandler
+    #        filename: "/logs/my_dagster_logs.log"
+    #        mode: "a"
+
+    ####################################################################################################
+    # User Code Deployments: Configuration for user code containers to be loaded via GRPC server. For
+    # each item in the "deployments" list, a K8s Deployment and K8s Service will be created to run the
+    # GRPC server that the Dagster webserver communicates with to get definitions information and the current
+    # image information. These deployments can be updated independently of the Dagster webserver, and the webserver
+    # will pull the current image for all execution. When using a distributed executor (such as
+    # Celery-K8s) for job execution, the current image will be queried once and used for all
+    # op executions for that run. In order to guarantee that all op executions within a job
+    # execution use the same image, we recommend using a unique tag (ie not "latest").
+    #
+    # All user code will be invoked within the images.
+    ####################################################################################################
+    dagster-user-deployments:
+      # Creates a workspace file with the gRPC servers hosting your user code.
+      enabled: true
+
+      # If you plan on deploying user code in a separate Helm release, set this to false.
+      enableSubchart: true
+
+      # Specify secrets to run user code server containers based on images in private registries. See:
+      # https://kubernetes.io/docs/concepts/containers/images/#referring-to-an-imagepullsecrets-on-a-pod
+      imagePullSecrets: []
+
+      # List of unique deployments
+      deployments:
+        - name: "k8s-example-user-code-1"
+          image:
+            # When a tag is not supplied, it will default as the Helm chart version.
+            repository: "docker.io/dagster/user-code-example"
+            tag: ~
+
+            # Change with caution! If you're using a fixed tag for pipeline run images, changing the
+            # image pull policy to anything other than "Always" will use a cached/stale image, which is
+            # almost certainly not what you want.
+            pullPolicy: Always
+
+          # Arguments to `dagster api grpc`.
+          # Ex: "dagster api grpc -m dagster_test.test_project.test_jobs.repo -a define_demo_execution_repo"
+          # would translate to:
+          # dagsterApiGrpcArgs:
+          #   - "-m"
+          #   - "dagster_test.test_project.test_jobs.repo"
+          #   - "-a"
+          #   - "define_demo_execution_repo"
+          #
+          # The `dagsterApiGrpcArgs` key can also be replaced with `codeServerArgs` to use a new
+          # experimental `dagster code-server start` command instead of `dagster api grpc`, which takes
+          # identical arguments but can reload its definitions from within the Dagster UI without
+          # needing to restart the user code deployment pod.
+          dagsterApiGrpcArgs:
+            - "--python-file"
+            - "/example_project/example_repo/repo.py"
+          port: 3030
+
+          # Whether or not to include configuration specified for this user code deployment in the pods
+          # launched for runs from that deployment
+          includeConfigInLaunchedRuns:
+            enabled: true
+
+    ####################################################################################################
+    # Pipeline Run: Configuration for user code containers.
+    #
+    # `DAGSTER_K8S_PIPELINE_RUN_IMAGE` environment variable will point to the image specified below.
+    # The run config for the celery executor can set `job_image` to fetch from environment variable
+    # `DAGSTER_K8S_PIPELINE_RUN_IMAGE`, so that celery workers will launch k8s jobs with said image.
+    #
+    ####################################################################################################
+    pipelineRun:
+      image:
+        # When a tag is not supplied for a Dagster provided image,
+        # it will default as the Helm chart version.
+        repository: "docker.io/dagster/user-code-example"
+        tag: ~
+        pullPolicy: Always
+
+      # Additional environment variables to set.
+      # A Kubernetes ConfigMap will be created with these environment variables. See:
+      # https://kubernetes.io/docs/concepts/configuration/configmap/
+      #
+      # Example:
+      #
+      # env:
+      #   ENV_ONE: one
+      #   ENV_TWO: two
+      env: {}
+
+    scheduler:
+      type: DagsterDaemonScheduler
+
+    runLauncher:
+      # Type can be one of [K8sRunLauncher, CeleryK8sRunLauncher, CustomRunLauncher]
+      type: K8sRunLauncher
+
+      config:
+        # This configuration will only be used if the K8sRunLauncher is selected
+        k8sRunLauncher:
+          # The Kubernetes namespace where new jobs will be launched.
+          # By default, the release namespace is used.
+          jobNamespace: ~
+
+          # Set to true to load kubeconfig from within cluster.
+          loadInclusterConfig: true
+
+          # Raw k8s configuration for the Kubernetes Job and Pod created for the run.
+          # See: https://docs.dagster.io/deployment/guides/kubernetes/customizing-your-deployment
+          #
+          # Example:
+          # runK8sConfig:
+          #   containerConfig: # raw config for the pod's main container
+          #     resources:
+          #       limits:
+          #         cpu: 100m
+          #         memory: 128Mi
+          #   podTemplateSpecMetadata: # raw config for the pod's metadata
+          #     annotations:
+          #       mykey: myvalue
+          #   podSpecConfig: # raw config for the spec of the launched's pod
+          #     nodeSelector:
+          #       disktype: ssd
+          #   jobSpecConfig: # raw config for the kubernetes job's spec
+          #     ttlSecondsAfterFinished: 7200
+          #   jobMetadata: # raw config for the kubernetes job's metadata
+          #     annotations:
+          #       mykey: myvalue
+          runK8sConfig: {}
+
+    postgresql:
+      # set postgresql.enabled to be false to disable deploy of a PostgreSQL database and use an
+      # existing external PostgreSQL database
+      enabled: false
+      postgresqlHost: "postgres-rw.database.svc.cluster.local"
+      postgresqlUsername: dagster
+      postgresqlDatabase: dagster
+
+    # Whether to generate a secret resource for the PostgreSQL password. Useful if
+    # global.postgresqlSecretName is managed outside of this helm chart.
+    generatePostgresqlPasswordSecret: false
+
+    # If true, the helm chart will create a secret for you with the Celery broker and backend
+    # connection urls, including an optional Redis or RabbitMQ password. Set this to false if you want
+    # to manage a secret with the Celery broker/backend connection strings yourself. If you manage
+    # the secret yourself, the secret should have the name specified in global.celeryConfigSecretName,
+    # and should have the broker URL in a DAGSTER_CELERY_BROKER_URL key and the backend URL in a
+    # DAGSTER_CELERY_BACKEND_URL key.
+    generateCeleryConfigSecret: false
+
+    ingress:
+      enabled: false
+      annotations: {}
+      labels: {}
+      ingressClassName: ~
+
+      dagsterWebserver:
+        # Ingress hostname for the webserver e.g. dagster.mycompany.com
+        # This variable allows customizing the route pattern in the ingress. Some
+        # ingress controllers may only support "/", whereas some may need "/*".
+        path: "/*"
+        pathType: ImplementationSpecific
+        # NOTE: do NOT keep trailing slash. For root configuration, set as empty string
+        # See: https://github.com/dagster-io/dagster/issues/2073
+        host: ""
+
+        tls:
+          enabled: false
+          secretName: ""
+
+        # Different http paths to add to the ingress before the default webserver path
+        # Example:
+        #
+        # precedingPaths:
+        #   - path: "/*"
+        #     pathType: ImplementationSpecific
+        #     serviceName: "ssl-redirect"
+        #     servicePort: "use-annotation"
+        precedingPaths: []
+
+        # Different http paths to add to the ingress after the default webserver path
+        # Example:
+        #
+        # succeedingPaths:
+        #   - path: "/*"
+        #     pathType: ImplementationSpecific
+        #     serviceName: "ssl-redirect"
+        #     servicePort: "use-annotation"
+        succeedingPaths: []
+
+      readOnlyDagsterWebserver:
+        # Ingress hostname for read only webserver e.g. viewer.dagster.mycompany.com
+        # This variable allows customizing the route pattern in the ingress. Some
+        # ingress controllers may only support "/", whereas some may need "/*".
+        path: "/*"
+        pathType: ImplementationSpecific
+        # NOTE: do NOT keep trailing slash. For root configuration, set as empty string
+        # See: https://github.com/dagster-io/dagster/issues/2073
+        host: ""
+
+        tls:
+          enabled: false
+          secretName: ""
+
+        # Different http paths to add to the ingress before the default webserver path
+        # Example:
+        #
+        # precedingPaths:
+        #   - path: "/*"
+        #     pathType: ImplementationSpecific
+        #     serviceName: "ssl-redirect"
+        #     servicePort: "use-annotation"
+        precedingPaths: []
+
+        # Different http paths to add to the ingress after the default webserver path
+        # Example:
+        #
+        # succeedingPaths:
+        #   - path: "/*"
+        #     pathType: ImplementationSpecific
+        #     serviceName: "ssl-redirect"
+        #     servicePort: "use-annotation"
+        succeedingPaths: []
+
+    dagsterDaemon:
+      enabled: true
+      image:
+        # When a tag is not supplied for a Dagster provided image,
+        # it will default as the Helm chart version.
+        repository: "docker.io/dagster/dagster-celery-k8s"
+        tag: ~
+        pullPolicy: Always
+      heartbeatTolerance: 300
+
+      runCoordinator:
+        # Whether or not to enable the run queue (or some other custom run coordinator). See
+        # https://docs.dagster.io/deployment/run-coordinator for more information.
+        enabled: true
+
+        # Type can be one of [
+        #   QueuedRunCoordinator,
+        #   CustomRunCoordinator,
+        #  ]
+        type: QueuedRunCoordinator
+        config:
+          queuedRunCoordinator:
+            # The maximum number of runs to allow to be running at once. Defaults to no limit.
+            maxConcurrentRuns: ~
+            # Tag based concurrency limits. See https://docs.dagster.io/deployment/run-coordinator#usage
+            # for examples.
+            tagConcurrencyLimits: []
+            # How frequently in seconds to check for new runs to pull from the queue and launch.
+            # Defaults to 5.
+            dequeueIntervalSeconds: ~
+            # Whether to dequeue runs using an asynchronous thread pool, allowing multiple runs
+            # to be dequeued in parallel.
+            dequeueUseThreads: true
+            # The max number of worker threads to use when dequeing runs. Can be tuned
+            # to allow more runs to be dequeued in parallel, but may require allocating more
+            # resources to the daemon.
+            dequeueNumWorkers: 4
+
+      # Enables monitoring of run worker pods. If a run doesn't start within the timeout, it will be
+      # marked as failed. If a run had started but then the run worker crashed, the monitoring daemon
+      # will either fail the run or attempt to resume the run with a new run worker.
+      runMonitoring:
+        enabled: true
+        # Timeout for runs to start (avoids runs hanging in STARTED)
+        startTimeoutSeconds: 300
+        # Timeout for runs to cancel (avoids runs hanging in CANCELING)
+        # cancelTimeoutSeconds: 300
+        # How often to check on in progress runs
+        pollIntervalSeconds: 120
+        # [Experimental] Max number of times to attempt to resume a run with a new run worker instead
+        # of failing the run if the run worker has crashed. Only works for runs using the
+        # `k8s_job_executor` to run each op in its own Kubernetes job. To enable, set this value
+        # to a value greater than 0.
+        maxResumeRunAttempts: 0
+
+      runRetries:
+        enabled: true
+        maxRetries: 0
+
+      sensors:
+        # Whether to evaluate sensors using an asynchronous thread pool, allowing sensprs
+        # to execute in parallel,
+        useThreads: true
+        # The max number of worker threads to use when evaluating sensors. Can be tuned
+        # to allow more sensors to run in parallel, but may require allocating more resources to the
+        # daemon.
+        numWorkers: 4
+        # Uncomment to use a threadpool to submit runs from a single sensor tick in parallel. Can be
+        # used to decrease latency when a sensor emits multiple run requests within a single tick.
+        # numSubmitWorkers: 4
+
+      schedules:
+        # Whether to evaluate schedules using an asynchronous thread pool, allowing schedules
+        # to execute in parallel
+        useThreads: true
+        # The max number of worker threads to use when evaluating sensors. Can be tuned
+        # to allow more schedules to run in parallel, but may require allocating more resources to the
+        # daemon.
+        numWorkers: 4
+        # Uncomment to use a threadpool to submit runs from a single schedule tick in parallel. Can be
+        # used to decrease latency when a schedule emits multiple run requests within a single tick.
+        # numSubmitWorkers: 4
+      extraPrependedInitContainers:
+        - name: init-db
+          image: ghcr.io/home-operations/postgres-init:17.6
+          envFrom:
+            - secretRef:
+                name: *secret
+
+    telemetry:
+      enabled: false
+
+    serviceAccount:
+      create: true
