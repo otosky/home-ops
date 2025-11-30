@@ -20,11 +20,14 @@ spec:
           pluginConfig:
             - name: DefaultEvictor
               args:
-                evictFailedBarePods: true
-                evictLocalStoragePods: true
-                evictSystemCriticalPods: true
+                podProtections:
+                  defaultDisabled:
+                    - FailedBarePods
+                    - PodsWithLocalStorage
+                    - SystemCriticalPods
             - name: LowNodeUtilization
               args:
+                nodeSelector: "node-role.kubernetes.io/control-plane!="
                 metricsUtilization:
                   source: KubernetesMetrics
                 thresholds:
