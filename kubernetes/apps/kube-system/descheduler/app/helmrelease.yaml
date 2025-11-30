@@ -15,6 +15,7 @@ spec:
     deschedulerPolicy:
       metricsProviders:
         - source: KubernetesMetrics
+      nodeSelector: "node-role.kubernetes.io/control-plane!="
       profiles:
         - name: Default
           pluginConfig:
@@ -27,7 +28,6 @@ spec:
                     - SystemCriticalPods
             - name: LowNodeUtilization
               args:
-                nodeSelector: "node-role.kubernetes.io/control-plane!="
                 metricsUtilization:
                   source: KubernetesMetrics
                 thresholds:
