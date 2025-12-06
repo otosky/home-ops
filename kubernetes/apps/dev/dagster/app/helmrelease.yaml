@@ -134,7 +134,7 @@ spec:
           image:
             # When a tag is not supplied, it will default as the Helm chart version.
             repository: "docker.io/dagster/user-code-example"
-            tag: 1.10.0
+            tag: 1.12.4
 
             # Change with caution! If you're using a fixed tag for pipeline run images, changing the
             # image pull policy to anything other than "Always" will use a cached/stale image, which is
