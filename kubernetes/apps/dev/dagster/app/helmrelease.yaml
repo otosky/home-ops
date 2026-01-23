@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: dagster
-      version: 1.12.10
+      version: 1.12.12
       sourceRef:
         kind: HelmRepository
         name: dagster
