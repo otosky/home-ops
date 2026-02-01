@@ -23,7 +23,7 @@ spec:
               - /bin/sh
               - -c
               - |
-                cp -a /jellyfin/jellyfin-web/. /web-copy/
+                cp -r /jellyfin/jellyfin-web/. /web-copy/
         containers:
           main:
             image:
