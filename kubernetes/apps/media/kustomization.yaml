@@ -8,7 +8,6 @@ resources:
   # Pre Flux-Kustomizations
   - ./nfs-pvc.yaml
   # Flux-Kustomizations
-  - ./qbittorrent/ks.yaml
   - ./prowlarr/ks.yaml
   - ./radarr/ks.yaml
   - ./sonarr/ks.yaml
