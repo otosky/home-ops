@@ -49,7 +49,7 @@ spec:
             port: 8083
     route:
       main:
-        hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
+        hostnames: ["calibre.${SECRET_DOMAIN}"]
         parentRefs:
           - name: external
             namespace: kube-system
