@@ -8,3 +8,4 @@ resources:
   - ./emqx/ks.yaml
   - ./zigbee/ks.yaml
   - ./home-assistant/ks.yaml
+  - ./vikunja/ks.yaml
