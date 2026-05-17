@@ -17,6 +17,12 @@
 kubeconfig
 talosconfig
 
+# Terraform / OpenTofu
+.terraform/
+*.tfstate
+*.tfstate.*
+tfplan
+
 # Misc.
 .private/
 .task/
