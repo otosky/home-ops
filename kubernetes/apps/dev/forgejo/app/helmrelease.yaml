@@ -60,6 +60,14 @@ spec:
             secretKeyRef:
               name: forgejo-secret
               key: database-password
+      oauth:
+        - name: authentik
+          provider: openidConnect
+          existingSecret: forgejo-authentik-oidc-secret
+          autoDiscoverUrl: https://auth.${SECRET_DOMAIN}/application/o/forgejo/.well-known/openid-configuration
+          scopes: openid profile email groups
+          groupClaimName: groups
+          adminGroup: forgejo-admins
       metrics:
         enabled: true
         serviceMonitor:
@@ -81,6 +89,11 @@ spec:
           PATH: /data/git/lfs
         mailer:
           ENABLED: false
+        oauth2_client:
+          ENABLE_AUTO_REGISTRATION: true
+          ACCOUNT_LINKING: auto
+          UPDATE_AVATAR: true
+          USERNAME: email
         queue:
           TYPE: level
         repository:
@@ -96,8 +109,11 @@ spec:
           SSH_PORT: 22
           SSH_LISTEN_PORT: 2222
         service:
-          DISABLE_REGISTRATION: true
+          ALLOW_ONLY_EXTERNAL_REGISTRATION: true
+          DISABLE_REGISTRATION: false
           DEFAULT_ENABLE_TIMETRACKING: false
+          ENABLE_INTERNAL_SIGNIN: true
+          ENABLE_PASSWORD_SIGNIN_FORM: true
           SHOW_REGISTRATION_BUTTON: false
         service.explore:
           DISABLE_CODE_PAGE: true
