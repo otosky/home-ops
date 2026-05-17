@@ -1,0 +1,117 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: forgejo
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: forgejo
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    strategy:
+      type: Recreate
+    image:
+      rootless: true
+      registry: code.forgejo.org
+      repository: forgejo/forgejo
+      tag: 15.0.2-rootless
+    service:
+      http:
+        port: 3000
+      ssh:
+        type: ClusterIP
+        port: 22
+    httpRoute:
+      enabled: true
+      parentRefs:
+        - name: internal
+          namespace: kube-system
+          sectionName: https
+      hostnames:
+        - forgejo.${SECRET_DOMAIN}
+    persistence:
+      enabled: true
+      create: true
+      claimName: forgejo
+      storageClass: longhorn-ssd
+      size: 20Gi
+    postgresql:
+      enabled: false
+    postgresql-ha:
+      enabled: false
+    redis-cluster:
+      enabled: false
+    gitea:
+      admin:
+        existingSecret: forgejo-secret
+        passwordMode: initialOnlyNoReset
+      additionalConfigFromEnvs:
+        - name: FORGEJO__database__PASSWD
+          valueFrom:
+            secretKeyRef:
+              name: forgejo-secret
+              key: database-password
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+      config:
+        cache:
+          ENABLED: true
+          ADAPTER: memory
+        database:
+          DB_TYPE: postgres
+          HOST: postgres-rw.database.svc.cluster.local:5432
+          NAME: forgejo
+          USER: forgejo
+          SSL_MODE: disable
+        indexer:
+          ISSUE_INDEXER_TYPE: bleve
+          REPO_INDEXER_ENABLED: true
+        lfs:
+          PATH: /data/git/lfs
+        mailer:
+          ENABLED: false
+        queue:
+          TYPE: level
+        repository:
+          DEFAULT_REPO_UNITS: repo.code,repo.releases,repo.issues,repo.pulls,repo.actions
+          DISABLED_REPO_UNITS: repo.ext_wiki,repo.ext_issues
+          ROOT: /data/git/repositories
+        repository.pull-request:
+          DEFAULT_MERGE_STYLE: squash
+        server:
+          APP_DATA_PATH: /data/gitea
+          ROOT_URL: https://forgejo.${SECRET_DOMAIN}
+          SSH_DOMAIN: forgejo.${SECRET_DOMAIN}
+          SSH_PORT: 22
+          SSH_LISTEN_PORT: 2222
+        service:
+          DISABLE_REGISTRATION: true
+          DEFAULT_ENABLE_TIMETRACKING: false
+          SHOW_REGISTRATION_BUTTON: false
+        service.explore:
+          DISABLE_CODE_PAGE: true
+          DISABLE_ORGANIZATIONS_PAGE: true
+          DISABLE_USERS_PAGE: true
+          REQUIRE_SIGNIN_VIEW: true
+        session:
+          PROVIDER: db
+          COOKIE_SECURE: true
+        webhook:
+          ALLOWED_HOST_LIST: "*"
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        memory: 1Gi
