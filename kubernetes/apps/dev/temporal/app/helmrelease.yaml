@@ -30,7 +30,7 @@ spec:
           retention: 3d
       additionalInitContainers:
         - name: init-db-default
-          image: ghcr.io/home-operations/postgres-init:18.1.0
+          image: ghcr.io/home-operations/postgres-init:18.4.0
           imagePullPolicy: IfNotPresent
           env:
             - name: INIT_POSTGRES_DBNAME
@@ -39,7 +39,7 @@ spec:
             - secretRef:
                 name: temporal-secret
         - name: init-db-visibility
-          image: ghcr.io/home-operations/postgres-init:18.1.0
+          image: ghcr.io/home-operations/postgres-init:18.4.0
           imagePullPolicy: IfNotPresent
           env:
             - name: INIT_POSTGRES_DBNAME
