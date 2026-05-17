@@ -12,8 +12,8 @@ resource "authentik_group" "forgejo_admins" {
 
 resource "authentik_provider_oauth2" "forgejo" {
   name                       = "Forgejo"
-  client_id                  = local.forgejo_fields["AUTHENTIK_CLIENT_ID"]
-  client_secret              = local.forgejo_fields["AUTHENTIK_CLIENT_SECRET"]
+  client_id                  = local.forgejo_fields["AUTHENTIK_CLIENT_ID"].value
+  client_secret              = local.forgejo_fields["AUTHENTIK_CLIENT_SECRET"].value
   client_type                = "confidential"
   authorization_flow         = data.authentik_flow.authorization.id
   invalidation_flow          = data.authentik_flow.invalidation.id
