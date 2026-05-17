@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: temporal
-      version: 0.74.0
+      version: 1.1.1
       sourceRef:
         kind: HelmRepository
         name: temporal
@@ -22,14 +22,6 @@ spec:
       strategy: rollback
       retries: 3
   values:
-    elasticsearch:
-      enabled: false
-    prometheus:
-      enabled: false
-    grafana:
-      enabled: false
-    cassandra:
-      enabled: false
     server:
       namespaces:
       create: true
@@ -57,37 +49,36 @@ spec:
                 name: temporal-secret
       config:
         persistence:
-          default:
-            driver: "sql"
+          defaultStore: default
+          visibilityStore: visibility
+          numHistoryShards: 512
+          datastores:
+            default:
+              sql: &sqlconn
+                createDatabase: false
+                manageSchema: true
+                pluginName: postgres12
+                driverName: postgres12
+                connectAddr: "postgres-rw.database.svc.cluster.local:5432"
+                connectProtocol: tcp
+                databaseName: temporal
+                user: temporal
+                existingSecret: temporal-dbpass
+                maxConns: 20
+                maxIdleConns: 20
+                maxConnLifetime: "1h"
 
-            sql: &sqlconn
-              driver: "postgres12"
-              host: postgres-rw.database.svc.cluster.local
-              port: 5432
-              database: temporal
-              user: temporal
-              existingSecret: temporal-dbpass
-              maxConns: 20
-              maxIdleConns: 20
-              maxConnLifetime: "1h"
-
-          visibility:
-            driver: "sql"
-
-            sql:
-              driver: "postgres12"
-              host: postgres-rw.database.svc.cluster.local
-              port: 5432
-              database: temporal_visibility
-              user: temporal
-              existingSecret: temporal-dbpass
-              maxConns: 20
-              maxIdleConns: 20
-              maxConnLifetime: "1h"
-    schema:
-      createDatabase:
-        enabled: false
-      setup:
-        enabled: true
-      update:
-        enabled: true
+            visibility:
+              sql:
+                createDatabase: false
+                manageSchema: true
+                pluginName: postgres12
+                driverName: postgres12
+                connectAddr: "postgres-rw.database.svc.cluster.local:5432"
+                connectProtocol: tcp
+                databaseName: temporal_visibility
+                user: temporal
+                existingSecret: temporal-dbpass
+                maxConns: 20
+                maxIdleConns: 20
+                maxConnLifetime: "1h"
