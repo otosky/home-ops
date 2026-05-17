@@ -28,11 +28,6 @@ data "onepassword_item" "this" {
   title = each.key
 }
 
-locals {
-  authentik_fields = data.onepassword_item.this["authentik"].section_map["terraform"].field_map
-  forgejo_fields   = data.onepassword_item.this["forgejo"].section_map["terraform"].field_map
-}
-
 provider "authentik" {
   url   = var.AUTHENTIK_URL
   token = local.authentik_fields["OPENTOFU_TOKEN"].value
