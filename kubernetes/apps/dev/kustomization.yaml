@@ -10,6 +10,7 @@ resources:
   - ./flink-operator/ks.yaml
   - ./yunikorn/ks.yaml
   - ./temporal/ks.yaml
+  - ./forgejo/ks.yaml
   - ./openfga/ks.yaml
   - ./lakekeeper/ks.yaml
   - ./strimzi-operator/ks.yaml
