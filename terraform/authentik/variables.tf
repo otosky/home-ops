@@ -24,5 +24,4 @@ variable "CLUSTER_DOMAIN" {
 variable "AUTHENTIK_URL" {
   type        = string
   description = "Base URL for Authentik."
-  default     = "https://auth.toskbot.xyz"
 }
